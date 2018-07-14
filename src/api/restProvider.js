@@ -40,10 +40,15 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
                 const { field, order } = params.sort;
                 const query = {
                     ...fetchUtils.flattenObject(params.filter),
+
                     _sort: field,
                     _order: order,
-                    _start: (page - 1) * perPage,
-                    _end: page * perPage,
+                    _page: page,
+                    _perPage : perPage,
+                    //_start: (page - 1) * perPage,
+                    //_end: page * perPage,
+
+
                 };
                 url = `${apiUrl}/${resource}?${stringify(query)}`;
                 break;
@@ -59,8 +64,10 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
                     [params.target]: params.id,
                     _sort: field,
                     _order: order,
-                    _start: (page - 1) * perPage,
-                    _end: page * perPage,
+                    _page: page,
+                    _perPage : perPage,
+                    //_start: (page - 1) * perPage,
+                    //_end: page * perPage,
                 };
                 url = `${apiUrl}/${resource}?${stringify(query)}`;
                 break;
@@ -118,11 +125,12 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
                             .pop(),
                         10
                     ),
+                    meta : "meta" in json ? json.meta : []
                 };
             case CREATE:
                 return { data: { ...params.data, id: json.id } };
             default:
-                return { data: json };
+                return { data: json.data };
         }
     };
 

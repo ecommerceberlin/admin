@@ -1,39 +1,60 @@
 import React from 'react';
-import { List, Datagrid, Edit, Create, SimpleForm, DateField, TextField, ShowButton, DisabledInput, TextInput, SelectInput, Filter } from 'react-admin';
-import BookIcon from '@material-ui/icons/Book';
-export const PostIcon = BookIcon;
-
-
-
+import { BulkActions, List, Datagrid, Edit, Create, SimpleForm, DateField, TextField, NumberField, ChipField, ShowButton, DisabledInput, TextInput, SelectInput, Filter } from 'react-admin';
+import { withStyles } from '@material-ui/core/styles';
+import activeEventId from '../../api/activeEventId'
+import {statuses as styles} from '../../styles'
+import {ReferenceField} from 'react-admin'
+import {SetStatusAction} from '../../components'
 
 const Filters = (props) => (
     <Filter {...props}>
         <TextInput label="Search" source="q" alwaysOn />
         <TextInput label="Title" source="title" defaultValue="Hello, World!" />
 
-        <SelectInput source="tag" choices={[
-      { id: 'programming', name: 'Programming' },
-      { id: 'lifestyle', name: 'Lifestyle' },
-      { id: 'photography', name: 'Photography' },
-      ]} />
-
+        <SelectInput source="status" choices={[
+    { id: 'new', name: 'NEW' },
+    { id: 'hold', name: 'HOLD' },
+    { id: 'ok', name: 'OK' },
+    { id: 'cancelled', name: 'CANCELLED' },
+  ]}  alwaysOn />
 
     </Filter>
 );
 
+const CustomBulkActions = props => (
+    <BulkActions {...props}>
+        <SetStatusAction label="Reset Views" />
+    </BulkActions>
+);
+
+
+const ColoredChipField = withStyles(styles)(({ classes, record, ...rest }) => {
+return   <ChipField className={classes[record.status]} record={record} {...rest } />
+})
 
 
 const ViewList = (props) => (
-    <List {...props} perPage={50} filters={<Filters />}>
-        <Datagrid>
-            <TextField source="email" />
-            <TextField source="status" />
 
-            <DateField source="created_at" />
-            <TextField source="amount" />
+    <List bulkActions={ <CustomBulkActions /> } {...props} perPage={100} filters={<Filters />} filter={{ event_id: activeEventId }}>
+        <Datagrid>
+
+            <ColoredChipField source="status" />
+
+            <TextField source="email" />
+
+            <DateField source="created_at" showTime />
+
+            <NumberField source="amount" textAlign="right" />
+
+            <ReferenceField label="Company" reference="companies" source="company_id">
+                  <ChipField source="slug" sortable={false} />
+            </ReferenceField>
+
             <ShowButton basePath="/purchases" />
         </Datagrid>
     </List>
+
+
 );
 
 export default ViewList

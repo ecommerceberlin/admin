@@ -13,6 +13,7 @@ import authProvider from './api/authClient'
 
 import { CompanyList  } from './endpoints/companies';
 import { PurchaseList  } from './endpoints/purchases';
+import { ParticipantList  } from './endpoints/participants';
 
 
 
@@ -26,11 +27,14 @@ class App extends React.Component {
 				dataProvider={dataProvider}
 				>
 
+				<Resource name="purchases" options={{ label: 'Purchases' }}  list={PurchaseList} />
+				<Resource name="participants" options={{ label: 'Registrations' }} list={ParticipantList} />
 				<Resource name="companies" list={CompanyList} />
-				<Resource name="purchases" list={PurchaseList} />
-				<Resource name="participants" list={PurchaseList} />
+
 				<Resource name="reports" list={PurchaseList} />
-				<Resource name="feed" list={PurchaseList} />
+				<Resource name="feed" options={{ label: 'Feed' }} list={PurchaseList} />
+				<Resource name="tickets" />
+				<Resource name="events" />
 
 
     </Admin>
