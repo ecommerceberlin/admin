@@ -13,22 +13,22 @@ import AlertError from '@material-ui/icons/ErrorOutline';
 import classnames from 'classnames';
 
 const styles = theme => ({
-    confirmPrimary: {
-        color: theme.palette.primary.main,
-    },
-    confirmWarning: {
-        color: theme.palette.error.main,
-        '&:hover': {
-            backgroundColor: fade(theme.palette.error.main, 0.12),
-            // Reset on mouse devices
-            '@media (hover: none)': {
-                backgroundColor: 'transparent',
-            },
-        },
-    },
-    iconPaddingStyle: {
-        paddingRight: '0.5em',
-    },
+  confirmPrimary: {
+    color: theme.palette.primary.main
+  },
+  confirmWarning: {
+    color: theme.palette.error.main,
+    '&:hover': {
+      backgroundColor: fade(theme.palette.error.main, 0.12),
+      // Reset on mouse devices
+      '@media (hover: none)': {
+        backgroundColor: 'transparent'
+      }
+    }
+  },
+  iconPaddingStyle: {
+    paddingRight: '0.5em'
+  }
 });
 
 /**
@@ -47,71 +47,66 @@ const styles = theme => ({
  * />
  */
 const Confirm = ({
-    isOpen,
-    title,
-    content,
-    confirm,
-    cancel,
-    confirmColor,
-    onConfirm,
-    onClose,
-    classes,
-    fullWidth,
-    children
+  isOpen,
+  title,
+  content,
+  confirm,
+  cancel,
+  confirmColor,
+  onConfirm,
+  onClose,
+  classes,
+  fullWidth,
+  children
 }) => (
-    <Dialog
-        open={isOpen}
-        onClose={onClose}
-        fullWidth={fullWidth}
-        aria-labelledby="alert-dialog-title"
-    >
-        <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
-        <DialogContent>
-            {content}
-
-    
-
-        </DialogContent>
-        <DialogActions>
-            <Button onClick={onClose}>
-                <AlertError className={classes.iconPaddingStyle} />
-                {cancel}
-            </Button>
-            <Button
-                onClick={onConfirm}
-                className={classnames('ra-confirm', {
-                    [classes.confirmWarning]: confirmColor === 'warning',
-                    [classes.confirmPrimary]: confirmColor === 'primary',
-                })}
-                autoFocus
-            >
-                <ActionCheck className={classes.iconPaddingStyle} />
-                {confirm}
-            </Button>
-        </DialogActions>
-    </Dialog>
+  <Dialog
+    open={isOpen}
+    onClose={onClose}
+    fullWidth={fullWidth}
+    aria-labelledby="alert-dialog-title"
+  >
+    <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
+    <DialogContent>{content}</DialogContent>
+    <DialogActions>
+      <Button onClick={onClose}>
+        <AlertError className={classes.iconPaddingStyle} />
+        {cancel}
+      </Button>
+      <Button
+        onClick={onConfirm}
+        className={classnames('ra-confirm', {
+          [classes.confirmWarning]: confirmColor === 'warning',
+          [classes.confirmPrimary]: confirmColor === 'primary'
+        })}
+        autoFocus
+      >
+        <ActionCheck className={classes.iconPaddingStyle} />
+        {confirm}
+      </Button>
+    </DialogActions>
+  </Dialog>
 );
 
 Confirm.propTypes = {
-    cancel: PropTypes.string.isRequired,
-    classes: PropTypes.object.isRequired,
-    confirm: PropTypes.string.isRequired,
-    confirmColor: PropTypes.string.isRequired,
-    content: PropTypes.node.isRequired,
-    isOpen: PropTypes.bool,
-    fullWidth: PropTypes.bool,
-    onClose: PropTypes.func.isRequired,
-    onConfirm: PropTypes.func.isRequired,
-    title: PropTypes.string.isRequired,
+  cancel: PropTypes.string.isRequired,
+  classes: PropTypes.object.isRequired,
+  confirm: PropTypes.string.isRequired,
+  confirmColor: PropTypes.string.isRequired,
+  content: PropTypes.node.isRequired,
+  isOpen: PropTypes.bool,
+  fullWidth: PropTypes.bool,
+  onClose: PropTypes.func.isRequired,
+  onConfirm: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired
 };
 
 Confirm.defaultProps = {
-    cancel: 'Cancel',
-    classes: {},
-    confirm: 'Confirm',
-    confirmColor: 'primary',
-    isOpen: false,
-    fullWidth : false
+  cancel: 'Cancel',
+  classes: {},
+  confirm: 'Confirm',
+  confirmColor: 'primary',
+  isOpen: false,
+  fullWidth: false
 };
 
 export default withStyles(styles)(Confirm);

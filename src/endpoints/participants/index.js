@@ -1,1 +1,1 @@
-export {default as ParticipantList} from './List'
+export { default as ParticipantList } from './List';

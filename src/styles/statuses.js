@@ -1,23 +1,23 @@
 const styles = {
-  ok : {
+  ok: {
     backgroundColor: '#468847',
     color: '#ffffff'
   },
 
-  hold : {
+  hold: {
     backgroundColor: '#f89406',
     color: '#ffffff'
   },
 
-  new : {
+  new: {
     backgroundColor: '#b94a48',
     color: '#ffffff'
   },
 
-  cancelled : {
+  cancelled: {
     backgroundColor: '#b94a48',
     color: '#ffffff'
   }
-}
+};
 
 export default styles;

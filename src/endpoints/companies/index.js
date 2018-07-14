@@ -1,3 +1,1 @@
-
-
-export {default as CompanyList} from './List'
+export { default as CompanyList } from './List';
