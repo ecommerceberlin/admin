@@ -13,6 +13,6 @@ const httpClient = (url, options) => {
     return fetchUtils.fetchJson(url, options);
 }
 
-const dataProvider = restProvider('https://api.eventjuicer.com.local/v1/admin', httpClient)
+const dataProvider = restProvider(process.env.REACT_APP_API_ENDPOINT, httpClient)
 
 export default dataProvider
