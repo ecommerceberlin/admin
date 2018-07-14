@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import activeEventId from '../../api/activeEventId'
 import {statuses as styles} from '../../styles'
 import {ReferenceField} from 'react-admin'
-import {SetStatusAction} from '../../components'
+import {SetStatusAction, SendMessageAction} from '../../components'
 
 const Filters = (props) => (
     <Filter {...props}>
@@ -23,7 +23,8 @@ const Filters = (props) => (
 
 const CustomBulkActions = props => (
     <BulkActions {...props}>
-        <SetStatusAction label="Reset Views" />
+        <SetStatusAction label="Change status" />
+        <SendMessageAction label="Send e-mail message" />
     </BulkActions>
 );
 

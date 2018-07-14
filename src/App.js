@@ -32,6 +32,10 @@ class App extends React.Component {
 				<Resource name="companies" list={CompanyList} />
 
 				<Resource name="reports" list={PurchaseList} />
+
+				<Resource name="settings" list={PurchaseList} />
+				<Resource name="texts" list={PurchaseList} />
+
 				<Resource name="feed" options={{ label: 'Feed' }} list={PurchaseList} />
 				<Resource name="tickets" />
 				<Resource name="events" />

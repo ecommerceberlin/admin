@@ -1,4 +1,4 @@
-import { stringify } from 'query-string';
+import { stringify } from 'qs';
 import {
     fetchUtils,
     GET_LIST,
@@ -50,7 +50,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
 
 
                 };
-                url = `${apiUrl}/${resource}?${stringify(query)}`;
+                url = `${apiUrl}/${resource}?${stringify(query, { strictNullHandling: true } )}`;
                 break;
             }
             case GET_ONE:
@@ -69,7 +69,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
                     //_start: (page - 1) * perPage,
                     //_end: page * perPage,
                 };
-                url = `${apiUrl}/${resource}?${stringify(query)}`;
+                url = `${apiUrl}/${resource}?${stringify(query, { strictNullHandling: true })}`;
                 break;
             }
             case UPDATE:
@@ -90,7 +90,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
                 const query = {
                     [`id_like`]: params.ids.join('|'),
                 };
-                url = `${apiUrl}/${resource}?${stringify(query)}`;
+                url = `${apiUrl}/${resource}?${stringify(query, { strictNullHandling: true } )}`;
                 break;
             }
             default:
