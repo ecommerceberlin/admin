@@ -13,6 +13,16 @@ import TextField from '@material-ui/core/TextField';
 
 class EmailForm extends Component {
 
+  state = {
+    subject : "",
+    text : ""
+  }
+
+  handleChange = name => event => {
+    this.setState({
+      [name]: event.target.value,
+    });
+  };
 
   render(){
 
@@ -21,25 +31,25 @@ class EmailForm extends Component {
       <div>
 
 
-        <TextField
-  id="multiline-flexible"
-  label="Multiline"
+<TextField
+  id="subject"
+  label="Subject"
   fullWidth
-  //   value={this.state.multiline}
-  // onChange={this.handleChange('multiline')}
+  value={this.state.subject}
+  onChange={this.handleChange('subject')}
   //className={classes.textField}
   margin="normal"
   />
 
 
   <TextField
-id="multiline-flexible"
-label="Multiline"
+id="content"
+label="Content"
 multiline
 fullWidth
 rowsMax="10"
-//   value={this.state.multiline}
-// onChange={this.handleChange('multiline')}
+value={this.state.text}
+onChange={this.handleChange('text')}
 //className={classes.textField}
 margin="normal"
 />

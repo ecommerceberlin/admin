@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { crudUpdateMany } from 'react-admin';
-import { Confirm } from 'react-admin';
+import Confirm from './Confirm';
 import EmailForm from './EmailForm'
 
 class SendMessageAction extends Component {
@@ -25,10 +25,12 @@ class SendMessageAction extends Component {
               content={
                 <EmailForm />
               }
-              confirm="No dobra!" 
+              confirm="No dobra!"
               onConfirm={this.handleConfirm}
               onClose={this.handleDialogClose}
-          />
+          >
+            <EmailForm />
+          </Confirm>
       );
   }
 }
