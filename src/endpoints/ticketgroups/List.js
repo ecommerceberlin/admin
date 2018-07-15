@@ -13,9 +13,10 @@ import {
   DisabledInput,
   TextInput,
   SelectInput,
-  Filter
+  Filter,
+  ReferenceManyField,
+  SimpleList
 } from 'react-admin';
-import { ArrayField, SingleFieldList } from 'react-admin';
 
 const Filters = props => (
   <Filter {...props}>
@@ -38,6 +39,18 @@ const TagsField = ({ record }) => (
 );
 TagsField.defaultProps = { addLabel: true };
 
+const BoothColorField = ({ record, ...rest }) => (
+  <ChipField
+    style={{
+      backgroundColor: record.booth.bgcolor,
+      color: record.booth.fontcolor
+    }}
+    record={record}
+    {...rest}
+  />
+);
+BoothColorField.defaultProps = { addLabel: true };
+
 const ViewList = props => (
   <List
     {...props}
@@ -46,22 +59,23 @@ const ViewList = props => (
     filter={{ event_id: 76 }}
   >
     <Datagrid>
-      <TextField source="name" />
-      <ChipField source="role" />
-
+      <BoothColorField source="name" />
       <TagsField source="tags" />
-
-      {/* <ArrayField source="tags">
-            <SingleFieldList>
-            <ChipField source="name" />
-            </SingleFieldList>
-            </ArrayField> */}
-
-      <DateField source="start" showTime />
-      <DateField source="end" showTime />
-
-      <TextField source="price" />
       <NumberField source="limit" />
+
+      <ReferenceManyField
+        label="Assigned tickets"
+        reference="tickets"
+        target="ticket_group_id"
+      >
+        <SimpleList
+          primaryText={record => record.name}
+          secondaryText={record => `${record.start} - ${record.end}`}
+          tertiaryText={record =>
+            `Limit: ${record.limit} Price: ${record.price}`
+          }
+        />
+      </ReferenceManyField>
 
       <ShowButton basePath="/purchases" />
     </Datagrid>

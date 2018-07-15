@@ -8,6 +8,7 @@ import { CompanyList } from './endpoints/companies';
 import { PurchaseList } from './endpoints/purchases';
 import { ParticipantList } from './endpoints/participants';
 import { TicketList } from './endpoints/tickets';
+import { TicketGroupList } from './endpoints/ticketgroups';
 
 class App extends React.Component {
   render() {
@@ -35,7 +36,10 @@ class App extends React.Component {
         <Resource name="texts" list={PurchaseList} />
 
         <Resource name="feed" options={{ label: 'Feed' }} list={PurchaseList} />
+
         <Resource name="tickets" list={TicketList} />
+        <Resource name="ticketgroups" list={TicketGroupList} />
+
         <Resource name="events" />
       </Admin>
     );
