@@ -14,11 +14,16 @@ import {
   LongTextInput,
   DateInput
 } from 'react-admin';
-import BookIcon from '@material-ui/icons/Book';
-export const PostIcon = BookIcon;
+
+import activeEventId from '../../api/app';
 
 const ViewList = props => (
-  <List {...props} bulkActions={false} perPage={50}>
+  <List
+    {...props}
+    filter={{ event_id: activeEventId() }}
+    bulkActions={false}
+    perPage={100}
+  >
     <Datagrid>
       <TextField source="id" />
       <TextField source="profile.name" />

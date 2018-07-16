@@ -3,20 +3,28 @@ import { Admin, Resource } from 'react-admin';
 
 import dataProvider from './api/httpClient';
 import authProvider from './api/authClient';
+import { customReducers, customSagas } from './redux';
+import { AppTitle } from './components';
 
 import { CompanyList } from './endpoints/companies';
 import { PurchaseList } from './endpoints/purchases';
 import { ParticipantList } from './endpoints/participants';
 import { TicketList } from './endpoints/tickets';
 import { TicketGroupList } from './endpoints/ticketgroups';
+import { EventList } from './endpoints/events';
+
+import { lsGet } from './api/app';
 
 class App extends React.Component {
   render() {
     return (
       <Admin
-        title="event jakis"
+        title={<AppTitle />}
+        customReducers={customReducers}
+        customSagas={customSagas}
         authProvider={authProvider}
         dataProvider={dataProvider}
+        initialState={{ app: { event: lsGet('activeEvent') } }}
       >
         <Resource
           name="purchases"
@@ -40,7 +48,7 @@ class App extends React.Component {
         <Resource name="tickets" list={TicketList} />
         <Resource name="ticketgroups" list={TicketGroupList} />
 
-        <Resource name="events" />
+        <Resource name="events" list={EventList} />
       </Admin>
     );
   }

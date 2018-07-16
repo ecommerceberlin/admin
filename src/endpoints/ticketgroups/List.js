@@ -9,30 +9,15 @@ import {
   TextField,
   ChipField,
   NumberField,
-  ShowButton,
+  EditButton,
   DisabledInput,
   TextInput,
   SelectInput,
-  Filter,
   ReferenceManyField,
   SimpleList
 } from 'react-admin';
 
-const Filters = props => (
-  <Filter {...props}>
-    <TextInput label="Search" source="q" alwaysOn />
-    <TextInput label="Title" source="title" defaultValue="Hello, World!" />
-
-    <SelectInput
-      source="tag"
-      choices={[
-        { id: 'programming', name: 'Programming' },
-        { id: 'lifestyle', name: 'Lifestyle' },
-        { id: 'photography', name: 'Photography' }
-      ]}
-    />
-  </Filter>
-);
+import activeEventId from '../../api/app';
 
 const TagsField = ({ record }) => (
   <ul>{record.tags.map(item => <li key={item.name}>{item.name}</li>)}</ul>
@@ -52,12 +37,7 @@ const BoothColorField = ({ record, ...rest }) => (
 BoothColorField.defaultProps = { addLabel: true };
 
 const ViewList = props => (
-  <List
-    {...props}
-    perPage={100}
-    filters={<Filters />}
-    filter={{ event_id: 76 }}
-  >
+  <List {...props} perPage={100} filter={{ event_id: activeEventId() }}>
     <Datagrid>
       <BoothColorField source="name" />
       <TagsField source="tags" />
@@ -71,13 +51,11 @@ const ViewList = props => (
         <SimpleList
           primaryText={record => record.name}
           secondaryText={record => `${record.start} - ${record.end}`}
-          tertiaryText={record =>
-            `Limit: ${record.limit} Price: ${record.price}`
-          }
+          tertiaryText={record => `${record.price} (${record.limit})`}
         />
       </ReferenceManyField>
 
-      <ShowButton basePath="/purchases" />
+      <EditButton />
     </Datagrid>
   </List>
 );

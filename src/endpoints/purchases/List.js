@@ -17,7 +17,7 @@ import {
   Filter
 } from 'react-admin';
 import { withStyles } from '@material-ui/core/styles';
-import activeEventId from '../../api/activeEventId';
+import activeEventId from '../../api/app';
 import { statuses as styles } from '../../styles';
 import { ReferenceField } from 'react-admin';
 import { SetStatusAction, SendMessageAction } from '../../components';
@@ -59,7 +59,7 @@ const ViewList = props => (
     {...props}
     perPage={100}
     filters={<Filters />}
-    filter={{ event_id: activeEventId }}
+    filter={{ event_id: activeEventId() }}
   >
     <Datagrid>
       <ColoredChipField source="status" />

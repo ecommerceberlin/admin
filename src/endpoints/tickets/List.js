@@ -16,6 +16,7 @@ import {
   Filter
 } from 'react-admin';
 import { ArrayField, SingleFieldList } from 'react-admin';
+import activeEventId from '../../api/app';
 
 const Filters = props => (
   <Filter {...props}>
@@ -43,7 +44,7 @@ const ViewList = props => (
     {...props}
     perPage={100}
     filters={<Filters />}
-    filter={{ event_id: 76 }}
+    filter={{ event_id: activeEventId() }}
   >
     <Datagrid>
       <TextField source="name" />
