@@ -58,8 +58,8 @@ class ActiveEventButton extends Component {
 
   render() {
     return (
-      <Button color="primary" onClick={this.handleClick}>
-        Choose
+      <Button variant="outlined" color="primary" onClick={this.handleClick}>
+        Switch to
       </Button>
     );
   }

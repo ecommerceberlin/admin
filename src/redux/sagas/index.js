@@ -5,8 +5,6 @@ import { CHANGE_EVENT } from '../types';
 
 function* changeEvent(actionData) {
   yield call(setActiveEvent, actionData.payload);
-
-  alert(actionData.payload.id);
 }
 
 function* appSaga() {

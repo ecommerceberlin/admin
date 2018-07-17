@@ -7,6 +7,10 @@ const AppTitle = ({ event }) => (
   <span>{'name' in event ? event.name : 'All'}</span>
 );
 
+AppTitle.defaultProps = {
+  event: {}
+};
+
 AppTitle.propTypes = {};
 
 export default connect(

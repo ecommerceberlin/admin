@@ -4,14 +4,14 @@ import { Admin, Resource } from 'react-admin';
 import dataProvider from './api/httpClient';
 import authProvider from './api/authClient';
 import { customReducers, customSagas } from './redux';
-import { AppTitle } from './components';
+import { AppTitle, MyLayout } from './components';
 
 import { CompanyList } from './endpoints/companies';
 import { PurchaseList } from './endpoints/purchases';
 import { ParticipantList } from './endpoints/participants';
 import { TicketList } from './endpoints/tickets';
 import { TicketGroupList } from './endpoints/ticketgroups';
-import { EventList } from './endpoints/events';
+import { GroupList, GroupShow } from './endpoints/groups';
 
 import { lsGet } from './api/app';
 
@@ -20,6 +20,7 @@ class App extends React.Component {
     return (
       <Admin
         title={<AppTitle />}
+        appLayout={MyLayout}
         customReducers={customReducers}
         customSagas={customSagas}
         authProvider={authProvider}
@@ -48,7 +49,13 @@ class App extends React.Component {
         <Resource name="tickets" list={TicketList} />
         <Resource name="ticketgroups" list={TicketGroupList} />
 
-        <Resource name="events" list={EventList} />
+        <Resource name="events" />
+        <Resource
+          name="groups"
+          list={GroupList}
+          show={GroupShow}
+          options={{ label: 'Events' }}
+        />
       </Admin>
     );
   }

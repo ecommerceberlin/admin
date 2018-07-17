@@ -21,8 +21,6 @@ import activeEventId from '../../api/app';
 import { ReferenceField } from 'react-admin';
 import { SetStatusAction, SendMessageAction } from '../../components';
 
-import ActiveEventButton from './ActiveEventButton';
-
 const CustomBulkActions = props => (
   <BulkActions {...props}>
     <SetStatusAction label="Change status" />
@@ -61,15 +59,11 @@ const ViewList = props => (
     <Datagrid>
       <TextField source="id" />
 
-      <ColoredChipField source="name" />
+      <TextField source="name" />
 
-      <TextField source="loc" />
+      <TextField source="active_event.name" label="Active Event" />
 
-      <DateField source="starts" />
-
-      <ActiveEventButton />
-
-      {/* <ShowButton basePath="/purchases" /> */}
+      <ShowButton label="Show events" />
     </Datagrid>
   </List>
 );
