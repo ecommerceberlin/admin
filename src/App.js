@@ -50,6 +50,8 @@ class App extends React.Component {
         <Resource name="ticketgroups" list={TicketGroupList} />
 
         <Resource name="events" />
+        <Resource name="comments" />
+
         <Resource
           name="groups"
           list={GroupList}

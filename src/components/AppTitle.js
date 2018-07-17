@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 const AppTitle = ({ event }) => (
-  <span>{'name' in event ? event.name : 'All'}</span>
+  <span>{event && 'name' in event ? event.name : 'All'}</span>
 );
 
 AppTitle.defaultProps = {
