@@ -9,7 +9,9 @@ import {
   EditButton,
   ChipField
 } from 'react-admin';
-import ActiveEventButton from './ActiveEventButton';
+
+import Btn from './ActiveEventButton';
+
 import ActiveEventChipField from './ActiveEventChipField';
 
 const Title = ({ record }) => {
@@ -27,7 +29,8 @@ const ViewShow = props => (
           <DateField source="starts" showTime />
           <DateField source="ends" showTime />
 
-          <ActiveEventButton />
+          <Btn />
+          <Btn label="Set active" />
         </Datagrid>
       </ArrayField>
     </SimpleShowLayout>

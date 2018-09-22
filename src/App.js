@@ -6,14 +6,22 @@ import authProvider from './api/authClient';
 import { customReducers, customSagas } from './redux';
 import { AppTitle, MyLayout } from './components';
 
-import { CompanyList } from './endpoints/companies';
+import { CompanyList, CompanyShow } from './endpoints/companies';
 import { PurchaseList } from './endpoints/purchases';
-import { ParticipantList } from './endpoints/participants';
+import { ParticipantList, ParticipantShow } from './endpoints/participants';
 import { TicketList } from './endpoints/tickets';
 import { TicketGroupList } from './endpoints/ticketgroups';
 import { GroupList, GroupShow } from './endpoints/groups';
 
-import { lsGet } from './api/app';
+import { activeEventId, lsGet } from './api/app';
+
+export const canAccess = (permissions, resource) => {
+  if (!activeEventId() && resource !== 'groups') {
+    return false;
+  }
+
+  return true;
+};
 
 class App extends React.Component {
   render() {
@@ -27,37 +35,76 @@ class App extends React.Component {
         dataProvider={dataProvider}
         initialState={{ app: { event: lsGet('activeEvent') } }}
       >
-        <Resource
-          name="purchases"
-          options={{ label: 'Purchases' }}
-          list={PurchaseList}
-        />
-        <Resource
-          name="participants"
-          options={{ label: 'Registrations' }}
-          list={ParticipantList}
-        />
-        <Resource name="companies" list={CompanyList} />
+        {permissions => [
+          <Resource
+            name="purchases"
+            options={{ label: 'Purchases' }}
+            list={canAccess(permissions, 'purchases') ? PurchaseList : null}
+          />,
 
-        <Resource name="reports" list={PurchaseList} />
+          <Resource
+            name="participants"
+            options={{ label: 'Registrations' }}
+            list={
+              canAccess(permissions, 'participants') ? ParticipantList : null
+            }
+            show={
+              canAccess(permissions, 'participants') ? ParticipantShow : null
+            }
+          />,
 
-        <Resource name="settings" list={PurchaseList} />
-        <Resource name="texts" list={PurchaseList} />
+          <Resource
+            name="companies"
+            list={canAccess(permissions, 'companies') ? CompanyList : null}
+            show={canAccess(permissions, 'companies') ? CompanyShow : null}
+          />,
 
-        <Resource name="feed" options={{ label: 'Feed' }} list={PurchaseList} />
+          <Resource
+            name="reports"
+            list={canAccess(permissions, 'reports') ? PurchaseList : null}
+          />,
 
-        <Resource name="tickets" list={TicketList} />
-        <Resource name="ticketgroups" list={TicketGroupList} />
+          <Resource
+            name="settings"
+            list={canAccess(permissions, 'settings') ? PurchaseList : null}
+          />,
 
-        <Resource name="events" />
-        <Resource name="comments" />
+          <Resource
+            name="texts"
+            list={canAccess(permissions, 'texts') ? PurchaseList : null}
+          />,
 
-        <Resource
-          name="groups"
-          list={GroupList}
-          show={GroupShow}
-          options={{ label: 'Events' }}
-        />
+          <Resource
+            name="feed"
+            options={{ label: 'Feed' }}
+            list={canAccess(permissions, 'feed') ? PurchaseList : null}
+          />,
+
+          <Resource
+            name="tickets"
+            list={canAccess(permissions, 'tickets') ? TicketList : null}
+          />,
+
+          <Resource
+            name="ticketgroups"
+            list={
+              canAccess(permissions, 'ticketgroups') ? TicketGroupList : null
+            }
+          />,
+
+          <Resource
+            name="groups"
+            list={canAccess(permissions, 'groups') ? GroupList : null}
+            show={canAccess(permissions, 'groups') ? GroupShow : null}
+            options={{ label: 'Events' }}
+          />,
+
+          <Resource name="events" />,
+          <Resource name="comments" />,
+          <Resource name="fields" />,
+          <Resource name="related" />,
+          <Resource name="companydata" />
+        ]}
       </Admin>
     );
   }

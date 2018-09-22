@@ -61,5 +61,9 @@ export default (type, params) => {
     return localStorage.getItem('token') ? Promise.resolve() : Promise.reject();
   }
 
+  if (type === AUTH_GET_PERMISSIONS) {
+    return Promise.resolve();
+  }
+
   return Promise.reject('Unkown method');
 };

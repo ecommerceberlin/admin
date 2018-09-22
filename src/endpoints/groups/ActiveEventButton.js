@@ -57,13 +57,18 @@ class ActiveEventButton extends Component {
   };
 
   render() {
+    const { label } = this.props;
     return (
       <Button variant="outlined" color="primary" onClick={this.handleClick}>
-        Switch to
+        {label}
       </Button>
     );
   }
 }
+
+ActiveEventButton.defaultProps = {
+  label: 'Switch to'
+};
 
 ActiveEventButton.propTypes = {
   push: PropTypes.func,

@@ -16,11 +16,11 @@ import {
   SelectInput,
   Filter
 } from 'react-admin';
-import { withStyles } from '@material-ui/core/styles';
+
 import activeEventId from '../../api/app';
-import { statuses as styles } from '../../styles';
 import { ReferenceField } from 'react-admin';
 import { SetStatusAction, SendMessageAction } from '../../components';
+import PurchaseStatusField from './PurchaseStatusField';
 
 const Filters = props => (
   <Filter {...props}>
@@ -47,22 +47,24 @@ const CustomBulkActions = props => (
   </BulkActions>
 );
 
-const ColoredChipField = withStyles(styles)(({ classes, record, ...rest }) => {
-  return (
-    <ChipField className={classes[record.status]} record={record} {...rest} />
-  );
-});
+const ShowParticipantButton = ({ record, basePath, ...rest }) => (
+  <ShowButton
+    {...rest}
+    basePath="/participants"
+    record={{ ...record, id: record.participant_id }}
+  />
+);
 
 const ViewList = props => (
   <List
     bulkActions={<CustomBulkActions />}
     {...props}
-    perPage={100}
+    perPage={50}
     filters={<Filters />}
     filter={{ event_id: activeEventId() }}
   >
     <Datagrid>
-      <ColoredChipField source="status" />
+      <PurchaseStatusField source="status" />
 
       <TextField source="email" />
 
@@ -74,7 +76,7 @@ const ViewList = props => (
         <ChipField source="slug" sortable={false} />
       </ReferenceField>
 
-      <ShowButton basePath="/purchases" />
+      <ShowParticipantButton />
     </Datagrid>
   </List>
 );

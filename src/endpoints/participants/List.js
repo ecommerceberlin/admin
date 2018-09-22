@@ -56,7 +56,7 @@ const ViewList = props => (
 
       <DateField source="created_at" showTime />
       <TextField source="amount" />
-      <ShowButton basePath="/purchases" />
+      <ShowButton />
     </Datagrid>
   </List>
 );
