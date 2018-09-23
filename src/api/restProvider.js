@@ -89,8 +89,9 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
         options.method = 'DELETE';
         break;
       case GET_MANY: {
+        //we allow only > 1 related ids....
         const query = {
-          [`id_like`]: params.ids.join('|')
+          [`id_like`]: params.ids.filter(id => id).join('|')
         };
         url = `${apiUrl}/${resource}?${stringify(query, {
           strictNullHandling: true

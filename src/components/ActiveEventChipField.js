@@ -1,7 +1,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { ChipField } from 'react-admin';
-import activeEventId from '../../api/app';
+import activeEventId from '../api/app';
 
 const styles = {
   active: {

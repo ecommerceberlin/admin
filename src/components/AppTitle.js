@@ -1,11 +1,11 @@
-// in src/comments/ApproveButton.js
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-const AppTitle = ({ event }) => (
-  <span>{event && 'name' in event ? event.name : 'All'}</span>
-);
+const AppTitle = ({ event, ...rest }) => {
+  console.log(event, rest);
+  return <span>{event && 'name' in event ? event.name : '______'}</span>;
+};
 
 AppTitle.defaultProps = {
   event: {}

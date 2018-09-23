@@ -15,7 +15,16 @@ const styles = {
   },
 
   cancelled: {
-    backgroundColor: '#b94a48',
+    backgroundColor: '#eaeaea',
+    color: '#999999'
+  },
+
+  icon: {
+    color: '#ffffff'
+  },
+
+  highlight: {
+    backgroundColor: '#000000',
     color: '#ffffff'
   }
 };

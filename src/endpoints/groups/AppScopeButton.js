@@ -1,6 +1,6 @@
-// in src/comments/ApproveButton.js
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import {
@@ -8,23 +8,15 @@ import {
   refreshView as refreshViewAction,
   GET_ONE
 } from 'react-admin';
-import { push as pushAction } from 'react-router-redux';
+//import { push as pushAction } from 'react-router-redux';
 import dataProvider from '../../api/httpClient';
 
 import { changeEvent } from '../../redux';
 
 class ActiveEventButton extends Component {
   handleClick = () => {
-    /*
-        basePath,
-        push
-        record
-        resource,
-        showNotification
-        */
-
     const {
-      push,
+      // push,
       record,
       showNotification,
       refreshView,
@@ -34,40 +26,38 @@ class ActiveEventButton extends Component {
     dataProvider(GET_ONE, 'events', { id: record.id })
       .then(({ data }) => {
         changeEvent(data);
+
         showNotification('Event changed!', 'info');
+
         refreshView();
       })
       .catch(e => {
         console.error(e);
-        showNotification('Error: comment not approved', 'warning');
-      });
-
-    return;
-
-    const updatedRecord = { ...record, is_approved: true };
-    fetch(`/comments/${record.id}`, { method: 'PUT', body: updatedRecord })
-      .then(() => {
-        showNotification('Comment approved');
-        //      push('/comments');
-      })
-      .catch(e => {
-        console.error(e);
-        showNotification('Error: comment not approved', 'warning');
+        showNotification('Error when updating...', 'warning');
       });
   };
 
   render() {
-    const { label } = this.props;
+    const { label, labelSelected, record, activeEvent } = this.props;
+
+    const selected = 'id' in activeEvent && record.id == activeEvent.id;
+
     return (
-      <Button variant="outlined" color="primary" onClick={this.handleClick}>
-        {label}
+      <Button
+        disabled={selected}
+        variant={selected ? 'raised' : 'outlined'}
+        color="primary"
+        onClick={this.handleClick}
+      >
+        {selected ? labelSelected : label}
       </Button>
     );
   }
 }
 
 ActiveEventButton.defaultProps = {
-  label: 'Switch to'
+  label: 'Select',
+  labelSelected: 'Selected'
 };
 
 ActiveEventButton.propTypes = {
@@ -77,11 +67,11 @@ ActiveEventButton.propTypes = {
 };
 
 export default connect(
-  null,
+  state => ({ activeEvent: state.app.event }),
   {
     showNotification: showNotificationAction,
     refreshView: refreshViewAction,
-    push: pushAction,
+    // push: pushAction,
     changeEvent: changeEvent
   }
 )(ActiveEventButton);

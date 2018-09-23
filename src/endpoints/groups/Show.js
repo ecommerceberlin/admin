@@ -5,14 +5,11 @@ import {
   Datagrid,
   SimpleShowLayout,
   TextField,
-  DateField,
-  EditButton,
-  ChipField
+  DateField
 } from 'react-admin';
 
-import Btn from './ActiveEventButton';
-
-import ActiveEventChipField from './ActiveEventChipField';
+import AppScopeButton from './AppScopeButton';
+import ChangeActiveEventButton from './ChangeActiveEventButton';
 
 const Title = ({ record }) => {
   return <span>{record ? `${record.name} events` : ''}</span>;
@@ -23,14 +20,13 @@ const ViewShow = props => (
     <SimpleShowLayout>
       <ArrayField source="events">
         <Datagrid>
-          <ActiveEventChipField source="name" />
-
+          <TextField source="name" />
           <TextField source="loc" />
           <DateField source="starts" showTime />
           <DateField source="ends" showTime />
 
-          <Btn />
-          <Btn label="Set active" />
+          <AppScopeButton />
+          <ChangeActiveEventButton />
         </Datagrid>
       </ArrayField>
     </SimpleShowLayout>

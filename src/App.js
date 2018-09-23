@@ -5,6 +5,7 @@ import dataProvider from './api/httpClient';
 import authProvider from './api/authClient';
 import { customReducers, customSagas } from './redux';
 import { AppTitle, MyLayout } from './components';
+import customRoutes from './customRoutes';
 
 import { CompanyList, CompanyShow } from './endpoints/companies';
 import { PurchaseList } from './endpoints/purchases';
@@ -31,9 +32,14 @@ class App extends React.Component {
         appLayout={MyLayout}
         customReducers={customReducers}
         customSagas={customSagas}
+        customRoutes={customRoutes}
         authProvider={authProvider}
         dataProvider={dataProvider}
-        initialState={{ app: { event: lsGet('activeEvent') } }}
+        initialState={{
+          app: {
+            event: lsGet('activeEvent') || {}
+          }
+        }}
       >
         {permissions => [
           <Resource

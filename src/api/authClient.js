@@ -57,7 +57,6 @@ export default (type, params) => {
 
   if (type === AUTH_CHECK) {
     const { resource } = params;
-
     return localStorage.getItem('token') ? Promise.resolve() : Promise.reject();
   }
 

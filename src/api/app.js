@@ -10,6 +10,13 @@ export const lsGet = key => {
   }
 };
 
+export const statuses = [
+  { id: 'new', name: 'NEW' },
+  { id: 'hold', name: 'HOLD' },
+  { id: 'ok', name: 'OK' },
+  { id: 'cancelled', name: 'CANCELLED' }
+];
+
 export const lsSet = (key, value) =>
   localStorage.setItem(key, JSON.stringify(value));
 

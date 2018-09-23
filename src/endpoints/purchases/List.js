@@ -17,7 +17,7 @@ import {
   Filter
 } from 'react-admin';
 
-import activeEventId from '../../api/app';
+import { activeEventId, statuses } from '../../api/app';
 import { ReferenceField } from 'react-admin';
 import { SetStatusAction, SendMessageAction } from '../../components';
 import PurchaseStatusField from './PurchaseStatusField';
@@ -27,16 +27,7 @@ const Filters = props => (
     <TextInput label="Search" source="q" alwaysOn />
     <TextInput label="Title" source="title" defaultValue="Hello, World!" />
 
-    <SelectInput
-      source="status"
-      choices={[
-        { id: 'new', name: 'NEW' },
-        { id: 'hold', name: 'HOLD' },
-        { id: 'ok', name: 'OK' },
-        { id: 'cancelled', name: 'CANCELLED' }
-      ]}
-      alwaysOn
-    />
+    <SelectInput source="status" choices={statuses} alwaysOn />
   </Filter>
 );
 
