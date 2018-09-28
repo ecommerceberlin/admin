@@ -15,6 +15,7 @@ import {
   Filter
 } from 'react-admin';
 import { ReferenceArrayField, SingleFieldList } from 'react-admin';
+import { SetStatusAction, SendMessageAction } from '../../components';
 import activeEventId from '../../api/app';
 
 const Filters = props => (
@@ -33,12 +34,20 @@ const Filters = props => (
   </Filter>
 );
 
+const CustomBulkActions = props => (
+  <React.Fragment>
+    <SetStatusAction label="Change status" {...props} />
+    <SendMessageAction label="Send e-mail message" {...props} />
+  </React.Fragment>
+);
+
 const ViewList = props => (
   <List
     {...props}
     perPage={100}
     filters={<Filters />}
     filter={{ event_id: activeEventId() }}
+    bulkActionButtons={<CustomBulkActions />}
   >
     <Datagrid>
       <TextField source="email" />

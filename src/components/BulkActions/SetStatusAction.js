@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { crudUpdateMany } from 'react-admin';
-import Confirm from './Confirm';
-import EmailForm from './EmailForm';
+import { Button, crudUpdateMany } from 'react-admin';
+import { Confirm } from 'react-admin';
+import Forward from '@material-ui/icons/Forward';
 
-class SendMessageAction extends Component {
+class SetStatusAction extends Component {
   handleDialogClose = () => {
     this.props.onExit();
   };
@@ -15,19 +15,23 @@ class SendMessageAction extends Component {
     this.props.onExit();
   };
 
+  showDialog = () => {};
+
   render() {
     return (
+      <Button label="actions.change_status" onClick={this.showDialog}>
+        <Forward />
+      </Button>
+    );
+
+    return (
       <Confirm
-        fullWidth={true}
         isOpen={true}
         title="Update View Count"
-        content={<EmailForm />}
-        confirm="No dobra!"
+        content="Are you sure you want to reset the views for these items?"
         onConfirm={this.handleConfirm}
         onClose={this.handleDialogClose}
-      >
-        <EmailForm />
-      </Confirm>
+      />
     );
   }
 }
@@ -35,4 +39,4 @@ class SendMessageAction extends Component {
 export default connect(
   undefined,
   { crudUpdateMany }
-)(SendMessageAction);
+)(SetStatusAction);

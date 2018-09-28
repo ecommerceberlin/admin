@@ -1,1 +1,2 @@
 export const CHANGE_EVENT = 'CHANGE_EVENT';
+export const MESSAGE_CREATE = 'MESSAGE_CREATE';

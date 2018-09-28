@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  BulkActions,
   List,
   Datagrid,
   Edit,
@@ -22,10 +21,10 @@ import { ReferenceField } from 'react-admin';
 import { SetStatusAction, SendMessageAction } from '../../components';
 
 const CustomBulkActions = props => (
-  <BulkActions {...props}>
+  <React.Fragment>
     <SetStatusAction label="Change status" />
     <SendMessageAction label="Send e-mail message" />
-  </BulkActions>
+  </React.Fragment>
 );
 
 const styles = {
@@ -51,7 +50,7 @@ const ColoredChipField = withStyles(styles)(({ classes, record, ...rest }) => {
 
 const ViewList = props => (
   <List
-    //  bulkActions={<CustomBulkActions />}
+    bulkActionButtons={<CustomBulkActions />}
     {...props}
     perPage={200}
     //  filters={<Filters />}

@@ -13,6 +13,8 @@ import { ParticipantList, ParticipantShow } from './endpoints/participants';
 import { TicketList } from './endpoints/tickets';
 import { TicketGroupList } from './endpoints/ticketgroups';
 import { GroupList, GroupShow } from './endpoints/groups';
+import { CompanyDataEdit, CompanyDataShow } from './endpoints/companydata';
+import { FieldsEdit } from './endpoints/fields';
 
 import { activeEventId, lsGet } from './api/app';
 
@@ -28,7 +30,7 @@ class App extends React.Component {
   render() {
     return (
       <Admin
-        title={<AppTitle />}
+        //      title={<AppTitle />}
         appLayout={MyLayout}
         customReducers={customReducers}
         customSagas={customSagas}
@@ -107,9 +109,23 @@ class App extends React.Component {
 
           <Resource name="events" />,
           <Resource name="comments" />,
-          <Resource name="fields" />,
+
+          <Resource
+            name="fields"
+            edit={canAccess(permissions, 'fields') ? FieldsEdit : null}
+          />,
+
           <Resource name="related" />,
-          <Resource name="companydata" />
+
+          <Resource
+            name="companydata"
+            edit={
+              canAccess(permissions, 'companydata') ? CompanyDataEdit : null
+            }
+            show={
+              canAccess(permissions, 'companydata') ? CompanyDataShow : null
+            }
+          />
         ]}
       </Admin>
     );

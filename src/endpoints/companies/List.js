@@ -19,22 +19,35 @@ import {
   SingleFieldList,
   Filter,
   BooleanInput,
+  SelectInput,
   SelectArrayInput
 } from 'react-admin';
 
 import Chip from '@material-ui/core/Chip';
 
 import activeEventId from '../../api/app';
-
+import { SendMessageAction } from '../../components';
 import Flagswitch from './Flagswitch';
 import ConditionalField from './ConditionalField';
 import DynamicField from './DynamicField';
 
+const CustomBulkActions = props => (
+  <React.Fragment>
+    <SendMessageAction label="Send e-mail message" {...props} />
+  </React.Fragment>
+);
+
 const Filters = props => (
   <Filter {...props}>
-    <TextInput label="Search" source="q" alwaysOn />
-    <TextInput label="Title" source="title" defaultValue="Hello, World!" />
-    <BooleanInput source="tag" alwaysOn label="Featured only" />
+    <BooleanInput source="featured" label="Featured" />
+    <BooleanInput source="present" alwaysOn label="Present" />
+
+    <TextInput label="Search" source="q" />
+
+    <SelectInput
+      source="lang"
+      choices={[{ id: 'en', name: 'en' }, { id: 'de', name: 'de' }]}
+    />
 
     <SelectArrayInput
       source="fields"
@@ -53,20 +66,19 @@ const customColumns = [];
 
 class ViewList extends React.Component {
   render() {
-    console.log(this.props);
+    //console.log(this.props);
 
     return (
       <List
         {...this.props}
         filters={<Filters />}
+        filterDefaultValues={{ present: true, featured: false }}
         filter={{ event_id: activeEventId() }}
-        //  bulkActions={false}
+        bulkActionButtons={<CustomBulkActions />}
         perPage={100}
       >
         <Datagrid>
           {/* <FunctionField label="Spending" render={record => `${record.event_ids.length}%`} /> */}
-
-          <TextField source="id" />
 
           <ConditionalField
             sources={['settings.logotype_cdn', 'profile.name', 'slug']}

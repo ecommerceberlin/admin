@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  BulkActions,
   List,
   Datagrid,
   Edit,
@@ -32,10 +31,10 @@ const Filters = props => (
 );
 
 const CustomBulkActions = props => (
-  <BulkActions {...props}>
-    <SetStatusAction label="Change status" />
-    <SendMessageAction label="Send e-mail message" />
-  </BulkActions>
+  <React.Fragment>
+    <SetStatusAction label="Change status" {...props} />
+    <SendMessageAction label="Send e-mail message" {...props} />
+  </React.Fragment>
 );
 
 const ShowParticipantButton = ({ record, basePath, ...rest }) => (
@@ -48,7 +47,7 @@ const ShowParticipantButton = ({ record, basePath, ...rest }) => (
 
 const ViewList = props => (
   <List
-    bulkActions={<CustomBulkActions />}
+    bulkActionButtons={<CustomBulkActions />}
     {...props}
     perPage={50}
     filters={<Filters />}

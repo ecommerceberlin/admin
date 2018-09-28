@@ -5,15 +5,20 @@ import get from 'lodash/get';
 
 const styles = {
   logotype: {
-    //    textAlign : 'center',
+    border: '1px solid #eaeaea',
+    margin: 2,
+    textAlign: 'center',
     '& img': {
       maxWidth: 200,
-      maxHeight: 55
+      maxHeight: 45
     }
   },
   name: {
-    //  textAlign : 'center',
-    fontWeigth: 900
+    border: '1px solid #eaeaea',
+    margin: 2,
+    textAlign: 'center',
+    fontWeigth: 900,
+    minHeight: 45
   }
 };
 

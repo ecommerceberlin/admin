@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 const AppTitle = ({ event, ...rest }) => {
-  console.log(event, rest);
+  //console.log(event, rest);
   return <span>{event && 'name' in event ? event.name : '______'}</span>;
 };
 

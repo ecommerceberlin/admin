@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
+import { translate } from 'react-admin';
+
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -11,6 +14,7 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import ActionCheck from '@material-ui/icons/CheckCircle';
 import AlertError from '@material-ui/icons/ErrorOutline';
 import classnames from 'classnames';
+import compose from 'recompose/compose';
 
 const styles = theme => ({
   confirmPrimary: {
@@ -49,7 +53,6 @@ const styles = theme => ({
 const Confirm = ({
   isOpen,
   title,
-  content,
   confirm,
   cancel,
   confirmColor,
@@ -57,7 +60,7 @@ const Confirm = ({
   onClose,
   classes,
   fullWidth,
-  children
+  content
 }) => (
   <Dialog
     open={isOpen}
@@ -109,4 +112,9 @@ Confirm.defaultProps = {
   fullWidth: false
 };
 
-export default withStyles(styles)(Confirm);
+const enhance = compose(
+  withStyles(styles),
+  translate
+);
+
+export default enhance(Confirm);
