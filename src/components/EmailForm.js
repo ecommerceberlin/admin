@@ -1,17 +1,28 @@
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
+import { connect } from 'react-redux';
+import { createMessage } from '../redux';
+import debounce from 'lodash/debounce';
 
 class EmailForm extends Component {
-  state = {
-    subject: '',
-    text: ''
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      subject: '',
+      text: ''
+    };
+
+    this.onChange = debounce(this.props.createMessage, 500);
+  }
 
   handleChange = name => event => {
-    this.setState({
-      [name]: event.target.value
-    });
+    this.setState({ [name]: event.target.value });
   };
+
+  componentDidUpdate() {
+    this.onChange(this.state);
+  }
 
   render() {
     return (
@@ -42,4 +53,7 @@ class EmailForm extends Component {
   }
 }
 
-export default EmailForm;
+export default connect(
+  null,
+  { createMessage }
+)(EmailForm);

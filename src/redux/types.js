@@ -1,2 +1,4 @@
-export const CHANGE_EVENT = 'CHANGE_EVENT';
-export const MESSAGE_CREATE = 'MESSAGE_CREATE';
+export const CHANGE_EVENT = 'EJ/CHANGE_EVENT';
+export const MESSAGE_CREATE = 'EJ/MESSAGE_CREATE';
+export const DIALOG_SHOW = 'EJ/DIALOG_SHOW';
+export const DIALOG_HIDE = 'EJ/DIALOG_HIDE';

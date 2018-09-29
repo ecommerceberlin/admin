@@ -1,7 +1,16 @@
 import { CHANGE_EVENT, MESSAGE_CREATE } from '../types';
-import { lsGet } from '../../api/app';
+//import { lsGet } from '../../api/app';
 
-export default (previousState = { event: {}, message: {} }, action) => {
+export default (
+  previousState = {
+    event: {},
+    message: {
+      subject: '',
+      text: ''
+    }
+  },
+  action
+) => {
   switch (action.type) {
     case CHANGE_EVENT:
       return { ...previousState, event: action.payload };

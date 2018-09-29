@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { connect } from 'react-redux';
 import { translate } from 'react-admin';
+import classnames from 'classnames';
+import compose from 'recompose/compose';
+import { showDialog, hideDialog } from '../redux';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -13,8 +16,6 @@ import { withStyles } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import ActionCheck from '@material-ui/icons/CheckCircle';
 import AlertError from '@material-ui/icons/ErrorOutline';
-import classnames from 'classnames';
-import compose from 'recompose/compose';
 
 const styles = theme => ({
   confirmPrimary: {
@@ -60,23 +61,25 @@ const Confirm = ({
   onClose,
   classes,
   fullWidth,
-  content
+  content,
+  dialog,
+  hideDialog
 }) => (
   <Dialog
-    open={isOpen}
-    onClose={onClose}
-    fullWidth={fullWidth}
+    open={'title' in dialog}
+    onClose={() => {
+      'onClose' in dialog ? dialog.onClose() : hideDialog();
+    }}
+    fullWidth={true}
     aria-labelledby="alert-dialog-title"
   >
-    <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
-    <DialogContent>{content}</DialogContent>
+    <DialogTitle id="alert-dialog-title">
+      {'title' in dialog ? dialog.title : ''}
+    </DialogTitle>
+    <DialogContent>{'content' in dialog ? dialog.content : ''}</DialogContent>
     <DialogActions>
-      <Button onClick={onClose}>
-        <AlertError className={classes.iconPaddingStyle} />
-        {cancel}
-      </Button>
       <Button
-        onClick={onConfirm}
+        onClick={'onConfirm' in dialog ? dialog.onConfirm : function() {}}
         className={classnames('ra-confirm', {
           [classes.confirmWarning]: confirmColor === 'warning',
           [classes.confirmPrimary]: confirmColor === 'primary'
@@ -85,6 +88,14 @@ const Confirm = ({
       >
         <ActionCheck className={classes.iconPaddingStyle} />
         {confirm}
+      </Button>
+      <Button
+        onClick={() => {
+          'onClose' in dialog ? dialog.onClose() : hideDialog();
+        }}
+      >
+        <AlertError className={classes.iconPaddingStyle} />
+        {cancel}
       </Button>
     </DialogActions>
   </Dialog>
@@ -95,26 +106,29 @@ Confirm.propTypes = {
   classes: PropTypes.object.isRequired,
   confirm: PropTypes.string.isRequired,
   confirmColor: PropTypes.string.isRequired,
-  content: PropTypes.node.isRequired,
-  isOpen: PropTypes.bool,
-  fullWidth: PropTypes.bool,
-  onClose: PropTypes.func.isRequired,
-  onConfirm: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired
+
+  dialog: PropTypes.shape({
+    title: PropTypes.string,
+    content: PropTypes.node,
+    onConfirm: PropTypes.func,
+    onClose: PropTypes.func
+  })
 };
 
 Confirm.defaultProps = {
   cancel: 'Cancel',
   classes: {},
   confirm: 'Confirm',
-  confirmColor: 'primary',
-  isOpen: false,
-  fullWidth: false
+  confirmColor: 'primary'
 };
 
 const enhance = compose(
   withStyles(styles),
-  translate
+  translate,
+  connect(
+    state => ({ dialog: state.ui.dialog }),
+    { hideDialog }
+  )
 );
 
 export default enhance(Confirm);

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, crudCreate } from 'react-admin';
+import { Button, crudCreate, showNotification } from 'react-admin';
 import MyDialog from '../MyDialog';
 import EmailForm from '../EmailForm';
 import Email from '@material-ui/icons/Email';
-
+import { showDialog, hideDialog } from '../../redux';
 /* 
 
   PROPS
@@ -17,48 +17,53 @@ import Email from '@material-ui/icons/Email';
 */
 
 class SendMessageAction extends Component {
-  state = {
-    dialog: false
-  };
-
-  handleDialogClose = () => {
-    this.setState({ dialog: false });
+  onQuit = () => {
+    this.props.hideDialog();
   };
 
   handleConfirm = () => {
-    const { basePath, crudCreate, resource, selectedIds } = this.props;
+    const {
+      message,
+      basePath,
+      crudCreate,
+      showNotification,
+      resource,
+      selectedIds
+    } = this.props;
+
+    //do not even show notification
+    if (!message) {
+      return;
+    }
+
+    const { subject, text } = message;
+
+    if (subject.length < 10 || text.length < 10) {
+      showNotification('Message too short!', 'warning');
+      return;
+    }
+
     crudCreate(
       'messages',
       { resource, ids: selectedIds, views: 0 },
       basePath,
       false
     );
-    this.setState({ dialog: false });
-    this.props.onExit();
   };
 
   showDialog = () => {
-    this.setState({ dialog: true });
+    const { label, showDialog } = this.props;
+
+    showDialog({
+      title: label,
+      content: <EmailForm />,
+      onConfirm: this.handleConfirm,
+      onClose: this.onQuit
+    });
   };
 
   render() {
-    console.log(this.props);
-
     const { label } = this.props;
-
-    if (this.state.dialog) {
-      return (
-        <MyDialog
-          fullWidth={true}
-          isOpen={true}
-          title={label}
-          content={<EmailForm />}
-          confirm="No dobra!"
-          onConfirm={this.handleConfirm}
-          onClose={this.handleDialogClose}
-        />
-      );
-    }
 
     return (
       <Button label={label} onClick={this.showDialog}>
@@ -69,11 +74,10 @@ class SendMessageAction extends Component {
 }
 
 SendMessageAction.defaultProps = {
-  onExit: function() {},
   label: 'actions.send_message'
 };
 
 export default connect(
-  undefined,
-  { crudCreate }
+  (state, props) => ({ message: state.app.message }),
+  { crudCreate, showNotification, showDialog, hideDialog }
 )(SendMessageAction);
