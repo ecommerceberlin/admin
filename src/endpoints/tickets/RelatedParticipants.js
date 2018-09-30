@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ImageEye from '@material-ui/icons/RemoveRedEye';
 import { Link } from 'react-router-dom';
 //import { linkToRecord } from 'ra-core';
-import { stringify } from 'query-string';
+import { stringify } from 'qs';
 
 import { Button } from 'react-admin';
 
@@ -17,7 +17,10 @@ const ShowButton = ({
     component={Link}
     to={{
       pathname: 'participants',
-      search: stringify({ filter: JSON.stringify({ ticket_id: record.id }) })
+      search: stringify(
+        { filter: JSON.stringify({ ticket_id: record.id }) },
+        { strictNullHandling: true }
+      )
     }}
     label={label}
     {...rest}
