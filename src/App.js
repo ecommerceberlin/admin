@@ -10,7 +10,7 @@ import customRoutes from './customRoutes';
 import { CompanyList, CompanyShow } from './endpoints/companies';
 import { PurchaseList } from './endpoints/purchases';
 import { ParticipantList, ParticipantShow } from './endpoints/participants';
-import { TicketList } from './endpoints/tickets';
+import { TicketList, TicketEdit } from './endpoints/tickets';
 import { TicketGroupList } from './endpoints/ticketgroups';
 import { GroupList, GroupShow } from './endpoints/groups';
 import { CompanyDataEdit, CompanyDataShow } from './endpoints/companydata';
@@ -91,6 +91,7 @@ class App extends React.Component {
           <Resource
             name="tickets"
             list={canAccess(permissions, 'tickets') ? TicketList : null}
+            edit={canAccess(permissions, 'tickets') ? TicketEdit : null}
           />,
 
           <Resource
@@ -109,6 +110,8 @@ class App extends React.Component {
 
           <Resource name="events" />,
           <Resource name="comments" />,
+
+          <Resource name="messages" />,
 
           <Resource
             name="fields"

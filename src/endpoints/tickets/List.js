@@ -10,6 +10,7 @@ import {
   ChipField,
   NumberField,
   ShowButton,
+  EditButton,
   DisabledInput,
   TextInput,
   SelectInput,
@@ -17,6 +18,7 @@ import {
 } from 'react-admin';
 import { ArrayField, SingleFieldList } from 'react-admin';
 import activeEventId from '../../api/app';
+import RelatedParticipants from './RelatedParticipants';
 
 const Filters = props => (
   <Filter {...props}>
@@ -35,7 +37,11 @@ const Filters = props => (
 );
 
 const TagsField = ({ record }) => (
-  <ul>{record.tags.map(item => <li key={item.name}>{item.name}</li>)}</ul>
+  <ul>
+    {record.tags.map(item => (
+      <li key={item.name}>{item.name}</li>
+    ))}
+  </ul>
 );
 TagsField.defaultProps = { addLabel: true };
 
@@ -64,7 +70,8 @@ const ViewList = props => (
       <TextField source="price" />
       <NumberField source="limit" />
 
-      <ShowButton basePath="/purchases" />
+      <RelatedParticipants label="Show Participants" />
+      <EditButton />
     </Datagrid>
   </List>
 );

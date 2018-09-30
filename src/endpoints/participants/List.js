@@ -17,11 +17,14 @@ import {
 import { ReferenceArrayField, SingleFieldList } from 'react-admin';
 import { SetStatusAction, SendMessageAction } from '../../components';
 import activeEventId from '../../api/app';
+import FilterByTicketId from './FilterByTicketId';
 
 const Filters = props => (
   <Filter {...props}>
     <TextInput label="Search" source="q" alwaysOn />
     <TextInput label="Title" source="title" defaultValue="Hello, World!" />
+
+    <FilterByTicketId alwaysOn />
 
     <SelectInput
       source="tag"
