@@ -51,10 +51,6 @@ const ProfileFields = ({ record }) =>
 
 ProfileFields.defaultProps = { addLabel: true };
 
-const MyPurchaseStatusField = ({ resource, ...props }) => (
-  <PurchaseStatusField {...props} resource="purchases" />
-);
-
 const ViewShow = props => (
   <Show title={<Title />} {...props}>
     <TabbedShowLayout>
@@ -98,7 +94,7 @@ const ViewShow = props => (
         <ArrayField source="purchases">
           <Datagrid>
             <DateField source="created_at" />
-            <MyPurchaseStatusField source="status" />
+            <PurchaseStatusField source="status" />
             <NumberField source="amount" />
           </Datagrid>
         </ArrayField>

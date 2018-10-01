@@ -4,18 +4,18 @@ import { connect } from 'react-redux';
 
 //https://github.com/marmelab/react-admin/blob/6015670a863bef868a0cafcfb1706187609a6369/packages/ra-core/src/actions/dataActions.js
 
-class FilterByTicketId extends React.Component {
+class FilterByGroupId extends React.Component {
   componentWillMount() {
     this.props.crudGetList(
-      'tickets',
+      'groups',
       { page: 1, perPage: 1000 },
       { field: 'id', order: 'ASC' },
-      { event_id: this.props.event.id }
+      {}
     );
   }
 
-  buildTicketList() {
-    const { data, list } = this.props.tickets;
+  choices() {
+    const { data, list } = this.props.groups;
 
     if (!'ids' in list || !Array.isArray(list.ids)) {
       return [];
@@ -25,19 +25,19 @@ class FilterByTicketId extends React.Component {
   }
 
   render() {
-    return <SelectInput source="ticket_id" choices={this.buildTicketList()} />;
+    return <SelectInput source="group_id" choices={this.choices()} />;
   }
 }
 
-FilterByTicketId.defaultProps = {
-  tickets: {},
+FilterByGroupId.defaultProps = {
+  groups: {},
   event: {}
 };
 
 export default connect(
   state => ({
     event: state.app.event,
-    tickets: state.admin.resources.tickets
+    groups: state.admin.resources.groups
   }),
   { crudGetList }
-)(FilterByTicketId);
+)(FilterByGroupId);

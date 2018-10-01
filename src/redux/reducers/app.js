@@ -14,11 +14,9 @@ export default (
   switch (action.type) {
     case CHANGE_EVENT:
       return { ...previousState, event: action.payload };
-      break;
 
     case MESSAGE_CREATE:
       return { ...previousState, message: action.payload };
-      break;
 
     default:
       return previousState;

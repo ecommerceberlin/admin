@@ -9,7 +9,7 @@ import {
   UPDATE
 } from 'react-admin';
 //import { push as pushAction } from 'react-router-redux';
-import dataProvider from '../../api/httpClient';
+import dataProvider from '../../../api/httpClient';
 
 class ChangeActiveEventButton extends Component {
   handleClick = () => {
@@ -20,6 +20,8 @@ class ChangeActiveEventButton extends Component {
         resource,
         showNotification
         */
+
+    console.log(this.props);
 
     const {
       //push,
@@ -43,20 +45,11 @@ class ChangeActiveEventButton extends Component {
         console.error(e);
         showNotification('Error', 'warning');
       });
-
-    // const updatedRecord = { ...record, is_approved: true };
-    // fetch(`/comments/${record.id}`, { method: 'PUT', body: updatedRecord })
-    //   .then(() => {
-    //     showNotification('Comment approved');
-    //     //      push('/comments');
-    //   })
-    //   .catch(e => {
-    //     console.error(e);
-    //     showNotification('Error: comment not approved', 'warning');
-    //   });
   };
 
   render() {
+    console.log(this.props);
+
     const { label, labelSelected, record } = this.props;
 
     const selected = !!+record.is_active;
@@ -76,12 +69,13 @@ class ChangeActiveEventButton extends Component {
 
 ChangeActiveEventButton.defaultProps = {
   label: 'Set Active',
-  labelSelected: 'Active'
+  labelSelected: 'Active',
+  id: 0
 };
 
 ChangeActiveEventButton.propTypes = {
   push: PropTypes.func,
-  record: PropTypes.object,
+  id: PropTypes.number,
   showNotification: PropTypes.func
 };
 

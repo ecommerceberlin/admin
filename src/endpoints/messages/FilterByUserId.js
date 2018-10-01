@@ -8,7 +8,7 @@ class FilterByTicketId extends React.Component {
   componentWillMount() {
     this.props.crudGetList(
       'tickets',
-      { page: 1, perPage: 1000 },
+      { page: 1, perPage: 100 },
       { field: 'id', order: 'ASC' },
       { event_id: this.props.event.id }
     );

@@ -9,11 +9,11 @@ import {
   GET_ONE
 } from 'react-admin';
 //import { push as pushAction } from 'react-router-redux';
-import dataProvider from '../../api/httpClient';
+import dataProvider from '../../../api/httpClient';
 
-import { changeEvent } from '../../redux';
+import { changeEvent } from '../../../redux';
 
-class ActiveEventButton extends Component {
+class ChangeAppScopeForEvent extends Component {
   handleClick = () => {
     const {
       // push,
@@ -38,40 +38,44 @@ class ActiveEventButton extends Component {
   };
 
   render() {
-    const { label, labelSelected, record, activeEvent } = this.props;
+    const { label, labelSelected, record, activeEventId } = this.props;
 
-    const selected = 'id' in activeEvent && record.id == activeEvent.id;
+    if (!record || !'id' in record || !record.id) {
+      return null;
+    }
 
     return (
       <Button
-        disabled={selected}
-        variant={selected ? 'raised' : 'outlined'}
+        disabled={record.id === activeEventId ? true : false}
+        variant={record.id === activeEventId ? 'raised' : 'flat'}
         color="primary"
         onClick={this.handleClick}
       >
-        {selected ? labelSelected : label}
+        {record.id === activeEventId ? labelSelected : label}
       </Button>
     );
   }
 }
 
-ActiveEventButton.defaultProps = {
+ChangeAppScopeForEvent.defaultProps = {
   label: 'Select',
-  labelSelected: 'Selected'
+  labelSelected: 'Selected',
+  activeEventId: 0
 };
 
-ActiveEventButton.propTypes = {
+ChangeAppScopeForEvent.propTypes = {
   push: PropTypes.func,
   record: PropTypes.object,
-  showNotification: PropTypes.func
+  showNotification: PropTypes.func,
+  activeEventId: PropTypes.number.isRequired
 };
 
 export default connect(
-  state => ({ activeEvent: state.app.event }),
+  null,
   {
     showNotification: showNotificationAction,
     refreshView: refreshViewAction,
     // push: pushAction,
     changeEvent: changeEvent
   }
-)(ActiveEventButton);
+)(ChangeAppScopeForEvent);

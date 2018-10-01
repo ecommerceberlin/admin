@@ -2,78 +2,63 @@ import React from 'react';
 import {
   List,
   Datagrid,
-  Edit,
-  Create,
-  SimpleForm,
   DateField,
   TextField,
   ChipField,
+  FunctionField,
   NumberField,
-  ShowButton,
-  EditButton,
-  DisabledInput,
-  TextInput,
-  SelectInput,
-  Filter
+  EditButton
 } from 'react-admin';
-import { ArrayField, SingleFieldList } from 'react-admin';
-import activeEventId from '../../api/app';
+
 import RelatedParticipants from './RelatedParticipants';
+import Filters from './Filters';
+import TicketTags from './TicketTags';
 
-const Filters = props => (
-  <Filter {...props}>
-    <TextInput label="Search" source="q" alwaysOn />
-    <TextInput label="Title" source="title" defaultValue="Hello, World!" />
-
-    <SelectInput
-      source="tag"
-      choices={[
-        { id: 'programming', name: 'Programming' },
-        { id: 'lifestyle', name: 'Lifestyle' },
-        { id: 'photography', name: 'Photography' }
-      ]}
-    />
-  </Filter>
-);
-
-const TagsField = ({ record }) => (
-  <ul>
-    {record.tags.map(item => (
-      <li key={item.name}>{item.name}</li>
-    ))}
-  </ul>
-);
-TagsField.defaultProps = { addLabel: true };
+import { WithEvent } from '../../components';
 
 const ViewList = props => (
-  <List
-    {...props}
-    perPage={100}
-    filters={<Filters />}
-    filter={{ event_id: activeEventId() }}
-  >
-    <Datagrid>
-      <TextField source="name" />
-      <ChipField source="role" />
+  <WithEvent>
+    {activeEventId => (
+      <List
+        {...props}
+        perPage={100}
+        filters={<Filters />}
+        filter={{ event_id: activeEventId }}
+      >
+        <Datagrid>
+          <TextField source="name" />
 
-      <TagsField source="tags" />
+          <FunctionField
+            label="role"
+            render={record =>
+              record.role ? (
+                <ChipField record={record} source="role" />
+              ) : (
+                <span>not set</span>
+              )
+            }
+          />
 
-      {/* <ArrayField source="tags">
-            <SingleFieldList>
-            <ChipField source="name" />
-            </SingleFieldList>
-            </ArrayField> */}
+          <TicketTags source="tags" />
 
-      <DateField source="start" showTime />
-      <DateField source="end" showTime />
+          {/* <ArrayField source="tags">
+              <SingleFieldList>
+              <ChipField source="name" />
+              </SingleFieldList>
+              </ArrayField> */}
 
-      <TextField source="price" />
-      <NumberField source="limit" />
+          <DateField source="start" showTime />
+          <DateField source="end" showTime />
 
-      <RelatedParticipants label="Show Participants" />
-      <EditButton />
-    </Datagrid>
-  </List>
+          <TextField source="price" />
+          <NumberField source="limit" />
+
+          <RelatedParticipants label="Show Participants" />
+          <EditButton />
+        </Datagrid>
+      </List>
+    )}
+  </WithEvent>
 );
 
 export default ViewList;

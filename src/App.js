@@ -13,8 +13,10 @@ import { ParticipantList, ParticipantShow } from './endpoints/participants';
 import { TicketList, TicketEdit } from './endpoints/tickets';
 import { TicketGroupList } from './endpoints/ticketgroups';
 import { GroupList, GroupShow } from './endpoints/groups';
+import { EventList, EventShow } from './endpoints/events';
 import { CompanyDataEdit, CompanyDataShow } from './endpoints/companydata';
 import { FieldsEdit } from './endpoints/fields';
+import { MessagesList, MessagesShow } from './endpoints/messages';
 
 import { activeEventId, lsGet } from './api/app';
 
@@ -46,7 +48,7 @@ class App extends React.Component {
         {permissions => [
           <Resource
             name="purchases"
-            options={{ label: 'Purchases' }}
+            // options={{ label: 'Purchases' }}
             list={canAccess(permissions, 'purchases') ? PurchaseList : null}
           />,
 
@@ -105,20 +107,19 @@ class App extends React.Component {
             name="groups"
             list={canAccess(permissions, 'groups') ? GroupList : null}
             show={canAccess(permissions, 'groups') ? GroupShow : null}
-            options={{ label: 'Events' }}
+            options={{ label: 'Projects' }}
           />,
 
-          <Resource name="events" />,
-          <Resource name="comments" />,
-
-          <Resource name="messages" />,
+          <Resource
+            name="messages"
+            list={canAccess(permissions, 'messages') ? MessagesList : null}
+            show={canAccess(permissions, 'messages') ? MessagesShow : null}
+          />,
 
           <Resource
             name="fields"
             edit={canAccess(permissions, 'fields') ? FieldsEdit : null}
           />,
-
-          <Resource name="related" />,
 
           <Resource
             name="companydata"
@@ -128,7 +129,19 @@ class App extends React.Component {
             show={
               canAccess(permissions, 'companydata') ? CompanyDataShow : null
             }
-          />
+          />,
+
+          <Resource name="related" />,
+
+          <Resource
+            name="events"
+            list={canAccess(permissions, 'events') ? EventList : null}
+            show={canAccess(permissions, 'events') ? EventShow : null}
+          />,
+
+          <Resource name="comments" />,
+
+          <Resource name="performance" />
         ]}
       </Admin>
     );
