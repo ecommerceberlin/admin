@@ -20,19 +20,7 @@ import PurchaseStatusField from '../purchases/PurchaseStatusField';
 
 import Chip from '@material-ui/core/Chip';
 
-import get from 'lodash/get';
-
-const Title = ({ record }) => {
-  return (
-    <span>
-      {record
-        ? `${get(record, 'fields.fname')} ${get(record, 'fields.lname')} ${
-            record.email
-          }`
-        : ''}
-    </span>
-  );
-};
+import ShowTitle from './ShowTitle';
 
 const Roles = ({ record }) => (
   <div>
@@ -56,7 +44,7 @@ const MyPurchaseStatusField = ({ resource, ...props }) => (
 );
 
 const ViewShow = props => (
-  <Show title={<Title />} {...props}>
+  <Show title={<ShowTitle />} {...props}>
     <TabbedShowLayout>
       <Tab label="summary">
         <Roles source="roles" />

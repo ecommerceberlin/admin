@@ -1,5 +1,7 @@
 import get from 'lodash/get';
 
+export const uniqueValues = arr => [...new Set(uniqueValues)];
+
 export const lsGet = key => {
   const item = localStorage.getItem(key);
 
