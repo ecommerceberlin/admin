@@ -13,14 +13,11 @@ import {
   ReferenceManyField,
   NumberField
 } from 'react-admin';
-// import ActiveEventButton from './ActiveEventButton';
-// import ActiveEventChipField from './ActiveEventChipField';
 
 import PurchaseStatusField from '../purchases/PurchaseStatusField';
-
 import Chip from '@material-ui/core/Chip';
-
 import ShowTitle from './ShowTitle';
+import { uniqueValues } from '../../api/app';
 
 const Roles = ({ record }) => (
   <div>
