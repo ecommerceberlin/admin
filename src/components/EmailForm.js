@@ -1,32 +1,104 @@
 import React, { Component } from 'react';
-import TextField from '@material-ui/core/TextField';
+
 import { connect } from 'react-redux';
+import { crudGetList } from 'react-admin';
 import { createMessage } from '../redux';
 import debounce from 'lodash/debounce';
+
+import TextField from '@material-ui/core/TextField';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import dataProvider from '../api/httpClient';
 
 class EmailForm extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      senderName: '',
+      senderEmail: '',
       subject: '',
-      text: ''
+      text: '',
+      template_id: 0
     };
 
     this.onChange = debounce(this.props.createMessage, 500);
   }
 
   handleChange = name => event => {
-    this.setState({ [name]: event.target.value });
+    const { templates } = this.props;
+
+    const value = event.target.value;
+
+    this.setState({ [name]: value });
+
+    if (name === 'template_id') {
+      //get template data... update subject and message!
+      this.setState({
+        subject: `${value} subject`,
+        text: `${value} text`
+      });
+    }
   };
 
-  componentDidUpdate() {
-    this.onChange(this.state);
+  componentWillMount() {
+    const { crudGetList, event } = this.props;
+
+    crudGetList(
+      'templates',
+      { page: 1, perPage: 1000 },
+      { field: 'id', order: 'ASC' },
+      { event_id: event.id }
+    );
+  }
+
+  componentDidUpdate(prevProps) {
+    const { template_id, ...rest } = this.state;
+    this.onChange(rest);
+  }
+
+  templates() {
+    const { data, list } = this.props.templates;
+
+    if (!'ids' in list || !Array.isArray(list.ids)) {
+      return [];
+    }
+
+    return list.ids.map(id => (
+      <MenuItem key={data[id].id} value={data[id].id}>
+        {data[id].name}
+      </MenuItem>
+    ));
   }
 
   render() {
     return (
       <div>
+        <FormControl>
+          <InputLabel htmlFor="age-simple">Template</InputLabel>
+          <Select
+            value={this.state.template_id}
+            onChange={this.handleChange('template_id')}
+          >
+            <MenuItem value={0}>
+              <em>None</em>
+            </MenuItem>
+            {this.templates()}
+          </Select>
+        </FormControl>
+
+        <TextField
+          id="sender"
+          label="Sender Name"
+          fullWidth
+          value={this.state.senderName}
+          onChange={this.handleChange('senderName')}
+          //className={classes.textField}
+          margin="normal"
+        />
+
         <TextField
           id="subject"
           label="Subject"
@@ -42,7 +114,8 @@ class EmailForm extends Component {
           label="Content"
           multiline
           fullWidth
-          rowsMax="10"
+          rows="8"
+          rowsMax="15"
           value={this.state.text}
           onChange={this.handleChange('text')}
           //className={classes.textField}
@@ -53,7 +126,15 @@ class EmailForm extends Component {
   }
 }
 
+EmailForm.defaultProps = {
+  templates: {},
+  event: {}
+};
+
 export default connect(
-  null,
-  { createMessage }
+  state => ({
+    event: state.app.event,
+    templates: state.admin.resources.templates
+  }),
+  { createMessage, crudGetList }
 )(EmailForm);

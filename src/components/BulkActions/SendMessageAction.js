@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, crudCreate, showNotification } from 'react-admin';
-import MyDialog from '../MyDialog';
 import EmailForm from '../EmailForm';
 import Email from '@material-ui/icons/Email';
 import { showDialog, hideDialog } from '../../redux';
@@ -36,7 +35,7 @@ class SendMessageAction extends Component {
       return;
     }
 
-    const { subject, text } = message;
+    const { subject, text, senderName, senderEmail } = message;
 
     if (subject.length < 10 || text.length < 10) {
       showNotification('Message too short!', 'warning');
@@ -45,7 +44,7 @@ class SendMessageAction extends Component {
 
     crudCreate(
       'messages',
-      { resource, ids: selectedIds, views: 0 },
+      { resource, ids: selectedIds, ...message },
       basePath,
       false
     );

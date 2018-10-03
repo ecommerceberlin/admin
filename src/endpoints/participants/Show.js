@@ -29,13 +29,6 @@ const Roles = ({ record }) => (
 
 Roles.defaultProps = { addLabel: true };
 
-const ProfileFields = ({ record }) =>
-  // <ul>{Object.keys(record.fields).map(key => <li key={key}>{record.fields[key]}</li>)}</ul>
-
-  null;
-
-ProfileFields.defaultProps = { addLabel: true };
-
 const MyPurchaseStatusField = ({ resource, ...props }) => (
   <PurchaseStatusField {...props} resource="purchases" />
 );
@@ -45,6 +38,9 @@ const ViewShow = props => (
     <TabbedShowLayout>
       <Tab label="summary">
         <Roles source="roles" />
+
+        <TextField source="id" />
+        <TextField source="token" />
 
         <ReferenceManyField
           reference="fields"
@@ -58,9 +54,6 @@ const ViewShow = props => (
           </Datagrid>
         </ReferenceManyField>
 
-        <ProfileFields source="fields" />
-
-        <TextField label="Id" source="id" />
         <TextField source="title" />
         <TextField source="teaser" />
       </Tab>

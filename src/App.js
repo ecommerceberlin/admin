@@ -141,6 +141,10 @@ class App extends React.Component {
 
           <Resource name="comments" />,
 
+          <Resource name="templates" />,
+
+          <Resource name="messages" />,
+
           <Resource name="performance" />
         ]}
       </Admin>

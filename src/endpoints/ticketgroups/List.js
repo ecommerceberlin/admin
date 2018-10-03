@@ -2,17 +2,9 @@ import React from 'react';
 import {
   List,
   Datagrid,
-  Edit,
-  Create,
-  SimpleForm,
-  DateField,
-  TextField,
   ChipField,
   NumberField,
   EditButton,
-  DisabledInput,
-  TextInput,
-  SelectInput,
   ReferenceManyField,
   SimpleList
 } from 'react-admin';
@@ -20,7 +12,11 @@ import {
 import activeEventId from '../../api/app';
 
 const TagsField = ({ record }) => (
-  <ul>{record.tags.map(item => <li key={item.name}>{item.name}</li>)}</ul>
+  <ul>
+    {record.tags.map(item => (
+      <li key={item.name}>{item.name}</li>
+    ))}
+  </ul>
 );
 TagsField.defaultProps = { addLabel: true };
 

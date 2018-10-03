@@ -6,6 +6,7 @@ import {
   TextField,
   ChipField,
   ShowButton,
+  DeleteButton,
   FunctionField
 } from 'react-admin';
 
@@ -36,6 +37,7 @@ const ViewList = props => (
       >
         <Datagrid>
           <TextField source="email" />
+          <DateField source="created_at" showTime />
           <TextField source="status" />
 
           <ReferenceArrayField
@@ -56,9 +58,9 @@ const ViewList = props => (
             </SingleFieldList>
           </ReferenceArrayField>
 
-          <DateField source="created_at" showTime />
-          <TextField source="amount" />
+          <TextField source="lang" />
           <ShowButton />
+          <DeleteButton />
         </Datagrid>
       </List>
     )}

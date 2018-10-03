@@ -6,11 +6,13 @@ import { connect } from 'react-redux';
 
 class FilterByTicketId extends React.Component {
   componentWillMount() {
-    this.props.crudGetList(
+    const { crudGetList, event } = this.props;
+
+    crudGetList(
       'tickets',
       { page: 1, perPage: 1000 },
       { field: 'id', order: 'ASC' },
-      { event_id: this.props.event.id }
+      { event_id: event.id }
     );
   }
 
@@ -25,7 +27,15 @@ class FilterByTicketId extends React.Component {
   }
 
   render() {
-    return <SelectInput source="ticket_id" choices={this.buildTicketList()} />;
+    const { source, allowEmpty } = this.props;
+
+    return (
+      <SelectInput
+        source={source}
+        allowEmpty={allowEmpty}
+        choices={this.buildTicketList()}
+      />
+    );
   }
 }
 

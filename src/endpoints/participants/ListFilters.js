@@ -1,23 +1,15 @@
 import React from 'react';
 import { TextInput, SelectInput, Filter } from 'react-admin';
-
 import FilterByTicketId from './FilterByTicketId';
+import { roles } from '../../api/app';
 
 const Filters = props => (
   <Filter {...props}>
     <TextInput label="Search" source="q" alwaysOn />
-    <TextInput label="Title" source="title" defaultValue="Hello, World!" />
 
-    <FilterByTicketId alwaysOn />
+    <FilterByTicketId source="ticket_id" alwaysOn allowEmpty />
 
-    <SelectInput
-      source="tag"
-      choices={[
-        { id: 'programming', name: 'Programming' },
-        { id: 'lifestyle', name: 'Lifestyle' },
-        { id: 'photography', name: 'Photography' }
-      ]}
-    />
+    <SelectInput source="role" choices={roles} alwaysOn allowEmpty />
   </Filter>
 );
 

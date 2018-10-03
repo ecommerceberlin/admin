@@ -19,6 +19,14 @@ export const statuses = [
   { id: 'cancelled', name: 'CANCELLED' }
 ];
 
+export const roles = [
+  { id: 'visitor', name: 'visitor' },
+  { id: 'exhibitor', name: 'exhibitor' },
+  { id: 'presenter', name: 'presenter' },
+  { id: 'contestant', name: 'contestant' },
+  { id: 'representative', name: 'representative' }
+];
+
 export const lsSet = (key, value) =>
   localStorage.setItem(key, JSON.stringify(value));
 

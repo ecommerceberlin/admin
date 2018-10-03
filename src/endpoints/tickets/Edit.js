@@ -1,19 +1,5 @@
 import React from 'react';
-import {
-  Edit,
-  SimpleForm,
-  Datagrid,
-  SimpleShowLayout,
-  TabbedShowLayout,
-  Tab,
-  TextField,
-  TextInput,
-  DateField,
-  EditButton,
-  ChipField,
-  ReferenceManyField,
-  NumberField
-} from 'react-admin';
+import { Edit, SimpleForm, TextInput } from 'react-admin';
 // import ActiveEventButton from './ActiveEventButton';
 // import ActiveEventChipField from './ActiveEventChipField';
 
