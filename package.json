@@ -10,6 +10,7 @@
     "papaparse": "^4.1.4",
     "prop-types": "^15.6.2",
     "qs": "^6.5.2",
+    "ra-input-rich-text": "^2.3.2",
     "react": "~16.3.0",
     "react-dom": "~16.3.0",
     "react-dropzone": "~4.0.1",

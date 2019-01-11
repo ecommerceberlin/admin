@@ -1,8 +1,15 @@
 import * as Types from './types';
+import { UPDATE } from 'react-admin';
 
 export const changeEvent = event => ({
   type: Types.CHANGE_EVENT,
   payload: event
+});
+
+export const changeCompanyAdmin = (id, admin_id, basePath) => ({
+  type: Types.CHANGE_COMPANY_ADMIN,
+  payload: { id, data: { admin_id } },
+  meta: { fetch: UPDATE, resource: 'companies' }
 });
 
 export const createMessage = data => ({

@@ -145,7 +145,7 @@ class App extends React.Component {
 
           <Resource name="messages" />,
 
-          <Resource name="performance" />
+          <Resource name="admins" />
         ]}
       </Admin>
     );

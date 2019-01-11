@@ -19,7 +19,8 @@ import activeEventId from '../../api/app';
 import { SendMessageAction } from '../../components';
 import Flagswitch from './Flagswitch';
 import ConditionalField from './ConditionalField';
-import DynamicField from './DynamicField';
+//import DynamicField from './DynamicField';
+import SelectAdminField from './SelectAdminField';
 
 const CustomBulkActions = props => (
   <React.Fragment>
@@ -78,6 +79,8 @@ class ViewList extends React.Component {
           <Flagswitch source="featured" />
 
           <Flagswitch source="promo" />
+
+          <SelectAdminField source="admin_id" />
 
           {customColumns.map(source => (
             <TextField key={`_${source}`} source={source} />
