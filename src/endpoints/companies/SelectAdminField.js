@@ -1,22 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
-import { showNotification, refreshView, UPDATE } from 'react-admin';
-
 import compose from 'recompose/compose';
+import get from 'lodash/get';
+
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Avatar from '@material-ui/core/Avatar';
 import { withStyles } from '@material-ui/core/styles';
-import Icon from '@material-ui/icons/Edit';
-
-import dataProvider from '../../api/httpClient';
 import deepOrange from '@material-ui/core/colors/deepOrange';
 
 import { changeCompanyAdmin } from '../../redux';
-import activeEventId from '../../api/app';
-
-import get from 'lodash/get';
 
 const styles = {
   adminNotSet: {

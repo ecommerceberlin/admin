@@ -9,15 +9,15 @@ import {
   FunctionField,
   Filter,
   BooleanInput,
-  SelectInput,
-  SelectArrayInput,
-  ReferenceArrayField,
-  ReferenceManyField,
-  ReferenceField,
-  SingleFieldList
+  SelectInput
+  // SelectArrayInput,
+  // ReferenceArrayField,
+  // ReferenceManyField,
+  // ReferenceField,
+  // SingleFieldList
 } from 'react-admin';
 
-import Chip from '@material-ui/core/Chip';
+import { Admin, CompanyData } from './filters';
 
 import activeEventId from '../../api/app';
 import { SendMessageAction } from '../../components';
@@ -39,20 +39,13 @@ const Filters = props => (
 
     <TextInput label="Search" source="q" />
 
+    <CompanyData source="fields" label="Field" />
+
+    <Admin source="admin_id" label="Admin" />
+
     <SelectInput
       source="lang"
       choices={[{ id: 'en', name: 'en' }, { id: 'de', name: 'de' }]}
-    />
-
-    <SelectArrayInput
-      source="fields"
-      choices={[
-        { id: 'website', name: 'website' },
-        { id: 'facebook', name: 'facebook' },
-        { id: 'linkedin', name: 'linkedin' },
-        { id: 'event_manager', name: 'Event Manager' },
-        { id: 'twitter', name: 'twitter' }
-      ]}
     />
   </Filter>
 );
