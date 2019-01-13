@@ -6,10 +6,21 @@ export const changeEvent = event => ({
   payload: event
 });
 
-export const changeCompanyAdmin = (id, admin_id, basePath) => ({
+export const changeCompanyAdmin = (id, data, basePath) => ({
   type: Types.CHANGE_COMPANY_ADMIN,
-  payload: { id, data: { admin_id } },
-  meta: { fetch: UPDATE, resource: 'companies' }
+  payload: { id, data },
+  meta: {
+    fetch: UPDATE,
+    resource: 'companies',
+    refresh: true
+    // notification: {
+    //   body: 'resources.comments.notification.approved_success',
+    //   level: 'info',
+    // },
+    // redirectTo: '/comments',
+    // unselectAll : true,
+    // basePath : basePath
+  }
 });
 
 export const createMessage = data => ({

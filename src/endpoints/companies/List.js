@@ -10,7 +10,11 @@ import {
   Filter,
   BooleanInput,
   SelectInput,
-  SelectArrayInput
+  SelectArrayInput,
+  ReferenceArrayField,
+  ReferenceManyField,
+  ReferenceField,
+  SingleFieldList
 } from 'react-admin';
 
 import Chip from '@material-ui/core/Chip';
@@ -71,10 +75,13 @@ class ViewList extends React.Component {
         <Datagrid>
           {/* <FunctionField label="Spending" render={record => `${record.event_ids.length}%`} /> */}
 
-          <ConditionalField
+          {/*   <ConditionalField
             sources={['settings.logotype_cdn', 'profile.name', 'slug']}
             label="logotype"
-          />
+        />
+       */}
+
+          <TextField source="slug" />
 
           <Flagswitch source="featured" />
 
@@ -88,7 +95,7 @@ class ViewList extends React.Component {
 
           {/* <DynamicField label="fields" /> */}
 
-          <TextField source="profile.lang" label="Language" />
+          {/* <TextField source="profile.lang" label="Language" /> */}
 
           <FunctionField
             sortBy="featured"

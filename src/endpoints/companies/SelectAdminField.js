@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+
 import { showNotification, refreshView, UPDATE } from 'react-admin';
 
 import compose from 'recompose/compose';
@@ -13,38 +14,55 @@ import dataProvider from '../../api/httpClient';
 import deepOrange from '@material-ui/core/colors/deepOrange';
 
 import { changeCompanyAdmin } from '../../redux';
+import activeEventId from '../../api/app';
+
+import get from 'lodash/get';
 
 const styles = {
-  orangeAvatar: {
+  adminNotSet: {
     margin: 10,
     color: '#fff',
-    backgroundColor: deepOrange[500]
+    backgroundColor: '#cccccc',
+    cursor: 'pointer'
+  },
+
+  adminSet: {
+    margin: 10,
+    color: '#fff',
+    backgroundColor: deepOrange[500],
+    cursor: 'pointer'
   }
 };
 
-const admins = [
-  { id: '1', name: 'AZ' },
-  { id: '2', name: 'JP' },
-  { id: '3', name: 'MZ' },
-  { id: '4', name: 'MT' }
-];
-
 class SelectAdminField extends React.Component {
-  constructor(props) {
-    super(props);
+  state = {
+    control: 'chip',
+    admin_id: 0
+  };
 
-    this.state = {
-      control: 'chip',
-      admin_id: this.props.record.admin_id
-    };
+  static getDerivedStateFromProps(props, state) {
+    if (!state.admin_id && props.record.admin_id) {
+      return {
+        control: state.control,
+        admin_id: props.record.admin_id
+      };
+    }
+
+    return null;
   }
 
   handleClick = name => event => {
     this.setState({ control: 'select' });
   };
 
+  handleClose = name => event => {
+    this.setState({
+      control: 'chip'
+    });
+  };
+
   handleStatusChange = name => event => {
-    const { changeCompanyAdmin, resource, record, basePath } = this.props;
+    const { changeCompanyAdmin, record, admins, basePath } = this.props;
 
     this.setState(
       {
@@ -54,19 +72,13 @@ class SelectAdminField extends React.Component {
       function() {
         const { admin_id } = this.state;
 
-        changeCompanyAdmin(record.id, admin_id, basePath);
+        changeCompanyAdmin(record.id, { admin_id: admin_id }, basePath);
       }
     );
   };
 
-  handleClose = name => event => {
-    this.setState({
-      control: 'chip'
-    });
-  };
-
   select() {
-    const { classes, record, source, ...rest } = this.props;
+    const { classes, admins } = this.props;
     const { admin_id } = this.state;
 
     return (
@@ -76,49 +88,50 @@ class SelectAdminField extends React.Component {
         onClose={this.handleClose()}
         open={true}
       >
-        {admins
-          .filter(({ id }) => record.admin_id != id)
-          .map(({ id, name }) => (
-            <MenuItem
-              classes={{
-                root: classes[id]
-              }}
-              key={id}
-              value={id}
-            >
-              {name}
-            </MenuItem>
-          ))}
+        {admins.list.ids.map(id => (
+          <MenuItem key={id} value={id}>
+            {`${get(admins.data[id], 'fname')} ${get(
+              admins.data[id],
+              'lname'
+            )}`}
+          </MenuItem>
+        ))}
       </Select>
     );
   }
 
   chip() {
-    const { classes, record, source, ...rest } = this.props;
-    const { status } = this.state;
+    const { classes, admins } = this.props;
+    const { admin_id } = this.state;
 
-    // console.log("new status", status);
-
-    // label={record[source]}
+    if (!admin_id) {
+      return (
+        <Avatar className={classes.adminNotSet} onClick={this.handleClick()} />
+      );
+    }
 
     return (
-      <Avatar className={classes.orangeAvatar} onClick={this.handleClick()}>
-        AZ
+      <Avatar className={classes.adminSet} onClick={this.handleClick()}>
+        {get(admins.data[admin_id], 'initials')}
       </Avatar>
     );
   }
 
   render() {
     const { control } = this.state;
-
     return this[control]();
   }
 }
 
+SelectAdminField.defaultProps = {
+  record: {},
+  admins: {}
+};
+
 const enhance = compose(
   withStyles(styles),
   connect(
-    null,
+    state => ({ admins: state.admin.resources.admins }),
     { changeCompanyAdmin }
   )
 );
