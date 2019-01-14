@@ -21,7 +21,7 @@ import { Admin, CompanyData } from './filters';
 
 import activeEventId from '../../api/app';
 import { SendMessageAction } from '../../components';
-import ConditionalField from './ConditionalField';
+import DoubleTextField from './DoubleTextField';
 
 //import DynamicField from './DynamicField';
 
@@ -68,21 +68,15 @@ class ViewList extends React.Component {
         perPage={100}
       >
         <Datagrid>
-          {/* <FunctionField label="Spending" render={record => `${record.event_ids.length}%`} /> */}
-
-          {/*   <ConditionalField
-            sources={['settings.logotype_cdn', 'profile.name', 'slug']}
-            label="logotype"
-        />
-       */}
-
-          <TextField source="slug" />
-
-          <Flagswitch source="featured" />
-
-          <Flagswitch source="promo" />
+          <DoubleTextField
+            label="Name"
+            primary="profile.name"
+            secondary="slug"
+          />
 
           <SelectAdminField source="admin_id" />
+          <Flagswitch source="featured" />
+          <Flagswitch source="promo" />
 
           {customColumns.map(source => (
             <TextField key={`_${source}`} source={source} />
@@ -90,7 +84,7 @@ class ViewList extends React.Component {
 
           {/* <DynamicField label="fields" /> */}
 
-          {/* <TextField source="profile.lang" label="Language" /> */}
+          <TextField source="profile.lang" label="Language" />
 
           <FunctionField
             sortBy="featured"
@@ -99,6 +93,8 @@ class ViewList extends React.Component {
               record.event_ids.indexOf(activeEventId()) > -1 ? `tak` : 'nie'
             }
           />
+
+          {/* <FunctionField label="Spending" render={record => `${record.event_ids.length}%`} /> */}
 
           {/* <FunctionField label="Retention" render={record => `${record.event_ids.length}%`} />
 
