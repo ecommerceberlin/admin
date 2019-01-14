@@ -21,14 +21,16 @@ import { Admin, CompanyData } from './filters';
 
 import activeEventId from '../../api/app';
 import { SendMessageAction } from '../../components';
-import Flagswitch from './Flagswitch';
 import ConditionalField from './ConditionalField';
+
 //import DynamicField from './DynamicField';
-import SelectAdminField from './SelectAdminField';
+
+import { Flagswitch, SelectAdminField, BulkAssignAdmin } from './actions';
 
 const CustomBulkActions = props => (
   <React.Fragment>
     <SendMessageAction label="Send e-mail message" {...props} />
+    <BulkAssignAdmin label="Assign an admin" {...props} />
   </React.Fragment>
 );
 

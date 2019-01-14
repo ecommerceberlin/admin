@@ -1,5 +1,5 @@
 import * as Types from './types';
-import { UPDATE } from 'react-admin';
+import { UPDATE, UPDATE_MANY } from 'react-admin';
 
 export const changeEvent = event => ({
   type: Types.CHANGE_EVENT,
@@ -12,6 +12,40 @@ export const changeCompanyAdmin = (id, data, basePath) => ({
   meta: {
     fetch: UPDATE,
     resource: 'companies',
+    refresh: true
+    // notification: {
+    //   body: 'resources.comments.notification.approved_success',
+    //   level: 'info',
+    // },
+    // redirectTo: '/comments',
+    // unselectAll : true,
+    // basePath : basePath
+  }
+});
+
+export const bulkChangeCompanyAdmin = (ids, data, basePath) => ({
+  type: Types.BULK_CHANGE_COMPANY_ADMIN,
+  payload: { ids, data },
+  meta: {
+    fetch: UPDATE_MANY,
+    resource: 'companies',
+    refresh: true,
+    // notification: {
+    //   body: 'resources.comments.notification.approved_success',
+    //   level: 'info',
+    // },
+    // redirectTo: '/comments',
+    unselectAll: true
+    // basePath : basePath
+  }
+});
+
+export const changeResourceFlag = (resource, id, data, basePath) => ({
+  type: Types.CHANGE_RESOURCE_FLAG,
+  payload: { id, data },
+  meta: {
+    fetch: UPDATE,
+    resource: resource,
     refresh: true
     // notification: {
     //   body: 'resources.comments.notification.approved_success',

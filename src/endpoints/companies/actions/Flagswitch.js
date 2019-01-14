@@ -1,13 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
-import {
-  showNotification as showNotificationAction,
-  refreshView as refreshViewAction,
-  UPDATE
-} from 'react-admin';
 import Switch from '@material-ui/core/Switch';
-import dataProvider from '../../api/httpClient';
+
+import { changeResourceFlag } from '../../../redux';
 
 class Flagswitch extends React.Component {
   constructor(props) {
@@ -21,28 +16,23 @@ class Flagswitch extends React.Component {
       record,
       resource,
       source,
-      showNotification,
-      refreshView,
+      changeResourceFlag,
       checkedValue,
       unCheckedValue
     } = this.props;
 
-    this.setState({
-      status: event.target.checked
-    });
+    this.setState(
+      {
+        status: event.target.checked
+      },
+      function() {
+        const { status } = this.state;
 
-    dataProvider(UPDATE, resource, {
-      id: record.id,
-      data: { [source]: event.target.checked ? checkedValue : unCheckedValue }
-    })
-      .then(({ data }) => {
-        showNotification('changed', 'info');
-        // refreshView();
-      })
-      .catch(e => {
-        console.error(e);
-        showNotification('Error: ', 'warning');
-      });
+        changeResourceFlag(resource, record.id, {
+          [source]: status ? checkedValue : unCheckedValue
+        });
+      }
+    );
   };
 
   render() {
@@ -68,7 +58,6 @@ Flagswitch.defaultProps = {
 export default connect(
   null,
   {
-    showNotification: showNotificationAction,
-    refreshView: refreshViewAction
+    changeResourceFlag
   }
 )(Flagswitch);

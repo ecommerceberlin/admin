@@ -14,7 +14,7 @@ class Admin extends React.Component {
 
     return admins.list.ids.map(id => ({
       id: admins.data[id].id,
-      name: admins.data[id].initials
+      name: `${admins.data[id].fname} ${admins.data[id].lname}`
     }));
   }
 
