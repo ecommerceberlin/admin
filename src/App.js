@@ -18,6 +18,8 @@ import { CompanyDataEdit, CompanyDataShow } from './endpoints/companydata';
 import { FieldsEdit } from './endpoints/fields';
 import { MessagesList, MessagesShow } from './endpoints/messages';
 
+import {PostList, PostEdit, PostCreate} from './endpoints/posts'
+
 import { activeEventId, lsGet } from './api/app';
 
 export const canAccess = (permissions, resource) => {
@@ -46,6 +48,9 @@ class App extends React.Component {
         }}
       >
         {permissions => [
+
+          <Resource name="posts" list={ PostList }  edit={ PostEdit } create={ PostCreate } />,
+
           <Resource
             name="purchases"
             // options={{ label: 'Purchases' }}
@@ -135,7 +140,8 @@ class App extends React.Component {
 
           <Resource
             name="events"
-            list={canAccess(permissions, 'events') ? EventList : null}
+          //  list={canAccess(permissions, 'events') ? EventList : null}
+            list={ EventList}
             show={canAccess(permissions, 'events') ? EventShow : null}
           />,
 
