@@ -1,2 +1,3 @@
 export {default as PostList} from './PostList'
-export * from './PostEdit'
+export {default as PostEdit} from './PostEdit'
+export {default as PostCreate} from './PostCreate'

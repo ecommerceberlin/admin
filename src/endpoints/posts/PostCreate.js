@@ -1,0 +1,77 @@
+import * as React from "react";
+import { 
+    Create, 
+    SimpleForm, 
+    TextInput,
+    ReferenceInput, 
+    SelectInput, 
+    required, 
+    minLength, 
+    maxLength,
+    number,
+    choices,
+    BooleanInput, 
+    RadioButtonGroupInput 
+} from 'react-admin';
+import Typography from '@material-ui/core/Typography'
+
+import categories from './categories'
+ 
+const onSuccess = ({ data }) => {
+    // notify('ra.notification.created', 'info', { smart_count: 1 }, undoable);
+    // redirect('edit', basePath, data.id, data);
+    // refresh();
+};
+
+const Aside = ({basePath, resource}) => {
+
+    return  (
+        <div style={{ width: 200, margin: '1em' }}>
+            {/* <Typography variant="h6">Post details</Typography> */}
+            {/* {record && (
+                <Typography variant="body2">
+                    Creation date: {record.createdAt}
+                </Typography>
+            )} */}
+        </div>
+    );
+    
+}
+
+
+
+const PostCreate = ({permissions, ...props}) => {
+
+    // const notify = useNotify();
+    // const refresh = useRefresh();
+    // const redirect = useRedirect();
+
+    return (
+        <Create /*onSuccess={onSuccess}*/ aside={<Aside />} {...props}>
+            <SimpleForm warnWhenUnsavedChanges>
+                <TextInput fullWidth={true} source="title"  validate={[required(), minLength(10), maxLength(255) ]}/>
+               
+               
+                {/* <ReferenceField label="Company" reference="companies" target="company_id">
+                    <Datagrid>
+                        <TextField source="body" />
+                        <DateField source="created_at" />
+                        <EditButton />
+                    </Datagrid>
+                </ReferenceField> */}
+    
+    
+    
+                <ReferenceInput source="company_id" reference="companies" validate={[required(), number()]}>
+                    <SelectInput optionText="profile.name" />
+                </ReferenceInput>
+    
+                <RadioButtonGroupInput fullWidth={true} source="category" validate={[required(), choices(categories.map(c=>c.id))]} choices={categories} />
+    
+            </SimpleForm>
+        </Create>
+    );
+} 
+
+
+export default PostCreate;

@@ -8,11 +8,15 @@ import {
     TextInput, 
     DateField, 
     BooleanField, 
-    useListContext 
+    ChipField,
+    FunctionField,
+    useListContext,
+    EditButton
 } from 'react-admin';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography'
 // import ResetViewsButton from './ResetViewsButton';
+import activeEventId from '../../api/app';
 
 const PostBulkActionButtons = props => (
     <React.Fragment>
@@ -36,28 +40,34 @@ const Aside = () => {
         <div style={{ width: 200, margin: '1em' }}>
             <Typography variant="h6">Post details</Typography>
             <Typography variant="body2">
-                Posts will only be published one an editor approves them
+                Posts will only be published once approved
             </Typography>
         </div>
     );
 }
 
-
 const PostList = (props) => (
     <List 
     filters={<PostFilter />}
+    filter={{ event_id: activeEventId() }}
     bulkActionButtons={<PostBulkActionButtons />}
     filterDefaultValues={{ is_published: true }}
     perPage={100}
     sort={{ field: 'published_at', order: 'DESC' }}
     aside={<Aside />}
+    exporter={false}
     {...props}>
         <Datagrid>
             <TextField source="id" />
-            <TextField source="title" />
+
+            <BooleanField source="is_published" label="Published?" /> 
+            <TextField source="meta.headline" label="Title" />
+            <ChipField source="category" />
+            <TextField source="company.slug" />
+            <DateField source="updated_at" />
             <DateField source="published_at" />
-            <TextField source="category" />
-            <BooleanField source="commentable" />
+            <EditButton />
+    
         </Datagrid>
     </List>
 );

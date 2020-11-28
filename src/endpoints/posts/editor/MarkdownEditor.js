@@ -1,13 +1,15 @@
 
 import * as React from "react";
 import { useInput } from 'react-admin';
-import Box from '@material-ui/core/Box'
-import {makeStyles} from '@material-ui/core/styles'
-
+import Box from '@material-ui/core/Box';
+import {makeStyles} from '@material-ui/core/styles';
 import Editor from "rich-markdown-editor";
 import debounce from "lodash/debounce";
-import YoutubeEmbed from './YoutubeEmbed'
-import theme from './theme'
+import * as embeds from './embeds';
+import theme from './theme';
+import {Image as CloudinaryImage} from 'cloudinary-react'
+
+console.log(CloudinaryImage)
 
 const useStyles = makeStyles(theme => ({
     root : {
@@ -37,7 +39,7 @@ export const MarkdownEditor = (props) => {
         onChange(text)
       }, 250);
 
-    return ( <Box p={4} mb={1} borderBottom={1} className={classes.root}>                           
+    return (<Box p={4} mb={1} borderBottom={1} className={classes.root}>                           
         <Editor
         id={name}
         defaultValue={value}
@@ -83,36 +85,16 @@ export const MarkdownEditor = (props) => {
                 );
               }, Math.random() * 500);
             });
-          }}
-          uploadImage={file => {
+        }}
+        uploadImage={file => {
             console.log("File upload triggered: ", file);
 
-            // Delay to simulate time taken to upload
             return new Promise(resolve => {
-              setTimeout(() => resolve("https://picsum.photos/600/600"), 1500);
+                setTimeout(() => resolve("https://picsum.photos/600/600"), 1500);
             });
           }}
-          embeds={[
-            {
-              title: "YouTube",
-              keywords: "youtube video tube google",
-              icon: () => (
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/7/75/YouTube_social_white_squircle_%282017%29.svg"
-                  width={24}
-                  height={24}
-                />
-              ),
-              matcher: url => {
-                return url.match(
-                  /(?:https?:\/\/)?(?:www\.)?youtu\.?be(?:\.com)?\/?.*(?:watch|embed)?(?:.*v=|v\/|\/)([a-zA-Z0-9_-]{11})$/i
-                );
-              },
-              component: YoutubeEmbed,
-            },
-          ]}
+          embeds={[embeds]}
     />
-
     </Box> )
 }
 
