@@ -12,7 +12,8 @@ import {
     ReferenceInput,
     SelectInput,
     number,
-    maxLength
+    maxLength,
+    AutocompleteInput
 } from 'react-admin';
 import Typography from '@material-ui/core/Typography'
 import RaEditor from './editor/MarkdownEditor'
@@ -50,19 +51,30 @@ const PostEdit = ({permissions, ...props}) => (
             <TextInput disabled label="Id" source="id" />
             <TextInput source="meta.headline" label="Title" validate={required()} fullWidth />
             <TextInput multiline source="meta.quote" label="Intro" validate={maxLength(255)} options={{ multiline: true }} fullWidth />
-            <RaEditor source="meta.body" label="Content" />    
+            <RaEditor source="meta.body" label="Content" validate={required()}  />   
 
          </FormTab>
 
-        <FormTab label="Company">
+        <FormTab label="Company &amp; Author">
 
             <ReferenceInput source="company_id" reference="companies" validate={[required(), number()]}>
-            <SelectInput optionText="profile.name" />
+            {/* <SelectInput optionText="profile.name" /> */}
+            <AutocompleteInput optionText="profile.name" shouldRenderSuggestions={()=>true} />
             </ReferenceInput>
+
+            <TextInput multiline source="meta.guestauthor" label="Autor description"  fullWidth />
 
          </FormTab>
 
-          
+        
+        <FormTab label="SEO &amp; Social">
+
+        <TextInput multiline fullWidth label="Alternative Title" source="meta.metatitle" />
+        <TextInput multiline fullWidth label="Alternative Description" source="meta.metadescription" />
+        <TextInput multiline fullWidth label="Keywords" source="meta.keywords" />
+
+        </FormTab>
+
         <FormTab label="Publish">
 
         <RadioButtonGroupInput fullWidth={true} source="category" validate={[required(), choices(categories.map(c=>c.id))]} choices={categories} />
@@ -71,9 +83,10 @@ const PostEdit = ({permissions, ...props}) => (
         <BooleanInput source="is_sticky" />
         <DateInput label="Publication date" source="published_at" defaultValue={new Date()} />
 
-
         </FormTab>
 
+
+       
 
             {/* <ReferenceField label="Comments" reference="companies" target="company_id">
                 <Datagrid>

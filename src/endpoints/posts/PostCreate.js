@@ -11,7 +11,8 @@ import {
     number,
     choices,
     BooleanInput, 
-    RadioButtonGroupInput 
+    RadioButtonGroupInput,
+    AutocompleteInput
 } from 'react-admin';
 import Typography from '@material-ui/core/Typography'
 
@@ -63,7 +64,7 @@ const PostCreate = ({permissions, ...props}) => {
     
     
                 <ReferenceInput source="company_id" reference="companies" validate={[required(), number()]}>
-                    <SelectInput optionText="profile.name" />
+                <AutocompleteInput optionText="profile.name" shouldRenderSuggestions={()=>true} />
                 </ReferenceInput>
     
                 <RadioButtonGroupInput fullWidth={true} source="category" validate={[required(), choices(categories.map(c=>c.id))]} choices={categories} />

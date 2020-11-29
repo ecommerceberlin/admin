@@ -1,6 +1,6 @@
 
 import * as React from "react";
-import { useInput } from 'react-admin';
+import { useInput, Labeled } from 'react-admin';
 import Box from '@material-ui/core/Box';
 import {makeStyles} from '@material-ui/core/styles';
 import Editor from "rich-markdown-editor";
@@ -19,7 +19,8 @@ const useStyles = makeStyles(theme => ({
         minWidth: 500,
         borderColor: "#666",
         borderTopLeftRadius: 4,
-        borderTopRightRadius: 4
+        borderTopRightRadius: 4,
+        paddingLeft: 30
     }
 }))
 
@@ -39,7 +40,8 @@ export const MarkdownEditor = (props) => {
         onChange(text)
       }, 250);
 
-    return (<Box p={4} mb={1} borderBottom={1} className={classes.root}>                           
+    return (<Box p={1} mb={1} borderBottom={1} className={classes.root}>                           
+        <Labeled label={props.label || name}>
         <Editor
         id={name}
         defaultValue={value}
@@ -95,6 +97,7 @@ export const MarkdownEditor = (props) => {
           }}
           embeds={[embeds]}
     />
+    </Labeled>
     </Box> )
 }
 

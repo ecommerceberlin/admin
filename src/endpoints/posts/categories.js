@@ -2,8 +2,18 @@
 
 
 export default [
-    { id: 'interviews', name: 'Interviews' },
+   
     { id: 'news', name: 'News' },
-    { id: 'reports', name: 'Reports' },
+   
+    { id: 'event', name: 'Event' },
+
+    { id: 'interview', name: 'Interview' },
+    
+    { id: 'report', name: 'Report' },
+   
+    { id: 'guide', name: 'Guide' },
+
+    { id: 'review', name: 'Review' },
+
     { id: 'other', name: 'Other' },
 ]

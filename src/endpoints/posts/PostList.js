@@ -63,7 +63,7 @@ const PostList = (props) => (
             <BooleanField source="is_published" label="Published?" /> 
             <TextField source="meta.headline" label="Title" />
             <ChipField source="category" />
-            <TextField source="company.slug" />
+            <TextField source="company.profile.name" />
             <DateField source="updated_at" />
             <DateField source="published_at" />
             <EditButton />
