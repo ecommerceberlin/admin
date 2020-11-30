@@ -50,7 +50,7 @@ const PostCreate = ({permissions, ...props}) => {
     return (
         <Create /*onSuccess={onSuccess}*/ aside={<Aside />} {...props}>
             <SimpleForm warnWhenUnsavedChanges>
-                <TextInput fullWidth={true} source="title"  validate={[required(), minLength(10), maxLength(255) ]}/>
+                <TextInput fullWidth={true} source="meta.headline"  label="Title" validate={[required(), minLength(10), maxLength(255) ]}/>
                
                
                 {/* <ReferenceField label="Company" reference="companies" target="company_id">
@@ -63,7 +63,7 @@ const PostCreate = ({permissions, ...props}) => {
     
     
     
-                <ReferenceInput source="company_id" reference="companies" validate={[required(), number()]}>
+                <ReferenceInput source="company_id" reference="companies" label="Company" validate={[required(), number()]}>
                 <AutocompleteInput optionText="profile.name" shouldRenderSuggestions={()=>true} />
                 </ReferenceInput>
     

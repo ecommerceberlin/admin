@@ -51,9 +51,9 @@ const PostList = (props) => (
     filters={<PostFilter />}
     filter={{ event_id: activeEventId() }}
     bulkActionButtons={<PostBulkActionButtons />}
-    filterDefaultValues={{ is_published: true }}
+   // filterDefaultValues={{ is_published: true }}
     perPage={100}
-    sort={{ field: 'published_at', order: 'DESC' }}
+    sort={{ field: 'id', order: 'DESC' }}
     aside={<Aside />}
     exporter={false}
     {...props}>
