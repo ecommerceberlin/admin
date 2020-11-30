@@ -1,8 +1,11 @@
 import { fetchUtils } from 'react-admin';
 import restProvider from './restProvider';
 
-const httpClient = (url, options) => {
-  if (!options.headers) {
+
+/** OLD */
+
+const httpClient = (url, options = {}) => {
+  if ( !options.headers) {
     options.headers = new Headers({
       Accept: 'application/json'
     });
