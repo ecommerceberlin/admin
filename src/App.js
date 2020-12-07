@@ -35,7 +35,7 @@ class App extends React.Component {
     return (
       <Admin
         //      title={<AppTitle />}
-        appLayout={MyLayout}
+        layout={MyLayout}
         customReducers={customReducers}
         customSagas={customSagas}
         customRoutes={customRoutes}
@@ -49,7 +49,7 @@ class App extends React.Component {
       >
         {permissions => [
 
-          <Resource name="posts" list={ PostList }  edit={ PostEdit } create={ PostCreate } />,
+          <Resource name="posts" list={ PostList } edit={ PostEdit } create={ PostCreate } />,
 
           <Resource
             name="purchases"

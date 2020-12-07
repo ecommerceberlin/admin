@@ -1,6 +1,6 @@
 
 import * as React from "react";
-import { useInput, Labeled } from 'react-admin';
+import { useInput, Labeled, fetchUtils } from 'react-admin';
 import Box from '@material-ui/core/Box';
 import {makeStyles} from '@material-ui/core/styles';
 import Editor from "rich-markdown-editor";
@@ -90,6 +90,16 @@ export const MarkdownEditor = (props) => {
         }}
         uploadImage={file => {
             console.log("File upload triggered: ", file);
+
+
+            // options.method = 'POST';
+            // options.body = JSON.stringify(buildMessage(message));
+          
+             fetchUtils.fetchJson(`${process.env.REACT_APP_SLACK}`, {method: "POST"});
+
+            
+
+            
 
             return new Promise(resolve => {
                 setTimeout(() => resolve("https://picsum.photos/600/600"), 1500);

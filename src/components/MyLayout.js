@@ -8,7 +8,7 @@ const MyLayout = props => (
   <React.Fragment>
     <Layout
       {...props}
-      //  appBar={MyAppBar}
+      appBar={MyAppBar}
       menu={MyMenu}
       //notification={MyNotification}
     />
