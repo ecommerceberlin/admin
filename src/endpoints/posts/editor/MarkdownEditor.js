@@ -7,9 +7,8 @@ import Editor from "rich-markdown-editor";
 import debounce from "lodash/debounce";
 import * as embeds from './embeds';
 import theme from './theme';
-import {Image as CloudinaryImage} from 'cloudinary-react'
-
-console.log(CloudinaryImage)
+//import {Image as CloudinaryImage} from 'cloudinary-react'
+import {uploadFile} from '../../../api'
 
 const useStyles = makeStyles(theme => ({
     root : {
@@ -27,6 +26,7 @@ const useStyles = makeStyles(theme => ({
 
 export const MarkdownEditor = (props) => {
 
+
     const {
         input: { name, onChange, onBlur, onFocus, value, ...rest},
         meta: { touched, error},
@@ -34,6 +34,8 @@ export const MarkdownEditor = (props) => {
     } = useInput(props)
 
     const classes = useStyles();
+
+    const {record: {id}, resource} = props;
 
     const handleChange = debounce(value => {
         const text = value();
@@ -88,24 +90,8 @@ export const MarkdownEditor = (props) => {
               }, Math.random() * 500);
             });
         }}
-        uploadImage={file => {
-            console.log("File upload triggered: ", file);
-
-
-            // options.method = 'POST';
-            // options.body = JSON.stringify(buildMessage(message));
-          
-             fetchUtils.fetchJson(`${process.env.REACT_APP_SLACK}`, {method: "POST"});
-
-            
-
-            
-
-            return new Promise(resolve => {
-                setTimeout(() => resolve("https://picsum.photos/600/600"), 1500);
-            });
-          }}
-          embeds={[embeds]}
+        uploadImage={file => new Promise(resolve => uploadFile(file, resource, id).then(data => resolve(data.path)) )}
+        embeds={[embeds]}
     />
     </Labeled>
     </Box> )
