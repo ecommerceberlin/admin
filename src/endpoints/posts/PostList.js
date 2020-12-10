@@ -16,7 +16,7 @@ import {
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography'
 // import ResetViewsButton from './ResetViewsButton';
-import activeEventId from '../../api/app';
+import {activeEventId} from '../../api/app';
 
 const PostBulkActionButtons = props => (
     <React.Fragment>

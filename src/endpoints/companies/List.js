@@ -19,7 +19,7 @@ import {
 
 import { Admin, CompanyData } from './filters';
 
-import activeEventId from '../../api/app';
+import {activeEventId} from '../../api/app';
 import { SendMessageAction } from '../../components';
 import DoubleTextField from './DoubleTextField';
 

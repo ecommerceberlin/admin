@@ -9,7 +9,7 @@ import {
   SimpleList
 } from 'react-admin';
 
-import activeEventId from '../../api/app';
+import {activeEventId} from '../../api/app';
 
 const TagsField = ({ record }) => (
   <ul>
