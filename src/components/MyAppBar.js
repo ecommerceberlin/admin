@@ -1,13 +1,12 @@
 
-
-import * as React from 'react';
+import React from 'react';
 import { AppBar } from 'react-admin';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import GroupAndEventSelect from './GroupAndEventSelect'
 
-// import Logo from './Logo';
+const useStyles = makeStyles((theme) => ({
 
-const useStyles = makeStyles({
     title: {
         flex: 1,
         textOverflow: 'ellipsis',
@@ -17,7 +16,9 @@ const useStyles = makeStyles({
     spacer: {
         flex: 1,
     },
-});
+      
+  }));
+
 
 const MyAppBar = props => {
     const classes = useStyles();
@@ -30,11 +31,13 @@ const MyAppBar = props => {
                 id="react-admin-title"
             />
 
-             <Typography
+            <GroupAndEventSelect />
+            
+            {/* <Typography
                 variant="h6"
                 color="inherit"
                 className={classes.title}
-            >test</Typography>
+            >test</Typography> */}
 
       
             {/* <Logo /> */}
