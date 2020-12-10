@@ -54,6 +54,7 @@ const ViewList = props => (
         perPage={50}
         filters={<Filters />}
         filter={{ event_id: activeEventId }}
+        exporter={false}
       >
         <Datagrid>
           <PurchaseStatusField source="status" />

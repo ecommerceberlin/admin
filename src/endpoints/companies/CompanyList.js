@@ -9,22 +9,22 @@ import {
   FunctionField,
   Filter,
   BooleanInput,
-  SelectInput
+  SelectInput,
+  useListContext
   // SelectArrayInput,
   // ReferenceArrayField,
   // ReferenceManyField,
   // ReferenceField,
-  // SingleFieldList
+  // SingleFieldList,
+
 } from 'react-admin';
 
-import { Admin, CompanyData } from './filters';
-
+import Typography from '@material-ui/core/Typography'
 import {activeEventId} from '../../api/app';
 import { SendMessageAction } from '../../components';
 import DoubleTextField from './DoubleTextField';
-
+import { Admin, CompanyData } from './filters';
 //import DynamicField from './DynamicField';
-
 import { Flagswitch, SelectAdminField, BulkAssignAdmin } from './actions';
 
 const CustomBulkActions = props => (
@@ -38,13 +38,9 @@ const Filters = props => (
   <Filter {...props}>
     <BooleanInput source="featured" label="Featured" />
     <BooleanInput source="present" alwaysOn label="Present" />
-
     <TextInput label="Search" source="q" />
-
     <CompanyData source="fields" label="Field" />
-
     <Admin source="admin_id" label="Admin" />
-
     <SelectInput
       source="lang"
       choices={[{ id: 'en', name: 'en' }, { id: 'de', name: 'de' }]}
@@ -53,6 +49,21 @@ const Filters = props => (
 );
 
 const customColumns = [];
+
+
+
+const Aside = () => {
+  const { data, ids } = useListContext();
+  return (
+      <div style={{ width: 200, margin: '1em' }}>
+          <Typography variant="h6">Basic stats</Typography>
+          <Typography variant="body2">
+              Posts will only be published once approved
+          </Typography>
+      </div>
+  );
+}
+
 
 class ViewList extends React.Component {
   render() {
@@ -66,6 +77,8 @@ class ViewList extends React.Component {
         filter={{ event_id: activeEventId() }}
         bulkActionButtons={<CustomBulkActions />}
         perPage={100}
+        exporter={false}
+        aside={<Aside />}
       >
         <Datagrid>
           <DoubleTextField

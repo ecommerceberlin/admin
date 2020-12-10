@@ -8,15 +8,22 @@ import {
     TextInput, 
     DateField, 
     BooleanField, 
+    BooleanInput,
     ChipField,
     FunctionField,
     useListContext,
-    EditButton
+    EditButton,
+    SelectInput,
+    ReferenceInput,
+    AutocompleteInput
 } from 'react-admin';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography'
 // import ResetViewsButton from './ResetViewsButton';
 import {activeEventId} from '../../api/app';
+import get from 'lodash/get'
+import categories from './categories'
+
 
 const PostBulkActionButtons = props => (
     <React.Fragment>
@@ -26,11 +33,27 @@ const PostBulkActionButtons = props => (
     </React.Fragment>
 );
 
+const CroppedTextField = ({record, source, ...rest}) => {
+    const text = get(record, source, "");
+    const limit = 40;
+    return <span>{text.substr(0, limit)}{text.length>limit && "..."}</span>;
+
+}
 
 const PostFilter = (props) => (
     <Filter {...props}>
-        <TextInput label="Search" source="q" alwaysOn />
-        <TextInput label="Title" source="title" defaultValue="Hello, World!" />
+        <TextInput label="Search" source="q" />
+        <BooleanInput source="is_promoted" label="Promoted?" />
+        <BooleanInput source="is_sticky" label="Sticky?" />
+        <BooleanInput source="is_published" label="Published?" />
+        <SelectInput
+            source="category"
+            choices={categories}
+        />
+        <ReferenceInput source="company_id" reference="companies" label="Company">
+        <AutocompleteInput optionText="profile.name" shouldRenderSuggestions={()=>true} />
+        </ReferenceInput>
+
     </Filter>
 );
 
@@ -48,20 +71,21 @@ const Aside = () => {
 
 const PostList = (props) => (
     <List 
-    filters={<PostFilter />}
-    filter={{ event_id: activeEventId() }}
-    bulkActionButtons={<PostBulkActionButtons />}
-   // filterDefaultValues={{ is_published: true }}
-    perPage={100}
-    sort={{ field: 'id', order: 'DESC' }}
-    aside={<Aside />}
-    exporter={false}
-    {...props}>
+        filters={<PostFilter />}
+        filter={{ event_id: activeEventId() }}
+        bulkActionButtons={<PostBulkActionButtons />}
+    // filterDefaultValues={{ is_published: true }}
+        perPage={100}
+        sort={{ field: 'id', order: 'DESC' }}
+        aside={<Aside />}
+        exporter={false}
+        {...props}
+    >
         <Datagrid>
-            <TextField source="id" />
 
+            <TextField source="id" />
             <BooleanField source="is_published" label="Published?" /> 
-            <TextField source="meta.headline" label="Title" />
+            <CroppedTextField source="meta.headline"  />
             <ChipField source="category" />
             <TextField source="company.profile.name" />
             <DateField source="updated_at" />

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import {
   List,
@@ -6,54 +7,96 @@ import {
   ShowButton,
   DateField,
   ReferenceField,
-  ChipField
+  ChipField,
+  useListContext,
+  useGetOne
 } from 'react-admin';
 
-import { WithEvent } from '../../components';
+import Typography from '@material-ui/core/Typography'
 
-import ChangeAppScope from './actions/ChangeAppScope';
-import ListFilters from './ListFilters';
+import {useApiContext} from '../../api'
 import SelectAll from './actions/SelectAll';
-import ActiveEvent from './ActiveEvent';
+import ActiveEvent from './fields/ActiveEvent';
 
-const CustomBulkActions = props => (
+const BulkActions = (props) => (
   <React.Fragment>
-    <SelectAll {...props} />
+      {/* <ResetViewsButton label="Reset Views" {...props} /> */}
+      {/* default bulk delete action */}
+      <SelectAll {...props} />
   </React.Fragment>
 );
 
-const ViewList = props => (
-  <WithEvent>
-    {activeEventId => (
-      <List
-        actions={null}
-        filters={<ListFilters />}
-        bulkActionButtons={<CustomBulkActions />}
-        {...props}
-        perPage={200}
+
+const Aside = () => {
+
+  /**
+    basePath,
+    currentSort,
+    data,
+    defaultTitle,
+    filterValues,
+    ids,
+    page,
+    perPage,
+    resource,
+    selectedIds,
+    total,
+    version,
+  */
+  const [group_id] = useApiContext();
+ // const {data, ids} = useListContext();
+
+
+  const { data, ids, loading, error } = useGetOne( 'groups', group_id);
+
+
+  return (
+    <div style={{ width: 200, margin: '1em' }}>
+        <Typography variant="h6">Post details</Typography>
+        <Typography variant="body2">
+            Posts will only be published one an editor approves them
+        </Typography>
+    </div>
+  );
+}
+
+const ViewList = props => {
+
+  const [group_id] = useApiContext();
+
+  return ( <List
+    // actions={null}
+    // filters={<ListFilters />}
+    exporter={false}
+    filter={{
+      group_id
+    }}
+    bulkActionButtons={<BulkActions />}
+    {...props}
+    perPage={50}
+    sort={{field: "id", order: "DESC"}}
+    aside={<Aside />}
+  >
+    <Datagrid>
+
+      <ActiveEvent source="name" />
+      <TextField source="loc" />
+      <DateField source="starts" showTime />
+
+      <ReferenceField
+        label="Items sold"
+        reference="performance"
+        source="id"
+        linkType={false}
       >
-        <Datagrid>
-          <ActiveEvent source="name" />
+        <ChipField source="amount" sortable={false} />
+      </ReferenceField>
 
-          <TextField source="loc" />
-          <DateField source="starts" showTime />
+      <ShowButton label="Summary" />
+    </Datagrid>
+  </List>)
 
-          <ReferenceField
-            label="Items sold"
-            reference="performance"
-            source="id"
-            linkType={false}
-          >
-            <ChipField source="amount" sortable={false} />
-          </ReferenceField>
+} 
 
-          <ChangeAppScope activeEventId={activeEventId} />
-
-          <ShowButton label="Summary" />
-        </Datagrid>
-      </List>
-    )}
-  </WithEvent>
-);
 
 export default ViewList;

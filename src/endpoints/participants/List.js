@@ -7,16 +7,48 @@ import {
   ChipField,
   ShowButton,
   DeleteButton,
-  FunctionField
+  FunctionField,
+  TextInput, 
+  SelectInput, 
+  Filter,
+  ReferenceInput,
+  ReferenceArrayField, 
+  SingleFieldList,
+  RadioButtonGroupInput
 } from 'react-admin';
-
-import { ReferenceArrayField, SingleFieldList } from 'react-admin';
+import {useSelector} from 'react-redux'
 import {
   SetStatusAction,
   SendMessageAction,
   WithEvent
 } from '../../components';
-import ListFilters from './ListFilters';
+
+
+
+import { roles, statuses } from '../../api/app';
+
+const Filters = props => {
+
+  const event_id = useSelector(state => state.app.event_id)
+
+
+  return (
+    <Filter {...props}>
+      <TextInput label="Search" source="q" alwaysOn />
+  
+      <SelectInput source="role" choices={roles} alwaysOn allowEmpty />
+
+      <ReferenceInput source="has_ticket_id" reference="tickets" label="Ticket" filter={{event_id}} allowEmpty>
+      <SelectInput optionText="name" shouldRenderSuggestions={()=>true} />
+      </ReferenceInput>
+    
+      <RadioButtonGroupInput source="status" choices={statuses} alwaysOn />
+  
+    </Filter>
+  );
+}
+
+
 
 const CustomBulkActions = props => (
   <React.Fragment>
@@ -31,9 +63,11 @@ const ViewList = props => (
       <List
         {...props}
         perPage={100}
-        filters={<ListFilters />}
+        filters={<Filters />}
         filter={{ event_id: activeEventId }}
         bulkActionButtons={<CustomBulkActions />}
+        exporter={false}
+        filterDefaultValues={{status: "all"}}
       >
         <Datagrid>
           <TextField source="email" />
@@ -59,8 +93,8 @@ const ViewList = props => (
           </ReferenceArrayField>
 
           <TextField source="lang" />
-          <ShowButton />
-          <DeleteButton />
+          <ShowButton label="Summary" />
+      
         </Datagrid>
       </List>
     )}

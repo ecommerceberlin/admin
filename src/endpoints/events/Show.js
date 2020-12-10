@@ -6,47 +6,55 @@ import {
   SimpleShowLayout,
   TextField,
   DateField,
-  ListButton
+  ListButton,
+  TopToolbar,
+  EditButton
 } from 'react-admin';
 
-import CardActions from '@material-ui/core/CardActions';
-import { WithEvent } from '../../components';
+
 import ChangeActiveEventButton from './actions/ChangeActiveEventButton';
+import {useApiContext} from '../../api'
+
 
 const Title = ({ record }) => {
   return <span>{record ? `${record.name}` : ''}</span>;
 };
 
-const Actions = ({ basePath, ...props }) => (
-  <CardActions>
-    <ListButton basePath={basePath} />
-    {/* <ChangeActiveEventButton {...props} /> */}
-  </CardActions>
-);
+const Actions = ({ basePath, data, resource, ...props }) => {
+  return (
+    <TopToolbar>
+      <EditButton basePath={basePath} record={data} />
+      <ListButton basePath={basePath} />
+      <ChangeActiveEventButton record={data} />
+    </TopToolbar>
+  );
+}
 
-const ViewShow = props => (
-  <WithEvent>
-    {activeEventId => (
-      <Show
-        title={<Title />}
-        actions={<Actions activeEventId={activeEventId} />}
-        {...props}
-      >
-        <SimpleShowLayout>
-          <TextField source="name" />
-          <TextField source="loc" />
-          <TextField source="starts" showTime />
-          <TextField source="ends" showTime />
+const ViewShow = props => {
 
-          {/* <ArrayField source="events">
-          <Datagrid>
-
-          </Datagrid>
-        </ArrayField> */}
-        </SimpleShowLayout>
-      </Show>
-    )}
-  </WithEvent>
-);
+  const [group_id, event_id] = useApiContext();
+  
+  return (
+     
+        <Show
+          title={<Title />}
+          actions={<Actions />}
+          {...props}
+        >
+          <SimpleShowLayout>
+            <TextField source="name" />
+            <TextField source="loc" />
+            <TextField source="starts" showTime />
+            <TextField source="ends" showTime />
+  
+            {/* <ArrayField source="events">
+            <Datagrid>
+  
+            </Datagrid>
+          </ArrayField> */}
+          </SimpleShowLayout>
+        </Show>
+  );
+}
 
 export default ViewShow;

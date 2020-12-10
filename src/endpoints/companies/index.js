@@ -1,2 +1,4 @@
-export { default as CompanyList } from './List';
-export { default as CompanyShow } from './Show';
+export { default as CompanyList } from './CompanyList';
+export { default as CompanyShow } from './CompanyShow';
+export { default as CompanyCreate } from './CompanyCreate';
+export {default as CompanyIcon}  from '@material-ui/icons/Business';

@@ -1,0 +1,1 @@
+export {default as CommentIcon} from '@material-ui/icons/Message';
