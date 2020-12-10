@@ -13,7 +13,7 @@
     "prop-types": "^15.7.2",
     "qs": "^6.9.4",
     "react": "~17.0.1",
-    "react-admin": "^3.10.2",
+    "react-admin": "^3.10.4",
     "react-dom": "~17.0.1",
     "react-dropzone": "~11.2.4",
     "react-scripts": "4.0.1",
