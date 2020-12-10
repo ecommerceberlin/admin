@@ -7,10 +7,10 @@ import { customReducers, customSagas } from './redux';
 import { AppTitle, MyLayout } from './components';
 import customRoutes from './customRoutes';
 
-import { CompanyList, CompanyShow } from './endpoints/companies';
-import { PurchaseList } from './endpoints/purchases';
-import { ParticipantList, ParticipantShow } from './endpoints/participants';
-import { TicketList, TicketEdit } from './endpoints/tickets';
+import { CompanyList, CompanyShow, CompanyCreate, CompanyIcon } from './endpoints/companies';
+import { PurchaseList, PurchaseIcon } from './endpoints/purchases';
+import { ParticipantList, ParticipantShow, ParticipantIcon } from './endpoints/participants';
+import { TicketList, TicketEdit, TicketIcon } from './endpoints/tickets';
 import { TicketGroupList } from './endpoints/ticketgroups';
 import { GroupList, GroupShow } from './endpoints/groups';
 import { EventList, EventShow } from './endpoints/events';
@@ -18,9 +18,11 @@ import { CompanyDataEdit, CompanyDataShow } from './endpoints/companydata';
 import { FieldsEdit } from './endpoints/fields';
 import { MessagesList, MessagesShow } from './endpoints/messages';
 
-import {PostList, PostEdit, PostCreate} from './endpoints/posts'
-
+import {PostList, PostEdit, PostCreate, PostIcon} from './endpoints/posts'
 import { activeEventId, activeGroupId } from './api/app';
+
+
+
 
 export const canAccess = (permissions, resource) => {
   if (!activeEventId() && resource !== 'groups') {
@@ -60,12 +62,19 @@ class App extends React.Component {
       >
         {permissions => [
 
-          <Resource name="posts" list={ PostList } edit={ PostEdit } create={ PostCreate } />,
+          <Resource 
+            name="posts" 
+            list={ PostList } 
+            edit={ PostEdit } 
+            create={ PostCreate } 
+            icon={ PostIcon }  
+          />,
 
           <Resource
             name="purchases"
             // options={{ label: 'Purchases' }}
-            list={canAccess(permissions, 'purchases') ? PurchaseList : null}
+            list={ canAccess(permissions, 'purchases') ? PurchaseList : null}
+            icon={ PurchaseIcon }
           />,
 
           <Resource
@@ -77,39 +86,25 @@ class App extends React.Component {
             show={
               canAccess(permissions, 'participants') ? ParticipantShow : null
             }
+            icon={ ParticipantIcon }
           />,
 
           <Resource
             name="companies"
             list={canAccess(permissions, 'companies') ? CompanyList : null}
-            show={canAccess(permissions, 'companies') ? CompanyShow : null}
+            show={canAccess(permissions, 'companies') ? CompanyShow : null} 
+            create={canAccess(permissions, 'companies') ? CompanyCreate : null}
+            icon={ CompanyIcon }
           />,
 
-          <Resource
-            name="reports"
-            list={canAccess(permissions, 'reports') ? PurchaseList : null}
-          />,
-
-          <Resource
-            name="settings"
-            list={canAccess(permissions, 'settings') ? PurchaseList : null}
-          />,
-
-          <Resource
-            name="texts"
-            list={canAccess(permissions, 'texts') ? PurchaseList : null}
-          />,
-
-          <Resource
-            name="feed"
-            options={{ label: 'Feed' }}
-            list={canAccess(permissions, 'feed') ? PurchaseList : null}
-          />,
+        
+   
 
           <Resource
             name="tickets"
             list={canAccess(permissions, 'tickets') ? TicketList : null}
             edit={canAccess(permissions, 'tickets') ? TicketEdit : null}
+            icon={ TicketIcon }
           />,
 
           <Resource
@@ -117,13 +112,14 @@ class App extends React.Component {
             list={
               canAccess(permissions, 'ticketgroups') ? TicketGroupList : null
             }
+            options={{hideInMenu: true}}
           />,
 
           <Resource
             name="groups"
             list={canAccess(permissions, 'groups') ? GroupList : null}
             show={canAccess(permissions, 'groups') ? GroupShow : null}
-            options={{ label: 'Projects' }}
+            options={{ label: 'Projects', hideInMenu: true}}
           />,
 
           <Resource
@@ -138,6 +134,7 @@ class App extends React.Component {
           />,
 
           <Resource
+            options={{hideInMenu: true}}
             name="companydata"
             edit={
               canAccess(permissions, 'companydata') ? CompanyDataEdit : null
@@ -147,9 +144,8 @@ class App extends React.Component {
             }
           />,
 
-          <Resource name="related" />,
-
           <Resource
+            options={{hideInMenu: true}}
             name="events"
           //  list={canAccess(permissions, 'events') ? EventList : null}
             list={ EventList}
@@ -162,7 +158,30 @@ class App extends React.Component {
 
           <Resource name="messages" />,
 
-          <Resource name="admins" />
+          <Resource name="admins" />,
+          
+
+          <Resource
+          name="feed"
+          // options={{ label: 'Feed' }}
+          // list={canAccess(permissions, 'feed') ? PurchaseList : null}
+          />,
+
+          <Resource
+          name="reports"
+          />,
+
+          <Resource
+          name="settings"
+          />,
+
+          <Resource 
+          options={{hideInMenu: true}}
+          name="related" 
+          />,
+
+
+
         ]}
       </Admin>
     );

@@ -1,29 +1,16 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { refreshView } from 'react-admin';
 
-class WithEvent extends React.Component {
-  // shouldComponentUpdate(nextProps, nextState){
-  //   if(this.props.activeEventId !== nextProps.activeEventId){
-  //     return true
-  //   }
-  //   return false
-  // }
+const WithEvent = (props) => {
 
-  // componentDidUpdate(prevProps){
-  //   console.log(this.props, prevProps)
-  //   this.props.refreshView();
-  // }
+  const active_event_id = useSelector(state => state.app.event_id)
+  const active_group_id = useSelector(state => state.app.group_id)
 
-  render() {
-    return this.props.children(this.props.activeEventId, {});
-  }
+  const dispatch = useDispatch();
+
+  return props.children(active_event_id)
+
 }
 
-export default connect(
-  state => ({
-    activeEventId:
-      'id' in state.app.event && state.app.event.id ? state.app.event.id : 0
-  }),
-  { refreshView }
-)(WithEvent);
+export default WithEvent

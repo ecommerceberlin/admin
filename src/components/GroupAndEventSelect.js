@@ -1,43 +1,61 @@
 
 import React, {useMemo} from 'react';
-import { useGetList} from 'react-admin';
-// import Typography from '@material-ui/core/Typography';
+import { useSelector, useDispatch } from 'react-redux'
+import { useGetList, useRedirect} from 'react-admin';
 import { makeStyles } from '@material-ui/core/styles';
-
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
-import { useSelector, useDispatch } from 'react-redux'
+import IconButton from '@material-ui/core/IconButton';
+import SettingsIcon from '@material-ui/icons/Settings';
+import ActiveIcon from '@material-ui/icons/FiberManualRecord';
 import get from 'lodash/get'
-import {changeEvent, changeGroup} from '../redux'
-import { createSelector } from 'reselect'
 
+
+
+
+
+import {changeEvent, changeGroup} from '../redux'
+
+// import { createSelector } from 'reselect'
+// import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
       
+      select: {
+        color: "#fff"
+      },
+
+      icon: {
+          fontSize: "1em",
+          fill: "lightgreen",
+          position: "relative",
+          top: 2,
+          marginRight: 10
+      }
 }));
 
 
-const makeNumOfTodosWithIsDoneSelector = () =>
-  createSelector(
-    state => state.todos,
-    (_, isDone) => isDone,
-    (todos, isDone) => todos.filter(todo => todo.isDone === isDone).length
-  )
+// const makeNumOfTodosWithIsDoneSelector = () =>
+//   createSelector(
+//     state => state.todos,
+//     (_, isDone) => isDone,
+//     (todos, isDone) => todos.filter(todo => todo.isDone === isDone).length
+//   )
 
-export const TodoCounterForIsDoneValue = ({ isDone }) => {
-    const selectNumOfTodosWithIsDone = useMemo(
-      makeNumOfTodosWithIsDoneSelector,
-      []
-    )
+// export const TodoCounterForIsDoneValue = ({ isDone }) => {
+//     const selectNumOfTodosWithIsDone = useMemo(
+//       makeNumOfTodosWithIsDoneSelector,
+//       []
+//     )
   
-    const numOfTodosWithIsDoneValue = useSelector(state =>
-      selectNumOfTodosWithIsDone(state, isDone)
-    )
+//     const numOfTodosWithIsDoneValue = useSelector(state =>
+//       selectNumOfTodosWithIsDone(state, isDone)
+//     )
   
-    return <div>{numOfTodosWithIsDoneValue}</div>
+//     return <div>{numOfTodosWithIsDoneValue}</div>
 
-}
+// }
 
 
 
@@ -58,11 +76,23 @@ const SelectGroup = (props) => {
         return null
     }
 
+    const handleChangeGroup = (e) => {
+
+        const id = e.target.value
+        const active_event_id = get(data[id], "active_event_id", 0);
+
+        dispatch(changeGroup(id, active_event_id));
+    }
+
     return (<FormControl>
         <Select
             id="select-group"
             value={group_id}
-            onChange={e => dispatch(changeGroup(e.target.value))}
+            onChange={ handleChangeGroup }
+            autoWidth={true}
+            variant="outlined"
+            className={classes.select}
+            renderValue={value => get(data[value], "name")}
         >
         {ids.map(id => <MenuItem key={id} value={id}>{get(data[id], "name")}</MenuItem> )}
         </Select>
@@ -82,10 +112,17 @@ const SelectEvent = (props) => {
 
     const classes = useStyles();
     const event_id = useSelector(state => state.app.event_id)
+    const group_id = useSelector(state => state.app.group_id)
     const dispatch = useDispatch();
 
+    const filteredIds = ids.filter(id => data[id].group_id == group_id)
 
-    if(loading || error){
+    const handleChangeEvent = (e) => {
+        const id = e.target.value;
+        dispatch(changeEvent(id))
+    }
+        
+    if(!group_id || loading || error){
         return null
     }
 
@@ -93,17 +130,24 @@ const SelectEvent = (props) => {
         <Select
             id="select-event"
             value={event_id}
-            onChange={e => dispatch(changeEvent(e.target.value))}
+            onChange={ handleChangeEvent }
+            autoWidth={true}
+            variant="outlined"
+            className={classes.select}
         >
-        {ids.map(id => <MenuItem key={id} value={id}>{get(data[id], "name")}</MenuItem> )}
+        {filteredIds.map(id => <MenuItem key={id} value={id}>{get(data[id], "is_active") && <ActiveIcon className={classes.icon}/>}{get(data[id], "name")}</MenuItem> )}
         </Select>
         </FormControl>)
     
 }
 
+const Configure = () => {
+    
+    const redirect = useRedirect();
+    
+    return (<IconButton color="inherit" aria-label="manage events" component="div" onClick={() => redirect("/events")}><SettingsIcon /></IconButton>)
+}
 
-
-const GroupAndEventSelect = (props) => (<div> <SelectGroup /> <SelectEvent /> </div>)
-
+const GroupAndEventSelect = (props) => (<div> <SelectGroup /> <SelectEvent /> <Configure /> </div>)
 
 export default GroupAndEventSelect;

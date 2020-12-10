@@ -2,6 +2,8 @@ import get from 'lodash/get';
 
 export const uniqueValues = arr => [...new Set(uniqueValues)];
 
+export const capitalizeFirstLetter = (string) =>  string.charAt(0).toUpperCase() + string.slice(1)
+
 export const lsGet = key => {
   const item = localStorage.getItem(key);
 
@@ -12,13 +14,10 @@ export const lsGet = key => {
   }
 };
 
-
 export const lsSet = (key, value) => localStorage.setItem(key, JSON.stringify(value));
 
-
-
-
 export const statuses = [
+  { id: 'all', name: 'ALL' },
   { id: 'new', name: 'NEW' },
   { id: 'hold', name: 'HOLD' },
   { id: 'ok', name: 'OK' },
