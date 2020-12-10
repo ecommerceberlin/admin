@@ -14,8 +14,9 @@ function* changeEventId(actionData) {
 }
 
 function* changeGroupId(actionData) {
-  yield call(setActiveGroupId, actionData.payload);
-  yield put(changeEvent(0));
+  const {payload, active_event_id} = actionData;
+  yield call(setActiveGroupId, payload);
+  yield put(changeEvent(active_event_id));
 }
 
 

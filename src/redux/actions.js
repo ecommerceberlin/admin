@@ -2,9 +2,10 @@ import * as Types from './types';
 import { UPDATE, UPDATE_MANY } from 'react-admin';
 
 
-export const changeGroup = id => ({
+export const changeGroup = (id, active_event_id = 0) => ({
   type: Types.CHANGE_GROUP,
-  payload: id
+  payload: id,
+  active_event_id: active_event_id
 });
 
 export const changeEvent = id => ({

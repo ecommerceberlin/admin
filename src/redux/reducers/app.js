@@ -1,5 +1,4 @@
 import { CHANGE_EVENT, CHANGE_GROUP, MESSAGE_CREATE } from '../types';
-//import { lsGet } from '../../api/app';
 
 export default (
   previousState = {
