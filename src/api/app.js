@@ -12,6 +12,12 @@ export const lsGet = key => {
   }
 };
 
+
+export const lsSet = (key, value) => localStorage.setItem(key, JSON.stringify(value));
+
+
+
+
 export const statuses = [
   { id: 'new', name: 'NEW' },
   { id: 'hold', name: 'HOLD' },
@@ -27,13 +33,12 @@ export const roles = [
   { id: 'representative', name: 'representative' }
 ];
 
-export const lsSet = (key, value) =>
-  localStorage.setItem(key, JSON.stringify(value));
 
-export const setActiveEvent = event => lsSet('activeEvent', event);
-export const activeEventId = () => get(lsGet('activeEvent'), 'id', 0);
 
-export const getEventName = () =>
-  get(lsGet('activeEvent'), 'name', '-- no event set --');
+export const setActiveEventId = id => lsSet('activeEventId', id);
+export const setActiveGroupId = id => lsSet('activeGroupId', id);
+export const activeEventId = () => lsGet('activeEventId') || 0;
+export const activeGroupId = () => lsGet('activeGroupId') || 0;
 
-export default activeEventId;
+
+export const getEventName = () => "--deprecated--"

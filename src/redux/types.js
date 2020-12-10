@@ -1,3 +1,4 @@
+export const CHANGE_GROUP = 'EJ/CHANGE_GROUP';
 export const CHANGE_EVENT = 'EJ/CHANGE_EVENT';
 export const MESSAGE_CREATE = 'EJ/MESSAGE_CREATE';
 export const DIALOG_SHOW = 'EJ/DIALOG_SHOW';

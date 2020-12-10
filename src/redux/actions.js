@@ -1,10 +1,18 @@
 import * as Types from './types';
 import { UPDATE, UPDATE_MANY } from 'react-admin';
 
-export const changeEvent = event => ({
-  type: Types.CHANGE_EVENT,
-  payload: event
+
+export const changeGroup = id => ({
+  type: Types.CHANGE_GROUP,
+  payload: id
 });
+
+export const changeEvent = id => ({
+  type: Types.CHANGE_EVENT,
+  payload: id
+});
+
+
 
 export const changeCompanyAdmin = (id, data, basePath) => ({
   type: Types.CHANGE_COMPANY_ADMIN,

@@ -20,7 +20,7 @@ import { MessagesList, MessagesShow } from './endpoints/messages';
 
 import {PostList, PostEdit, PostCreate} from './endpoints/posts'
 
-import { activeEventId, lsGet } from './api/app';
+import { activeEventId, activeGroupId } from './api/app';
 
 export const canAccess = (permissions, resource) => {
   if (!activeEventId() && resource !== 'groups') {
@@ -30,22 +30,33 @@ export const canAccess = (permissions, resource) => {
   return true;
 };
 
+
+const initialState = () => {
+
+  const event_id = activeEventId()
+  const group_id = activeGroupId()
+
+  return {
+    app: {
+      event_id, group_id
+    }
+  }
+
+}
+
 class App extends React.Component {
+
   render() {
     return (
       <Admin
         //      title={<AppTitle />}
         layout={MyLayout}
         customReducers={customReducers}
-        customSagas={customSagas}
+        customSagas={[customSagas]}
         customRoutes={customRoutes}
         authProvider={authProvider}
         dataProvider={dataProvider}
-        initialState={{
-          app: {
-            event: lsGet('activeEvent') || {}
-          }
-        }}
+        initialState={initialState()}
       >
         {permissions => [
 
