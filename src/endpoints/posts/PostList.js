@@ -23,22 +23,15 @@ import Typography from '@material-ui/core/Typography'
 import {useApiContext} from '../../api';
 import get from 'lodash/get'
 import categories from './categories'
-
+import {CroppedTextField} from '../../components'
 
 const PostBulkActionButtons = props => (
     <React.Fragment>
         {/* <ResetViewsButton label="Reset Views" {...props} /> */}
         {/* default bulk delete action */}
-        <BulkDeleteButton {...props} />
+        {/* <BulkDeleteButton {...props} /> */}
     </React.Fragment>
 );
-
-const CroppedTextField = ({record, source, ...rest}) => {
-    const text = get(record, source, "");
-    const limit = 40;
-    return <span>{text.substr(0, limit)}{text.length>limit && "..."}</span>;
-
-}
 
 const PostFilter = (props) => (
     <Filter {...props}>
@@ -58,7 +51,10 @@ const PostFilter = (props) => (
 );
 
 const Aside = () => {
+    
+    const [group_id, event_id] = useApiContext();
     const { data, ids } = useListContext();
+
     return (
         <div style={{ width: 200, margin: '1em' }}>
             <Typography variant="h6">Post details</Typography>
@@ -76,7 +72,7 @@ const PostList = (props) => {
     return (
         <List 
             filters={<PostFilter />}
-            filter={{ event_id: event_id }}
+            filter={{ group_id: group_id }}
             bulkActionButtons={<PostBulkActionButtons />}
         // filterDefaultValues={{ is_published: true }}
             perPage={100}
@@ -89,9 +85,9 @@ const PostList = (props) => {
     
                 <TextField source="id" />
                 <BooleanField source="is_published" label="Published?" /> 
-                <CroppedTextField source="meta.headline"  />
+                <CroppedTextField source="meta.headline" label="Title" />
                 <ChipField source="category" />
-                <TextField source="company.profile.name" />
+                <CroppedTextField resolve={["company.profile.name", "company.slug"]} label="Company" />
                 <DateField source="updated_at" />
                 <DateField source="published_at" />
                 <EditButton />

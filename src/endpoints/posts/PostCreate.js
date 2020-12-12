@@ -17,7 +17,9 @@ import {
 import Typography from '@material-ui/core/Typography'
 
 import categories from './categories'
- 
+import {useApiContext} from '../../api';
+
+
 const onSuccess = ({ data }) => {
     // notify('ra.notification.created', 'info', { smart_count: 1 }, undoable);
     // redirect('edit', basePath, data.id, data);
@@ -43,9 +45,7 @@ const Aside = ({basePath, resource}) => {
 
 const PostCreate = ({permissions, ...props}) => {
 
-    // const notify = useNotify();
-    // const refresh = useRefresh();
-    // const redirect = useRedirect();
+    const [group_id, event_id] = useApiContext();
 
     return (
         <Create /*onSuccess={onSuccess}*/ aside={<Aside />} {...props}>
@@ -63,8 +63,8 @@ const PostCreate = ({permissions, ...props}) => {
     
     
     
-                <ReferenceInput source="company_id" reference="companies" label="Company" validate={[required(), number()]}>
-                <AutocompleteInput optionText="profile.name" shouldRenderSuggestions={()=>true} />
+                <ReferenceInput source="company_id" filter={{group_id: group_id}} perPage={100} reference="companies" label="Company" validate={[required(), number()]}>
+                <AutocompleteInput optionText="profile.name" shouldRenderSuggestions={(value)=>true } />
                 </ReferenceInput>
     
                 <RadioButtonGroupInput fullWidth={true} source="category" validate={[required(), choices(categories.map(c=>c.id))]} choices={categories} />

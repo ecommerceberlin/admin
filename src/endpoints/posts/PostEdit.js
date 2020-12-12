@@ -4,7 +4,7 @@ import {
     TabbedForm, 
     FormTab,
     TextInput, 
-    DateInput,  
+    DateTimeInput,  
     BooleanInput,  
     required,
     choices,
@@ -18,6 +18,7 @@ import {
 import Typography from '@material-ui/core/Typography'
 import RaEditor from './editor/MarkdownEditor'
 import categories from './categories'
+import {useApiContext} from '../../api';
 
 /**
  * <TextField
@@ -42,61 +43,67 @@ const Aside = ({ record }) => (
 );
 
 
-const PostEdit = ({permissions, ...props}) => (
-    <Edit aside={<Aside />} {...props}>
-        <TabbedForm warnWhenUnsavedChanges>
-
-         <FormTab label="Content">
-
-            <TextInput disabled label="Id" source="id" />
-            <TextInput source="meta.headline" label="Title" validate={required()} fullWidth />
-            <TextInput multiline source="meta.quote" label="Intro" validate={maxLength(255)} options={{ multiline: true }} fullWidth />
-            <RaEditor source="meta.body" label="Content" validate={required()}  />   
-
-         </FormTab>
-
-        <FormTab label="Company &amp; Author">
-
-            <ReferenceInput source="company_id" reference="companies" validate={[required(), number()]}>
-            {/* <SelectInput optionText="profile.name" /> */}
-            <AutocompleteInput optionText="profile.name" shouldRenderSuggestions={()=>true} />
-            </ReferenceInput>
-
-            <TextInput multiline source="meta.guestauthor" label="Autor description"  fullWidth />
-
-         </FormTab>
-
-        
-        <FormTab label="SEO &amp; Social">
-
-        <TextInput multiline fullWidth label="Alternative Title" source="meta.metatitle" />
-        <TextInput multiline fullWidth label="Alternative Description" source="meta.metadescription" />
-        <TextInput multiline fullWidth label="Keywords" source="meta.keywords" />
-
-        </FormTab>
-
-        <FormTab label="Publish">
-
-        <RadioButtonGroupInput fullWidth={true} source="category" validate={[required(), choices(categories.map(c=>c.id))]} choices={categories} />
-        <BooleanInput source="is_published" />
-        <BooleanInput source="is_promoted" />
-        <BooleanInput source="is_sticky" />
-        <DateInput label="Publication date" source="published_at" defaultValue={new Date()} />
-
-        </FormTab>
+const PostEdit = ({permissions, ...props}) => {
+    
+    const [group_id, event_id] = useApiContext();
 
 
-       
-
-            {/* <ReferenceField label="Comments" reference="companies" target="company_id">
-                <Datagrid>
-                    <TextField source="body" />
-                    <DateField source="created_at" />
-                    <EditButton />
-                </Datagrid>
-            </ReferenceField> */}
-        </TabbedForm>
-    </Edit>
-);
+    return (
+        <Edit aside={<Aside />} {...props}>
+            <TabbedForm warnWhenUnsavedChanges>
+    
+             <FormTab label="Content">
+    
+                <TextInput disabled label="Id" source="id" />
+                <TextInput source="meta.headline" label="Title" validate={required()} fullWidth />
+                <TextInput multiline source="meta.quote" label="Intro" validate={maxLength(255)} options={{ multiline: true }} fullWidth />
+                <RaEditor source="meta.body" label="Content" validate={required()}  />   
+    
+             </FormTab>
+    
+            <FormTab label="Company &amp; Author">
+    
+                <ReferenceInput filter={{group_id: group_id}} source="company_id" perPage={100} reference="companies" validate={[required(), number()]}>
+                {/* <SelectInput optionText="profile.name" /> */}
+                <AutocompleteInput optionText="slug" shouldRenderSuggestions={ (value)=> true } />
+                </ReferenceInput>
+    
+                <TextInput multiline source="meta.guestauthor" label="Autor description"  fullWidth />
+    
+             </FormTab>
+    
+            
+            <FormTab label="SEO &amp; Social">
+    
+            <TextInput multiline fullWidth label="Alternative Title" source="meta.metatitle" />
+            <TextInput multiline fullWidth label="Alternative Description" source="meta.metadescription" />
+            <TextInput multiline fullWidth label="Keywords" source="meta.keywords" />
+    
+            </FormTab>
+    
+            <FormTab label="Publish">
+    
+            <RadioButtonGroupInput fullWidth={true} source="category" validate={[required(), choices(categories.map(c=>c.id))]} choices={categories} />
+            <BooleanInput source="is_published" />
+            <BooleanInput source="is_promoted" />
+            <BooleanInput source="is_sticky" />
+            <DateTimeInput label="Publication date" source="published_at" defaultValue={new Date()}  />
+    
+            </FormTab>
+    
+    
+           
+    
+                {/* <ReferenceField label="Comments" reference="companies" target="company_id">
+                    <Datagrid>
+                        <TextField source="body" />
+                        <DateField source="created_at" />
+                        <EditButton />
+                    </Datagrid>
+                </ReferenceField> */}
+            </TabbedForm>
+        </Edit>
+    );
+}
 
 export default PostEdit;

@@ -8,7 +8,7 @@ const CroppedTextField = ({record, source, resolve, limit=40, ...rest}) => {
     let text;
 
     if(resolve && Array.isArray(resolve)){
-        const found = resolve.find(item => flatten(get(record, item, "")).length > 2)
+        const found = resolve.find(item => flatten(get(record, item, "")).length > 1)
         text = flatten(get(record, found, ""));
     }else{
         text = flatten(get(record, source, ""));
@@ -16,6 +16,10 @@ const CroppedTextField = ({record, source, resolve, limit=40, ...rest}) => {
 
     return <span>{text.substr(0, limit)}{text.length>limit && "..."}</span>;
   
+}
+
+CroppedTextField.defaultProps = {
+    addLabel: true
 }
 
 export default CroppedTextField

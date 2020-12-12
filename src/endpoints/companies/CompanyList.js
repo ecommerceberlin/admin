@@ -73,7 +73,7 @@ const CompanyList = (props) => {
       {...props}
       filters={<Filters />}
       filterDefaultValues={{ present: true, featured: false }}
-      filter={{ event_id: event_id }}
+      filter={{ group_id, event_id }}
       bulkActionButtons={<CustomBulkActions />}
       perPage={100}
       exporter={false}
