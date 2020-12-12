@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextInput, SelectInput, Filter } from 'react-admin';
 import FilterByTicketId from './FilterByTicketId';
-import { roles } from '../../api/app';
+import { rolesObject } from '../../api/app';
 
 const Filters = props => (
   <Filter {...props}>
@@ -9,7 +9,7 @@ const Filters = props => (
 
     <FilterByTicketId source="ticket_id" alwaysOn allowEmpty />
 
-    <SelectInput source="role" choices={roles} alwaysOn allowEmpty />
+    <SelectInput source="role" choices={rolesObject} alwaysOn allowEmpty />
   </Filter>
 );
 

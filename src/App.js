@@ -10,7 +10,7 @@ import customRoutes from './customRoutes';
 import { CompanyList, CompanyShow, CompanyCreate, CompanyIcon } from './endpoints/companies';
 import { PurchaseList, PurchaseIcon } from './endpoints/purchases';
 import { ParticipantList, ParticipantShow, ParticipantIcon } from './endpoints/participants';
-import { TicketList, TicketEdit, TicketIcon } from './endpoints/tickets';
+import { TicketList, TicketEdit, TicketIcon, TicketCreate } from './endpoints/tickets';
 import { TicketGroupList } from './endpoints/ticketgroups';
 import { GroupList, GroupShow } from './endpoints/groups';
 import { EventList, EventShow } from './endpoints/events';
@@ -104,6 +104,7 @@ class App extends React.Component {
             name="tickets"
             list={canAccess(permissions, 'tickets') ? TicketList : null}
             edit={canAccess(permissions, 'tickets') ? TicketEdit : null}
+            create={canAccess(permissions, 'tickets') ? TicketCreate : null}
             icon={ TicketIcon }
           />,
 

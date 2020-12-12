@@ -25,15 +25,22 @@ export const statuses = [
 ];
 
 export const roles = [
-  { id: 'visitor', name: 'visitor' },
-  { id: 'exhibitor', name: 'exhibitor' },
-  { id: 'presenter', name: 'presenter' },
-  { id: 'contestant', name: 'contestant' },
-  { id: 'representative', name: 'representative' }
-];
+  "visitor", 
+  "exhibitor", 
+  "presenter", 
+  "contestant",
+  "contestant_person", 
+  "contestant_company",
+  "representative",
+  "juror",
+  "party",
+  "service_external",
+  "service_internal",
+  "asset",
+  "flag"];
 
-
-
+export const rolesObject = roles.map(role => ({id: role, name: role}))
+  
 export const setActiveEventId = id => lsSet('activeEventId', id);
 export const setActiveGroupId = id => lsSet('activeGroupId', id);
 export const activeEventId = () => lsGet('activeEventId') || 0;

@@ -1,4 +1,6 @@
-export { default as TicketList } from './List';
-export { default as TicketEdit } from './Edit';
+
+export { default as TicketCreate } from './TicketCreate';
+export { default as TicketEdit } from './TicketEdit';
+export { default as TicketList } from './TicketList';
 export { default as TicketIcon} from '@material-ui/icons/Receipt';
 

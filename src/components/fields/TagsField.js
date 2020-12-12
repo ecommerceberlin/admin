@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TicketTags = ({ record }) => (
+const TagsField = ({ record }) => (
   <ul>
     {record.tags.map(item => (
       <li key={item.name}>{item.name}</li>
@@ -8,6 +8,6 @@ const TicketTags = ({ record }) => (
   </ul>
 );
 
-TicketTags.defaultProps = { addLabel: true };
+TagsField.defaultProps = { addLabel: true };
 
-export default TicketTags;
+export default TagsField;

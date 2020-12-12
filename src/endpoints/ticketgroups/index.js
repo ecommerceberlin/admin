@@ -1,1 +1,1 @@
-export { default as TicketGroupList } from './List';
+export { default as TicketGroupList } from './TicketGroupList';
