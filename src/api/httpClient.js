@@ -1,6 +1,7 @@
 import { fetchUtils } from 'react-admin';
 import restProvider from './restProvider';
-import {activeEventId} from './app'
+import {getActiveEvent, getActiveGroup} from './app'
+import get from 'lodash/get'
 
 /** OLD */
 
@@ -40,7 +41,8 @@ export const uploadFile = (file, type="", id = 0) => {
     file: encoded,
     type,
     id,
-    event_id: activeEventId()
+    event_id: get(getActiveEvent(), "id"),
+    group_id: get(getActiveGroup(), "id")
   })})).then(({json}) => json.data);
 
 }

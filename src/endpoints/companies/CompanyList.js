@@ -20,7 +20,7 @@ import {
 } from 'react-admin';
 
 import Typography from '@material-ui/core/Typography'
-import {activeEventId} from '../../api/app';
+import { useApiContext } from '../../api';
 import { SendMessageAction } from '../../components';
 import DoubleTextField from './DoubleTextField';
 import { Admin, CompanyData } from './filters';
@@ -65,59 +65,59 @@ const Aside = () => {
 }
 
 
-class ViewList extends React.Component {
-  render() {
-    //console.log(this.props);
+const CompanyList = (props) => {
 
-    return (
-      <List
-        {...this.props}
-        filters={<Filters />}
-        filterDefaultValues={{ present: true, featured: false }}
-        filter={{ event_id: activeEventId() }}
-        bulkActionButtons={<CustomBulkActions />}
-        perPage={100}
-        exporter={false}
-        aside={<Aside />}
-      >
-        <Datagrid>
-          <DoubleTextField
-            label="Name"
-            primary="profile.name"
-            secondary="slug"
-          />
+    const [group_id, event_id] = useApiContext();
 
-          <SelectAdminField source="admin_id" />
-          <Flagswitch source="featured" />
-          <Flagswitch source="promo" />
+    return (<List
+      {...props}
+      filters={<Filters />}
+      filterDefaultValues={{ present: true, featured: false }}
+      filter={{ event_id: event_id }}
+      bulkActionButtons={<CustomBulkActions />}
+      perPage={100}
+      exporter={false}
+      aside={<Aside />}
+    >
+      <Datagrid>
+        <DoubleTextField
+          label="Name"
+          primary="profile.name"
+          secondary="slug"
+        />
 
-          {customColumns.map(source => (
-            <TextField key={`_${source}`} source={source} />
-          ))}
+        <SelectAdminField source="admin_id" />
+        <Flagswitch source="featured" />
+        <Flagswitch source="promo" />
 
-          {/* <DynamicField label="fields" /> */}
+        {customColumns.map(source => (
+          <TextField key={`_${source}`} source={source} />
+        ))}
 
-          <TextField source="profile.lang" label="Language" />
+        {/* <DynamicField label="fields" /> */}
 
-          <FunctionField
-            sortBy="featured"
-            label="Present"
-            render={record =>
-              record.event_ids.indexOf(activeEventId()) > -1 ? `tak` : 'nie'
-            }
-          />
+        <TextField source="profile.lang" label="Language" />
 
-          {/* <FunctionField label="Spending" render={record => `${record.event_ids.length}%`} /> */}
+        <FunctionField
+          sortBy="featured"
+          label="Present"
+          render={record =>
+            record.event_ids.indexOf(event_id) > -1 ? `tak` : 'nie'
+          }
+        />
 
-          {/* <FunctionField label="Retention" render={record => `${record.event_ids.length}%`} />
+        {/* <FunctionField label="Spending" render={record => `${record.event_ids.length}%`} /> */}
 
-          <FunctionField label="Spending" render={record => `${record.event_ids.length}%`} /> */}
+        {/* <FunctionField label="Retention" render={record => `${record.event_ids.length}%`} />
 
-          <ShowButton />
-        </Datagrid>
-      </List>
-    );
-  }
+        <FunctionField label="Spending" render={record => `${record.event_ids.length}%`} /> */}
+
+        <ShowButton />
+      </Datagrid>
+    </List>)
+
 }
 
-export default ViewList;
+ 
+
+export default CompanyList;

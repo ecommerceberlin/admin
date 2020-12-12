@@ -20,7 +20,7 @@ import {
   SendMessageAction,
   WithEvent
 } from '../../components';
-import {activeEventId} from '../../api/app';
+
 import FilterByUserId from './FilterByUserId';
 
 const Filters = props => (

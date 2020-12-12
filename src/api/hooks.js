@@ -3,9 +3,9 @@ import {useSelector} from 'react-redux'
 
 export const useApiContext = () => {
 
-    const groupId = useSelector(state => state.app.group_id)
-    const eventId = useSelector(state => state.app.event_id)
+    const event = useSelector(state => state.app.event)
+    const group = useSelector(state => state.app.group)
 
-    return [groupId, eventId];
+    return [group? group.id : 0, event ? event.id: 0, group, event];
 
 }

@@ -16,8 +16,8 @@ const  SelectAll = ({resource, basePath, filterValues, selectedIds}) => {
 
 
  return ( <Button
-         //disabled={record.id === activeEventId ? true : false}
-         //variant={record.id === activeEventId ? 'raised' : 'flat'}
+         //disabled={record.id ===   ? true : false}
+         //variant={record.id ===   ? 'raised' : 'flat'}
          color="primary"
         //  onClick={this.handleClick}
          label={label}

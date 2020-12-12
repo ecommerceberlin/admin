@@ -41,10 +41,9 @@ export const roles = [
 
 export const rolesObject = roles.map(role => ({id: role, name: role}))
   
-export const setActiveEventId = id => lsSet('activeEventId', id);
-export const setActiveGroupId = id => lsSet('activeGroupId', id);
-export const activeEventId = () => lsGet('activeEventId') || 0;
-export const activeGroupId = () => lsGet('activeGroupId') || 0;
-
+export const setActiveEvent = data => lsSet('activeEvent', data);
+export const setActiveGroup = data => lsSet('activeGroup', data);
+export const getActiveEvent = () => lsGet('activeEvent') || {};
+export const getActiveGroup = () => lsGet('activeGroup') || {};
 
 export const getEventName = () => "--deprecated--"

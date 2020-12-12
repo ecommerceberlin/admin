@@ -2,8 +2,8 @@ import { CHANGE_EVENT, CHANGE_GROUP, MESSAGE_CREATE } from '../types';
 
 export default (
   previousState = {
-    event_id: 0,
-    group_id: 0,
+    event: null,
+    group: null,
     message: {
       subject: '',
       text: ''
@@ -14,10 +14,10 @@ export default (
   switch (action.type) {
 
     case CHANGE_GROUP:
-      return { ...previousState, group_id: action.payload };
+      return { ...previousState, group: action.payload };
 
     case CHANGE_EVENT:
-      return { ...previousState, event_id: action.payload };
+      return { ...previousState, event: action.payload };
 
     case MESSAGE_CREATE:
       return { ...previousState, message: action.payload };

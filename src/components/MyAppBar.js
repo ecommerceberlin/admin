@@ -20,8 +20,10 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 
-const MyAppBar = props => {
+const MyAppBar = (props) => {
+    
     const classes = useStyles();
+  
     return (
         <AppBar {...props}>
             <Typography
@@ -32,18 +34,12 @@ const MyAppBar = props => {
             />
 
             <GroupAndEventSelect />
-            
-            {/* <Typography
-                variant="h6"
-                color="inherit"
-                className={classes.title}
-            >test</Typography> */}
-
+    
       
             {/* <Logo /> */}
             <span className={classes.spacer} />
         </AppBar>
     );
-};
+}
 
 export default MyAppBar;

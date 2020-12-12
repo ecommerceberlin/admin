@@ -19,15 +19,13 @@ import { FieldsEdit } from './endpoints/fields';
 import { MessagesList, MessagesShow } from './endpoints/messages';
 
 import {PostList, PostEdit, PostCreate, PostIcon} from './endpoints/posts'
-import { activeEventId, activeGroupId } from './api/app';
-
-
+import { getActiveEvent, getActiveGroup } from './api/app';
 
 
 export const canAccess = (permissions, resource) => {
-  if (!activeEventId() && resource !== 'groups') {
-    return false;
-  }
+  // if (!activeEventId() && resource !== 'groups') {
+  //   return false;
+  // }
 
   return true;
 };
@@ -35,12 +33,12 @@ export const canAccess = (permissions, resource) => {
 
 const initialState = () => {
 
-  const event_id = activeEventId()
-  const group_id = activeGroupId()
+  const event = getActiveEvent()
+  const group = getActiveGroup()
 
   return {
     app: {
-      event_id, group_id
+      event, group
     }
   }
 

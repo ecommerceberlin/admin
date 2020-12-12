@@ -20,7 +20,7 @@ import {
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography'
 // import ResetViewsButton from './ResetViewsButton';
-import {activeEventId} from '../../api/app';
+import {useApiContext} from '../../api';
 import get from 'lodash/get'
 import categories from './categories'
 
@@ -69,31 +69,37 @@ const Aside = () => {
     );
 }
 
-const PostList = (props) => (
-    <List 
-        filters={<PostFilter />}
-        filter={{ event_id: activeEventId() }}
-        bulkActionButtons={<PostBulkActionButtons />}
-    // filterDefaultValues={{ is_published: true }}
-        perPage={100}
-        sort={{ field: 'id', order: 'DESC' }}
-        aside={<Aside />}
-        exporter={false}
-        {...props}
-    >
-        <Datagrid>
+const PostList = (props) => {
 
-            <TextField source="id" />
-            <BooleanField source="is_published" label="Published?" /> 
-            <CroppedTextField source="meta.headline"  />
-            <ChipField source="category" />
-            <TextField source="company.profile.name" />
-            <DateField source="updated_at" />
-            <DateField source="published_at" />
-            <EditButton />
+    const [group_id, event_id] = useApiContext();
+
+    return (
+        <List 
+            filters={<PostFilter />}
+            filter={{ event_id: event_id }}
+            bulkActionButtons={<PostBulkActionButtons />}
+        // filterDefaultValues={{ is_published: true }}
+            perPage={100}
+            sort={{ field: 'id', order: 'DESC' }}
+            aside={<Aside />}
+            exporter={false}
+            {...props}
+        >
+            <Datagrid>
     
-        </Datagrid>
-    </List>
-);
+                <TextField source="id" />
+                <BooleanField source="is_published" label="Published?" /> 
+                <CroppedTextField source="meta.headline"  />
+                <ChipField source="category" />
+                <TextField source="company.profile.name" />
+                <DateField source="updated_at" />
+                <DateField source="published_at" />
+                <EditButton />
+        
+            </Datagrid>
+        </List>
+    );
+
+} 
 
 export default PostList

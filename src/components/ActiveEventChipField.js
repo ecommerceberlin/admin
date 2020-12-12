@@ -1,7 +1,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { ChipField } from 'react-admin';
-import {activeEventId} from '../api/app';
+import { useApiContext} from '../api';
 
 const styles = {
   active: {
@@ -13,10 +13,11 @@ const styles = {
 };
 
 const ActiveEventChipField = ({ classes, record, ...rest }) => {
-  return (
+  const [group_id, event_id] = useApiContext();
+   return (
     <ChipField
       className={
-        classes[activeEventId() === record.id ? 'active' : 'not_active']
+        classes[event_id() === record.id ? 'active' : 'not_active']
       }
       record={record}
       {...rest}

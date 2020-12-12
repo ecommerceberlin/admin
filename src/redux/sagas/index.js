@@ -1,7 +1,7 @@
 import { spawn, call, put, takeEvery, all } from 'redux-saga/effects';
-import { setActiveEventId, setActiveGroupId, activeEventId, activeGroupId } from '../../api/app';
+import { setActiveEvent, setActiveGroup, getActiveEvent, getActiveGroup } from '../../api/app';
 import {  CHANGE_EVENT, CHANGE_GROUP, BULK_CHANGE_COMPANY_ADMIN } from '../types';
-import {changeEvent} from '../actions'
+import {changeEvent as changeEventAction} from '../actions'
 
 import {
   changeListParams,
@@ -9,14 +9,15 @@ import {
   CRUD_GET_LIST_SUCCESS
 } from 'react-admin';
 
-function* changeEventId(actionData) {
-  yield call(setActiveEventId, actionData.payload);
+function* changeEvent(actionData) {
+  const {payload} = actionData
+  yield call(setActiveEvent, payload);
 }
 
-function* changeGroupId(actionData) {
-  const {payload, active_event_id} = actionData;
-  yield call(setActiveGroupId, payload);
-  yield put(changeEvent(active_event_id));
+function* changeGroup(actionData) {
+  const {payload} = actionData;
+  yield call(setActiveGroup, payload);
+  yield put(changeEventAction(payload.active_event));
 }
 
 
@@ -53,8 +54,8 @@ export default function* appSaga() {
 
 
   const sagas = [
-    function* changeEventSaga(){ yield takeEvery(CHANGE_EVENT, changeEventId)},
-    function* changeGroupSaga(){ yield takeEvery(CHANGE_GROUP, changeGroupId)},
+    function* changeEventSaga(){ yield takeEvery(CHANGE_EVENT, changeEvent)},
+    function* changeGroupSaga(){ yield takeEvery(CHANGE_GROUP, changeGroup)},
     function* asdasdSaga(){ yield takeEvery(CRUD_GET_LIST_SUCCESS, getAdminsWhen)}
   ];
 
