@@ -55,9 +55,12 @@ function MyDialog({confirm, cancel, confirmColor}) {
       >
         <DialogTitle id="alert-dialog-slide-title"> {'title' in state ? state.title : ''} </DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-slide-description">
-          {'content' in state ? state.content : ''}
-          </DialogContentText>
+
+           {'content' in state ? state.content : ''}
+
+          {/* <DialogContentText id="alert-dialog-slide-description">
+         
+          </DialogContentText> */}
         </DialogContent>
 
         <DialogActions>

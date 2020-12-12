@@ -36,6 +36,10 @@ const initialState = () => {
   const event = getActiveEvent()
   const group = getActiveGroup()
 
+  if(new Object(event)!== event || new Object(group)!==group){
+    return {}
+  }
+
   return {
     app: {
       event, group

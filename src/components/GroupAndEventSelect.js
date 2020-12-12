@@ -1,15 +1,15 @@
 
-import React, {useMemo, useEffect, useCallback} from 'react';
+import React, {useEffect} from 'react';
 import { useDispatch } from 'react-redux'
 import { useRedirect, useQuery} from 'react-admin';
 import { makeStyles } from '@material-ui/core/styles';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
 import IconButton from '@material-ui/core/IconButton';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ActiveIcon from '@material-ui/icons/FiberManualRecord';
-import get from 'lodash/get'
 import {changeEvent, changeGroup, showDialog} from '../redux'
 import {useApiContext} from '../api'
 import find from 'lodash/find'
@@ -41,18 +41,17 @@ const useStyles = makeStyles((theme) => ({
         textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',
         overflow: 'hidden',
-      }
+      },
+
+      formControl: {
+        margin: theme.spacing(1),
+        minWidth: 120,
+      },
 }));
 
 const SelectGroup = () => {
 
 
-    /*  const { data, ids, loading, error } = useGetList(
-        'groups',
-        { page: 1, perPage: 100 },
-        { field: 'active_event_id', order: 'DESC' }
-    );
-     */
     const classes = useStyles();
     const [group_id] = useApiContext();
     const dispatch = useDispatch();
@@ -66,23 +65,27 @@ const SelectGroup = () => {
         }
     });
 
-    if(loading || error){
-        return null
+    if(error){
+        return  null
     }
 
     const handleChangeGroup = (e) => dispatch(changeGroup(find(data, {id: e.target.value})));
 
-    return (<FormControl>
+    return (
+
+        <FormControl className={classes.formControl}>
+        <InputLabel id="change-group-label">Group</InputLabel>
         <Select
             id="select-group"
+            labelId="change-group-label"
             value={group_id}
             onChange={ handleChangeGroup }
             autoWidth={true}
             variant="outlined"
             className={classes.select}
-            renderValue={id => get(find(data, {id}), "name")}
+            // renderValue={id => get(find(data, {id}), "name")}
         >
-        {data.map(({id, name}) => <MenuItem key={id} value={id}>{name}</MenuItem> )}
+        {(data || []).map(({id, name}) => <MenuItem key={id} value={id}>{name}</MenuItem> )}
         </Select>
         </FormControl>)
     
@@ -96,14 +99,7 @@ const SelectEvent = (props) => {
     const [group_id, event_id] = useApiContext();
     const dispatch = useDispatch();
 
-    /**
-     *  const { data, ids, loading, error } = useGetList(
-        'events',
-        { page: 1, perPage: 100 },
-        { field: 'id', order: 'DESC' }
-    );
 
-     */
     const { data, loading, error } = useQuery({ 
         type: 'getList',
         resource: 'events',
@@ -113,7 +109,7 @@ const SelectEvent = (props) => {
         }
     });
 
-    if(!group_id || loading || error){
+    if(!group_id || error){
         return null
     }
     
@@ -122,11 +118,14 @@ const SelectEvent = (props) => {
         dispatch(hideDialog());
     }
 
-    const filteredData = data.filter(event => event.group_id == group_id)
+    const filteredData = (data || []).filter(event => event.group_id == group_id)
 
-    return (<FormControl>
+    return (
+        <FormControl className={classes.formControl}>
+        <InputLabel id="change-event-label">Event</InputLabel>
         <Select
             id="select-event"
+            labelId="change-event-label"
             value={event_id}
             onChange={ handleChangeEvent }
             autoWidth={true}

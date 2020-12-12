@@ -17,7 +17,7 @@ function* changeEvent(actionData) {
 function* changeGroup(actionData) {
   const {payload} = actionData;
   yield call(setActiveGroup, payload);
-  yield put(changeEventAction(payload.active_event));
+  yield put(changeEventAction({...payload.active_event, is_active: payload.active_event_id == payload.active_event.id }));
 }
 
 
