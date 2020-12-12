@@ -25,17 +25,16 @@ const useStyles = makeStyles(theme => ({
 
 
 export const MarkdownEditor = (props) => {
-
-
+   
     const {
-        input: { name, onChange, onBlur, onFocus, value, ...rest},
+        input: { name, onChange, onBlur, onFocus, value, checked},
         meta: { touched, error},
         isRequired
     } = useInput(props)
 
     const classes = useStyles();
 
-    const {record: {id}, resource} = props;
+    const {record: {id, meta: {body}}, label, resource} = props;
 
     const handleChange = debounce(value => {
         const text = value();
@@ -43,11 +42,13 @@ export const MarkdownEditor = (props) => {
       }, 250);
 
     return (<Box p={1} mb={1} borderBottom={1} className={classes.root}>                           
-        <Labeled label={props.label || name}>
-        {value && <Editor
+       <Labeled label={label || name}>
+        <Editor
         id={name}
-        defaultValue={value}
+      //DOESN'T WORK!!!!  defaultValue={body}
+        value={body}
         theme={theme}
+        readOnly={false}
         onChange={handleChange}
         onSave={options => console.log("Save triggered", options)}
         onCancel={() => console.log("Cancel triggered")}
@@ -94,7 +95,7 @@ export const MarkdownEditor = (props) => {
         }}
         uploadImage={file => new Promise(resolve => uploadFile(file, resource, id).then(data => resolve(data.path)) )}
         embeds={[youtube, companyprofile]}
-    />}
+    />
     </Labeled>
     </Box> )
 }
