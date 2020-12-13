@@ -11,7 +11,7 @@ import deepOrange from '@material-ui/core/colors/deepOrange';
 import { changeCompanyAdmin } from '../../../redux';
 import { showDialog, hideDialog } from '../../../redux';
 
-import Admins from '../../../components/BulkActions/Admins';
+import {Admins} from '../../../components';
 
 const styles = {
   avatar: {

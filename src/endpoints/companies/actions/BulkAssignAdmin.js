@@ -4,7 +4,7 @@ import { Button, showNotification } from 'react-admin';
 import Icon from '@material-ui/icons/SupervisorAccount';
 import { showDialog, hideDialog } from '../../../redux';
 
-import Admins from '../../../components/BulkActions/Admins';
+import { Admins } from '../../../components';
 import { bulkChangeCompanyAdmin } from '../../../redux';
 
 /* 
