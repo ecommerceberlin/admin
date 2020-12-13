@@ -1,4 +1,4 @@
-// in ./ResetViewsButton.js
+
 import * as React from "react";
 import {
     Button,
@@ -7,35 +7,48 @@ import {
     useNotify,
     useUnselectAll,
 } from 'react-admin';
+
+import {useApiContext} from '../../api'
 import { VisibilityOff } from '@material-ui/icons';
 
-const ResetViewsButton = ({ selectedIds }) => {
+const MassChangeFlags = ({ selectedIds, label, data, basePath, filterValues, Icon, resource }) => {
+    
+    const [group_id, event_id] = useApiContext();
     const refresh = useRefresh();
     const notify = useNotify();
     const unselectAll = useUnselectAll();
+
     const [updateMany, { loading }] = useUpdateMany(
-        'posts',
+        resource,
         selectedIds,
-        { views: 0 },
+        data,
         {
             onSuccess: () => {
                 refresh();
-                notify('Posts updated');
-                unselectAll('posts');
+                notify(`${resource} updated`);
+                unselectAll(resource);
             },
-            onFailure: error => notify('Error: posts not updated', 'warning'),
+            onFailure: error => notify('Error: items not updated', 'warning'),
         }
     );
 
     return (
         <Button
-            label="simple.action.resetViews"
+            label={label}
             disabled={loading}
             onClick={updateMany}
         >
-            <VisibilityOff />
+            {/* <Icon /> */}
         </Button>
     );
 };
 
-export default ResetViewsButton;
+MassChangeFlags.defaultProps = {
+    label: "Publish",
+    data: {
+        is_published : 1
+    },
+    Icon: <VisibilityOff />
+}
+
+export default MassChangeFlags;

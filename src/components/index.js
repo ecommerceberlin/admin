@@ -1,4 +1,4 @@
-export * from './BulkActions';
+export * from './bulkactions';
 export * from './fields';
 
 
