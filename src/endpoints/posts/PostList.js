@@ -19,19 +19,11 @@ import {
 } from 'react-admin';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography'
-// import ResetViewsButton from './ResetViewsButton';
 import {useApiContext} from '../../api';
 import get from 'lodash/get'
 import categories from './categories'
 import {CroppedTextField} from '../../components'
-
-const PostBulkActionButtons = props => (
-    <React.Fragment>
-        {/* <ResetViewsButton label="Reset Views" {...props} /> */}
-        {/* default bulk delete action */}
-        {/* <BulkDeleteButton {...props} /> */}
-    </React.Fragment>
-);
+import PostListBulkActions from './components/PostListBulkActions'
 
 const PostFilter = (props) => (
     <Filter {...props}>
@@ -73,7 +65,7 @@ const PostList = (props) => {
         <List 
             filters={<PostFilter />}
             filter={{ group_id: group_id }}
-            bulkActionButtons={<PostBulkActionButtons />}
+            bulkActionButtons={<PostListBulkActions />}
         // filterDefaultValues={{ is_published: true }}
             perPage={100}
             sort={{ field: 'id', order: 'DESC' }}
