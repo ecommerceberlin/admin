@@ -1,5 +1,5 @@
 
-import * as React from "react";
+import React, {useState, useCallback, useEffect} from "react";
 import {
     Button,
     useUpdateMany,
@@ -10,18 +10,60 @@ import {
 
 import {useApiContext} from '../../api'
 import { VisibilityOff } from '@material-ui/icons';
+import {showDialog, hideDialog} from '../../redux'
+import {useDispatch} from 'react-redux'
+import { makeStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
-const ChangeValueFromPredefinedSet = ({ selectedIds, label, data, basePath, filterValues, Icon, resource }) => {
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  }
+}));
+
+
+const CategorySelect = ({category, choices, onChange}) => {
+
+    const classes = useStyles();
+
+    return  (
+        <FormControl variant="outlined" className={classes.formControl}>
+            <InputLabel id="demo-simple-select-outlined-label">Category</InputLabel>
+            <Select
+                labelId="demo-simple-select-outlined-label"
+                id="demo-simple-select-outlined"
+                value={category}
+                onChange={onChange}
+                label="Category"
+            >
+                {/* <MenuItem value="">
+                <em>None</em>
+                </MenuItem> */}
+                {(choices || []).map(({id, name}) => <MenuItem key={id} value={id}>{name}</MenuItem>)}
+            </Select>
+        </FormControl>
+    )
     
+}
+
+const ChangeValueFromPredefinedSet = ({ selectedIds, label, choices, basePath, filterValues, Icon, resource }) => {
+    
+    const [category, setCategory] = useState("");
     const [group_id, event_id] = useApiContext();
     const refresh = useRefresh();
     const notify = useNotify();
     const unselectAll = useUnselectAll();
+    const dispatch = useDispatch();
+    const setCategoryCallback = useCallback((e) => setCategory(e.target.value) )
 
     const [updateMany, { loading }] = useUpdateMany(
         resource,
         selectedIds,
-        data,
+        {category},
         {
             onSuccess: () => {
                 refresh();
@@ -32,11 +74,25 @@ const ChangeValueFromPredefinedSet = ({ selectedIds, label, data, basePath, filt
         }
     );
 
+
+    const handleDialog = () =>  dispatch(showDialog({
+            title: "Select target category",
+            content: <CategorySelect category={category} choices={choices} onChange={setCategoryCallback} />,
+            onConfirm: category ? updateMany : undefined
+    }))
+    
+    
+    useEffect(()=>{
+        if(category){
+            handleDialog();
+        }
+    },[category])
+
     return (
         <Button
             label={label}
             disabled={loading}
-            onClick={updateMany}
+            onClick={handleDialog}
         >
             {/* <Icon /> */}
         </Button>

@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
 import { useTranslate } from 'react-admin';
 import { useSelector, useDispatch } from 'react-redux';
 import { hideDialog } from '../redux';
-
+import isFunction from 'lodash/isFunction'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -25,20 +25,17 @@ function MyDialog({confirm, cancel, confirmColor}) {
   const dispatch = useDispatch();
   const state = useSelector(state => state.ui.dialog)
 
-  const handleConfirm = () => {
+  const hasConfirmAction = 'onConfirm' in state && isFunction(state.onConfirm)
 
-    if('onConfirm' in state ){
-      state.onConfirm();
-    }
+  const handleConfirm = () => {
+    state.onConfirm();
     dispatch(hideDialog())
   }
 
   const handleClose = () => {
-
-    if('onClose' in state){
+    if('onClose' in state && isFunction(state.onClose)){
       state.onClose();
     }
-
     dispatch(hideDialog())
   };
 
@@ -47,7 +44,7 @@ function MyDialog({confirm, cancel, confirmColor}) {
       <Dialog
         open={"title" in state}
          TransitionComponent={Transition}
-        keepMounted
+        // keepMounted
         onClose={handleClose}
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
@@ -56,7 +53,7 @@ function MyDialog({confirm, cancel, confirmColor}) {
         <DialogTitle id="alert-dialog-slide-title"> {'title' in state ? state.title : ''} </DialogTitle>
         <DialogContent>
 
-           {'content' in state ? state.content : ''}
+           {'content' in state ? state.content: ''}
 
           {/* <DialogContentText id="alert-dialog-slide-description">
          
@@ -64,7 +61,7 @@ function MyDialog({confirm, cancel, confirmColor}) {
         </DialogContent>
 
         <DialogActions>
-        <Button color="secondary" onClick={handleConfirm} >{confirm}</Button>
+        {hasConfirmAction && <Button color="secondary" onClick={handleConfirm} >{confirm}</Button>}
         <Button onClick={handleClose} color="default">{cancel}</Button>
         </DialogActions>
 </Dialog>
