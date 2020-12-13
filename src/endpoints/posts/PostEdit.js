@@ -87,7 +87,7 @@ const PostEdit = ({permissions, ...props}) => {
             <BooleanInput source="is_published" />
             <BooleanInput source="is_promoted" />
             <BooleanInput source="is_sticky" />
-            <DateTimeInput label="Publication date" source="published_at" defaultValue={new Date()}  />
+            <DateTimeInput label="Publication date" source="published_at" /**defaultValue={new Date()} */ />
     
             </FormTab>
     

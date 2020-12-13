@@ -49,6 +49,7 @@ export const MarkdownEditor = (props) => {
         value={body}
         theme={theme}
         readOnly={false}
+        headingsOffset={2}
         onChange={handleChange}
         onSave={options => console.log("Save triggered", options)}
         onCancel={() => console.log("Cancel triggered")}
