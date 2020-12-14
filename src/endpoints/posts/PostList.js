@@ -15,9 +15,10 @@ import {
     EditButton,
     SelectInput,
     ReferenceInput,
-    AutocompleteInput
+    AutocompleteInput,
+    Button
 } from 'react-admin';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography'
 import {useApiContext} from '../../api';
 import get from 'lodash/get'
@@ -41,6 +42,17 @@ const PostFilter = (props) => (
 
     </Filter>
 );
+
+const PreviewButton = ({record, label}) => {
+
+   if(!record){
+       return null
+   }
+    
+   const href = `https://ehandel.eventjuicer.vercel.app/api/preview?secret=12345&slug=/preview,${record.id}`
+
+   return ( <Button href={href} target="_blank" label="Preview" />)
+}
 
 const Aside = () => {
     
@@ -83,7 +95,7 @@ const PostList = (props) => {
                 <DateField source="updated_at" />
                 <DateField source="published_at" />
                 <EditButton />
-        
+                <PreviewButton />
             </Datagrid>
         </List>
     );
