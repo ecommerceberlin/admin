@@ -64,7 +64,7 @@ const PostCreate = ({permissions, ...props}) => {
     
     
                 <ReferenceInput source="company_id" filter={{group_id: group_id}} perPage={100} reference="companies" label="Company" validate={[required(), number()]}>
-                <AutocompleteInput optionText="profile.name" shouldRenderSuggestions={(value)=>true } />
+                <AutocompleteInput optionText="slug" shouldRenderSuggestions={(value)=>true } />
                 </ReferenceInput>
     
                 <RadioButtonGroupInput fullWidth={true} source="category" validate={[required(), choices(categories.map(c=>c.id))]} choices={categories} />
