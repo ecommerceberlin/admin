@@ -5,7 +5,7 @@ import Box from '@material-ui/core/Box';
 import {makeStyles} from '@material-ui/core/styles';
 import Editor from "rich-markdown-editor";
 import debounce from "lodash/debounce";
-import {youtube, companyprofile}  from './embeds';
+import * as embeds  from './embeds';
 import theme from './theme';
 //import {Image as CloudinaryImage} from 'cloudinary-react'
 import {uploadFile} from '../../../api'
@@ -95,7 +95,7 @@ export const MarkdownEditor = (props) => {
             });
         }}
         uploadImage={file => new Promise(resolve => uploadFile(file, resource, id).then(data => resolve(data.path)) )}
-        embeds={[youtube, companyprofile]}
+        embeds={Object.values(embeds)}
     />
     </Labeled>
     </Box> )

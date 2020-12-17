@@ -1,7 +1,8 @@
 import * as React from "react";
 
 
-class YoutubeEmbed extends React.Component {
+
+class VimeoEmbed extends React.Component {
     render() {
       const { attrs } = this.props;
       const videoId = attrs.matches[1];
@@ -9,7 +10,7 @@ class YoutubeEmbed extends React.Component {
       return (
         <iframe
           className={this.props.isSelected ? "ProseMirror-selectednode" : ""}
-          src={`https://www.youtube.com/embed/${videoId}?modestbranding=1`}
+          src={`https://player.vimeo.com/video/${videoId}`}
         />
       );
     }
@@ -18,21 +19,21 @@ class YoutubeEmbed extends React.Component {
 
 
  export const vimeo = {
-    title: "YouTube",
-    keywords: "youtube video tube google",
+    title: "Vimeo",
+    keywords: "vimeo video",
     icon: () => (
       <img
-        src="https://upload.wikimedia.org/wikipedia/commons/7/75/YouTube_social_white_squircle_%282017%29.svg"
+        src="https://i.vimeocdn.com/favicon/main-touch_180"
         width={24}
         height={24}
       />
     ),
     matcher: url => {
       return url.match(
-        /(?:https?:\/\/)?(?:www\.)?vimeo\.?be(?:\.com)?\/?.*(?:watch|embed)?(?:.*v=|v\/|\/)([a-zA-Z0-9_-]{11})$/i
+        /(?:https?:\/\/)?(?:www\.)?vimeo(?:\.com)?\/([0-9]+)$/i
       );
     },
-    component: YoutubeEmbed,
+    component: VimeoEmbed,
 }
 
   
