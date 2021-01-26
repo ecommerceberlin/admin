@@ -104,11 +104,10 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => ({
         });
     },
 
-    update: (resource, params) =>
-        httpClient(`${apiUrl}/${resource}/${params.id}`, {
+    update: (resource, params) => httpClient(`${apiUrl}/${resource}/${params.id}`, {
             method: 'PUT',
             body: JSON.stringify(params.data),
-        }).then(({ json }) => ({ data: json })),
+        }).then(({ json }) => ({data: json.data})),
 
     // json-server doesn't handle filters on UPDATE route, so we fallback to calling UPDATE n times instead
     updateMany: (resource, params) =>
