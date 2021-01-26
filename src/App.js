@@ -53,6 +53,7 @@ class App extends React.Component {
   render() {
     return (
       <Admin
+        disableTelemetry
         //      title={<AppTitle />}
         layout={MyLayout}
         customReducers={customReducers}

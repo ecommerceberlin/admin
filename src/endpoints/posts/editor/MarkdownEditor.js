@@ -1,5 +1,5 @@
 
-import * as React from "react";
+import React, {useMemo} from "react";
 import { useInput, Labeled, fetchUtils } from 'react-admin';
 import Box from '@material-ui/core/Box';
 import {makeStyles} from '@material-ui/core/styles';
