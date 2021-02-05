@@ -44,7 +44,7 @@ const Aside = ({ record }) => {
     return (
         <div style={{ width: 200, margin: '1em' }}>
             <Typography variant="h6">Post images</Typography>
-            {record && record.images.map(image => (
+            {record && record.images && record.images.map(image => (
                 <img key={image.id} draggable="true" onDragStart={(event) => handleDragStart(event, image.path)} src={image.path} alt="" style={{width:"100%", marginBottom: 10}} />
             ))}
         </div>
