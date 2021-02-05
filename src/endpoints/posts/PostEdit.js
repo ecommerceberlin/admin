@@ -31,25 +31,34 @@ import {useApiContext} from '../../api';
  */
 
 
-const Aside = ({ record }) => (
-    <div style={{ width: 200, margin: '1em' }}>
-        <Typography variant="h6">Post details</Typography>
-        {record && (
-            <Typography variant="body2">
-                Creation date: {record.createdAt}
-            </Typography>
-        )}
-    </div>
-);
+const Aside = ({ record }) => {
+
+
+    const handleDragStart = (event, path) => {
+        /**
+         * https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer
+         */
+        event.dataTransfer.setData("text/plain", path);
+        console.log(event)
+    }
+    return (
+        <div style={{ width: 200, margin: '1em' }}>
+            <Typography variant="h6">Post images</Typography>
+            {record && record.images.map(image => (
+                <img key={image.id} draggable="true" onDragStart={(event) => handleDragStart(event, image.path)} src={image.path} alt="" style={{width:"100%", marginBottom: 10}} />
+            ))}
+        </div>
+    );
+
+}
 
 
 const PostEdit = ({permissions, ...props}) => {
     
     const [group_id, event_id] = useApiContext();
 
-
     return (
-        <Edit aside={<Aside />} {...props}>
+        <Edit aside={<Aside />} {...props} mutationMode="pessimistic">
             <TabbedForm warnWhenUnsavedChanges>
     
              <FormTab label="Content">
