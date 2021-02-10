@@ -1,7 +1,10 @@
-import { fetchUtils } from 'react-admin';
+import React from 'react'
+import { fetchUtils, useRefresh, useUpdate } from 'react-admin';
 import restProvider from './restProvider';
 import {getActiveEvent, getActiveGroup} from './app'
 import get from 'lodash/get'
+import {useDispatch} from 'react-redux'
+import {fileUpload} from '../redux'
 
 /** OLD */
 
@@ -31,19 +34,36 @@ export const convertFileToBase64 =  (file) => new Promise((resolve, reject) => {
   reader.readAsDataURL(file);
 });
 
-export const uploadFile = (file, type="", id = 0) => {
+export const uploadFile = (file, type="", id = 0) => new Promise((resolve, reject) => {
 
   if(!(file instanceof File) || file.type.indexOf("image/") === -1){
-    return Promise.reject();
+    reject();
   }
 
-  return convertFileToBase64(file).then(encoded => httpClient(`${process.env.REACT_APP_API_ENDPOINT}/upload`, {method: 'POST', body: JSON.stringify({
-    file: encoded,
-    type,
-    id,
-    event_id: get(getActiveEvent(), "id"),
-    group_id: get(getActiveGroup(), "id")
-  })})).then(({json}) => json.data);
+  convertFileToBase64(file).then(encoded => httpClient(`${process.env.REACT_APP_API_ENDPOINT}/upload`, {
+    method: 'POST', 
+    body: JSON.stringify({
+      file: encoded,
+      type,
+      id,
+      event_id: get(getActiveEvent(), "id"),
+      group_id: get(getActiveGroup(), "id")
+    })})).then(({json}) => resolve(json.data))
+
+})
+
+export const useUploadFile = () => {
+
+  // const refresh = useRefresh();
+  const dispatch = useDispatch()
+  const doUploadImage = (file, resource, id) => uploadFile(file, resource, id).then(data => {
+      dispatch(fileUpload(resource, id, data))
+      // refresh()
+
+      return data
+    })
+
+  return doUploadImage
 
 }
 

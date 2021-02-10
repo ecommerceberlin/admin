@@ -1,6 +1,6 @@
 import { spawn, call, put, takeEvery, all } from 'redux-saga/effects';
 import { setActiveEvent, setActiveGroup, getActiveEvent, getActiveGroup } from '../../api/app';
-import {  CHANGE_EVENT, CHANGE_GROUP, BULK_CHANGE_COMPANY_ADMIN } from '../types';
+import {  CHANGE_EVENT, CHANGE_GROUP, BULK_CHANGE_COMPANY_ADMIN, FILE_UPLOAD } from '../types';
 import {changeEvent as changeEventAction} from '../actions'
 
 import {
@@ -50,13 +50,28 @@ function* removeCompanyFilters(action) {
   );
 }
 
+function* recordUpdateAfterFileUpload(actionData){
+  const {resource, id, data} = actionData;
+  console.log("SAGA DZIALA", resource, id)
+}
+
 export default function* appSaga() {
 
 
   const sagas = [
-    function* changeEventSaga(){ yield takeEvery(CHANGE_EVENT, changeEvent)},
-    function* changeGroupSaga(){ yield takeEvery(CHANGE_GROUP, changeGroup)},
-    function* asdasdSaga(){ yield takeEvery(CRUD_GET_LIST_SUCCESS, getAdminsWhen)}
+    function* changeEventSaga(){ 
+      yield takeEvery(CHANGE_EVENT, changeEvent)
+    },
+    function* changeGroupSaga(){ 
+      yield takeEvery(CHANGE_GROUP, changeGroup)
+    },
+    function* asdasdSaga(){ 
+      yield takeEvery(CRUD_GET_LIST_SUCCESS, getAdminsWhen)
+    },
+    function* handleRecordUpdateAfterFileUpload(){
+      yield takeEvery(FILE_UPLOAD, recordUpdateAfterFileUpload)
+    }
+    
   ];
 
   yield all(sagas.map(saga =>

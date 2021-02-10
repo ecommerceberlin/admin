@@ -80,6 +80,13 @@ export const hideDialog = () => ({
   type: Types.DIALOG_HIDE
 });
 
+export const fileUpload = (resource, id, data = {}) => ({
+  type: Types.FILE_UPLOAD, 
+  resource, 
+  id, 
+  data
+})
+
 // export const changeEvent = (id, data, basePath) => ({
 //     type: Types.CHANGE_EVENT,
 //     payload: { id, data: { ...data, is_approved: true } },

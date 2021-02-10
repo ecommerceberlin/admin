@@ -9,6 +9,7 @@ import { Extension } from "rich-markdown-editor";
  * https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
  * https://discuss.prosemirror.net/t/drag-and-drop-image-and-upload/243/4
  * https://github.com/shoobyban/prosemirror-dropimage/blob/master/src/index.js
+ * https://github.com/outline/rich-markdown-editor/tree/main/src/plugins
  */
 
 

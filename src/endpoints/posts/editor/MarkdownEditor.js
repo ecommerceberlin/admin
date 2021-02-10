@@ -10,8 +10,9 @@ import debounce from "lodash/debounce";
 import * as embeds  from './embeds';
 import theme from './theme';
 //import {Image as CloudinaryImage} from 'cloudinary-react'
-import {uploadFile} from '../../../api'
+import {useUploadFile} from '../../../api'
 import ReuseAlreadyUploadedImage from './ReuseAlreadyUploadedImage'
+
 
 const useStyles = makeStyles(theme => ({
     alert: {
@@ -20,7 +21,7 @@ const useStyles = makeStyles(theme => ({
     root : {
         transition: 'background-color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms',
         backgroundColor: 'rgba(0, 0, 0, 0.04)',
-        // maxWidth: 800,
+        maxWidth: 800,
         minWidth: 500,
         borderColor: "#666",
         borderTopLeftRadius: 4,
@@ -64,7 +65,7 @@ const ContentProtector = ({children, content}) => {
 
 export const MarkdownEditor = (props) => {
    
-    const refresh = useRefresh();
+    const uploadFile = useUploadFile();
 
     const {
         input: { name, onChange, onBlur, onFocus, value, checked},
@@ -146,7 +147,7 @@ export const MarkdownEditor = (props) => {
               }, Math.random() * 500);
             });
         }}
-        uploadImage={file => new Promise(resolve => uploadFile(file, resource, id).then(data => resolve(data.path)) )}
+        uploadImage={file => uploadFile(file, resource, id).then(data => data.path) }
         embeds={Object.values(embeds)}
         />
        

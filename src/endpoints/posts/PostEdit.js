@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, {useState} from "react";
 import { 
     Edit, 
     TabbedForm, 
@@ -13,12 +13,16 @@ import {
     SelectInput,
     number,
     maxLength,
-    AutocompleteInput
+    AutocompleteInput,
+    useMutation,
+    useRefresh
 } from 'react-admin';
 import Typography from '@material-ui/core/Typography'
 import RaEditor from './editor/MarkdownEditor'
 import categories from './categories'
 import {useApiContext} from '../../api';
+import { makeStyles } from '@material-ui/core/styles';
+import cn from 'classnames'
 
 /**
  * <TextField
@@ -30,9 +34,34 @@ import {useApiContext} from '../../api';
         />
  */
 
+ const useStyles = makeStyles({
+    postImage : {
+        cursor: 'pointer'
+    },
+    coverPostImage: {
+        borderWidth: 5,
+        borderStyle: "solid",
+        borderColor: "darkred"
+    }
+ })
 
 const Aside = ({ record }) => {
 
+    const classes = useStyles();
+    const refresh = useRefresh();
+    const [mutate, { loading }] = useMutation();
+    const approve = event =>  mutate({
+        type: 'update',
+        resource: 'posts',
+        payload: {
+            id: record.id,
+            data: { cover_image_id: event.target.id }
+        }
+    }, {
+        onSuccess: () => {
+            refresh();
+        }
+    });
 
     const handleDragStart = (event, path) => {
         /**
@@ -45,7 +74,21 @@ const Aside = ({ record }) => {
         <div style={{ width: 200, margin: '1em' }}>
             <Typography variant="h6">Post images</Typography>
             {record && record.images && record.images.map(image => (
-                <img key={image.id} draggable="true" onDragStart={(event) => handleDragStart(event, image.path)} src={image.path} alt="" style={{width:"100%", marginBottom: 10}} />
+                <img 
+                    key={ image.id } 
+                    id={ image.id } 
+                    draggable="true" 
+                    onDragStart={ (event) => handleDragStart(event, image.path) } 
+                    src={ image.path } 
+                    alt="" 
+                    style={{width:"100%", marginBottom: 10}} 
+                    onDoubleClick={ approve } 
+                    disabled={ loading } 
+                    className={ cn({
+                        [classes.postImage] : true,
+                        [classes.coverPostImage]: record.cover_image_id == image.id
+                    }) }
+                />
             ))}
         </div>
     );
