@@ -147,7 +147,7 @@ export const MarkdownEditor = (props) => {
               }, Math.random() * 500);
             });
         }}
-        uploadImage={file => uploadFile(file, resource, id).then(data => data.path) }
+        uploadImage={file => uploadFile(file, resource, id).then(data => data.path.replace(/\.svg$/i, `.jpg`)) }
         embeds={Object.values(embeds)}
         />
        
