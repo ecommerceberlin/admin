@@ -25,7 +25,9 @@ import get from 'lodash/get'
 import categories from './categories'
 import {CroppedTextField} from '../../components'
 import PostListBulkActions from './components/PostListBulkActions'
-
+import PostFlagsField from './components/PostFlagsField'
+import IconButton from '@material-ui/core/IconButton';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 const PostFilter = (props) => (
     <Filter {...props}>
         <TextInput label="Search" source="q" />
@@ -49,9 +51,9 @@ const PreviewButton = ({record, label}) => {
        return null
    }
     
-   const href = `https://ehandel.eventjuicer.vercel.app/api/preview?secret=12345&slug=/preview,${record.id}`
+   const href = `https://ehandel.com.pl/api/preview?secret=12345&slug=/preview,${record.id}`
 
-   return ( <Button href={href} target="_blank" label="Preview" />)
+   return ( <IconButton href={href} target="_blank" label="Preview"><PlayArrowIcon/></IconButton>)
 }
 
 const Aside = () => {
@@ -86,15 +88,14 @@ const PostList = (props) => {
             {...props}
         >
             <Datagrid>
-    
-                <TextField source="id" />
-                <BooleanField source="is_published" label="Published?" /> 
-                <CroppedTextField source="meta.headline" label="Title" />
-                <ChipField source="category" />
+                {/* <TextField source="id" /> */}
                 <CroppedTextField resolve={["company.profile.name", "company.slug"]} label="Company" />
-                <DateField source="updated_at" />
-                <DateField source="published_at" />
+                <CroppedTextField source="meta.headline" label="Title" bold={true} />
                 <EditButton />
+                <PostFlagsField label="Status" /> 
+                <ChipField source="category" />
+                {/* <DateField source="updated_at" /> */}
+                <DateField source="published_at" />
                 <PreviewButton />
             </Datagrid>
         </List>

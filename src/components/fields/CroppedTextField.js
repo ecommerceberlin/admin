@@ -1,10 +1,20 @@
 import React from 'react'
 import get from 'lodash/get'
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+    text: {
+     fontWeight: 600
+    },
+
+}));
 
 const flatten = array_or_string => [].concat(array_or_string).join()
 
-const CroppedTextField = ({record, source, resolve, limit=40, ...rest}) => {
+const CroppedTextField = ({bold, record, source, resolve, limit=50, ...rest}) => {
     
+    const classes = useStyles();
+
     let text;
 
     if(resolve && Array.isArray(resolve)){
@@ -14,12 +24,13 @@ const CroppedTextField = ({record, source, resolve, limit=40, ...rest}) => {
         text = flatten(get(record, source, ""));
     }
 
-    return <span>{text.substr(0, limit)}{text.length>limit && "..."}</span>;
+    return <span className={bold && classes.text}>{text.substr(0, limit)}{text.length>limit && "..."}</span>;
   
 }
 
 CroppedTextField.defaultProps = {
-    addLabel: true
+    addLabel: true,
+    bold: false
 }
 
 export default CroppedTextField
