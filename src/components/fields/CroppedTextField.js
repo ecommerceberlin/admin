@@ -24,7 +24,7 @@ const CroppedTextField = ({bold, record, source, resolve, limit=50, ...rest}) =>
         text = flatten(get(record, source, ""));
     }
 
-    return <span className={bold && classes.text}>{text.substr(0, limit)}{text.length>limit && "..."}</span>;
+    return <span className={bold ? classes.text: null}>{text.substr(0, limit)}{text.length>limit && "..."}</span>;
   
 }
 
