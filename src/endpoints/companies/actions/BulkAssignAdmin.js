@@ -1,5 +1,5 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, {useCallback} from 'react';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { Button, showNotification } from 'react-admin';
 import Icon from '@material-ui/icons/SupervisorAccount';
 import { showDialog, hideDialog } from '../../../redux';
@@ -19,57 +19,40 @@ selectedIds: [1]
 
 */
 
-class BulkAssignAdmin extends React.Component {
-  onQuit = () => {
-    const { hideDialog } = this.props;
-    hideDialog();
-  };
+const BulkAssignAdmin = ({ basePath, selectedIds= [], label='actions.send_message'}) => {
 
-  handleConfirm = id => {
-    const {
-      basePath,
-      bulkChangeCompanyAdmin,
-      //   showNotification,
-      selectedIds
-    } = this.props;
+  const dispatch = useDispatch()
+
+  const handleConfirm = useCallback(id => {
 
     //we could filter selectedIds to change only what really differs?
-    bulkChangeCompanyAdmin(selectedIds, { admin_id: id }, basePath);
-    this.onQuit();
-  };
-
-  handleDialog = () => {
-    const { label, showDialog, selectedIds } = this.props;
-
-    showDialog({
+    dispatch(bulkChangeCompanyAdmin(selectedIds, { admin_id: id }, basePath));
+    dispatch(hideDialog())
+  });
+  
+  const handleDialog = () => dispatch(showDialog({
       title: `${label} ${selectedIds.length} records`,
       content: (
         <div>
-          <Admins onClick={this.handleConfirm} />
+          <Admins onClick={handleConfirm} />
         </div>
       ),
       //onConfirm: this.handleConfirm,
-      onClose: this.onQuit
-    });
-  };
+      onClose: () => dispatch(hideDialog())
+  }));
+  
+  return (
+    <Button label={label} onClick={handleDialog}>
+      <Icon />
+    </Button>
+  );
 
-  render() {
-    const { label } = this.props;
+} 
 
-    return (
-      <Button label={label} onClick={this.handleDialog}>
-        <Icon />
-      </Button>
-    );
-  }
-}
+export default BulkAssignAdmin
 
-BulkAssignAdmin.defaultProps = {
-  selectedIds: [],
-  label: 'actions.send_message'
-};
 
-export default connect(
-  null,
-  { bulkChangeCompanyAdmin, showNotification, showDialog, hideDialog }
-)(BulkAssignAdmin);
+// connect(
+//   null,
+//   { bulkChangeCompanyAdmin, showNotification, showDialog, hideDialog }
+// )();

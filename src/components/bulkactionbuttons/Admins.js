@@ -1,65 +1,59 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import compose from 'recompose/compose';
-
-import { withStyles } from '@material-ui/core/styles';
+import { useQueryWithStore } from 'react-admin'
+import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
+import {useApiContext} from '../../api'
 
-import get from 'lodash/get';
-
-import { showDialog, hideDialog } from '../../redux';
-
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
     maxWidth: 360,
     backgroundColor: theme.palette.background.paper
   }
-});
+}));
 
-class Admins extends React.Component {
-  render() {
-    const { admins, classes, selected, onClick } = this.props;
+const Admins = ({onClick, selected = 0}) => {
 
-    return (
-      <List className={classes.root}>
-        {admins.list.ids.map(id => (
-          <ListItem
-            key={id}
-            button
-            selected={id == selected}
-            onClick={() => onClick(id)}
-          >
-            <Avatar>{get(admins.data[id], 'initials')}</Avatar>
-            <ListItemText
-              primary={`${get(admins.data[id], 'fname')} ${get(
-                admins.data[id],
-                'lname'
-              )}`}
-              secondary="."
-            />
-          </ListItem>
-        ))}
-      </List>
-    );
+  const [group_id, event_id] = useApiContext()
+  const classes = useStyles()
+  const {data, loading, error} = useQueryWithStore({
+    type: "getList",
+    resource: "admins",
+    payload: {
+      pagination: {page: 1, perPage: 100},
+      sort: {field: "initials", order: "ASC"},
+      filter: {
+        event_id
+      }
+    }
+  })
+
+  if(loading || error){
+    return null
   }
-}
 
-Admins.defaultProps = {
-  admins: {},
-  selected: 0,
-  onClick: function() {}
-};
+  return (
+    <List className={classes.root}>
+      {data.map(({id, fname, lname, initials}) => (
+        <ListItem
+          key={id}
+          button
+          selected={id == selected}
+          onClick={() => onClick(id)}
+        >
+          <Avatar>{initials}</Avatar>
+          <ListItemText
+            primary={`${fname} ${lname}`}
+            secondary="."
+          />
+        </ListItem>
+      ))}
+    </List>
+  );
 
-const enhance = compose(
-  withStyles(styles),
-  connect(
-    state => ({ admins: state.admin.resources.admins }),
-    { showDialog, hideDialog }
-  )
-);
+} 
 
-export default enhance(Admins);
+export default Admins
