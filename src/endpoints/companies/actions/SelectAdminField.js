@@ -45,11 +45,11 @@ const SelectAdminField = ({label="", basePath="", record={}}) => {
     }
   })
 
-  const getActiveAdmin = (id) => {
-    if(!data){
+  const getActiveAdmin = (replacement = null) => {
+    if(!data || !("admin_id" in record)){
       return null
     }
-    return get(data.find(item => item.id == id), "initials", "...")
+    return get(data.find(item => item.id == record.admin_id), "initials", replacement)
   }
 
   const handleConfirm = useCallback(id => {
@@ -77,10 +77,10 @@ const SelectAdminField = ({label="", basePath="", record={}}) => {
     <Avatar
       className={classNames({
         [classes.avatar]: true,
-        [classes.adminNotSet]: !record.admin_id,
-        [classes.adminSet]: record.admin_id
+        [classes.adminNotSet]: !getActiveAdmin(),
+        [classes.adminSet]: getActiveAdmin()
       })}
-      onClick={() => showAction()}>{getActiveAdmin(record.admin_id)}</Avatar>
+      onClick={() => showAction()}>{getActiveAdmin("?")}</Avatar>
   );
 
 }
