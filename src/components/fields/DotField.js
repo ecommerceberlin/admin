@@ -1,37 +1,31 @@
 
 import React from 'react'
-import {
-    FunctionField,
-    ChipField
-} from 'react-admin'
-import get from 'lodash/get'
-import { makeStyles, Chip } from '@material-ui/core';
 import ActiveIcon from '@material-ui/icons/FiberManualRecord';
+import isObject from 'lodash/isObject'
+import isFunction from 'lodash/isFunction'
+import isEmpty from 'lodash/isEmpty'
+ 
+const DotField = ({options, record}) => {
 
-
-const useStyles = makeStyles((theme) => ({
-      
-    select: {
-      color: "#fff"
-    },
-
-    icon: {
-        fontSize: "1em",
-        fill: "lightgreen",
-        position: "relative",
-        top: 2,
-        marginRight: 10
+    if(!isObject(options) || isEmpty(record)){
+        return null;
     }
-}));
 
+    const dots = [];
 
+    Object.keys(options).forEach(color => {
+        const condition = options[color]
 
-const DotField = () => {
+        if(isFunction(condition) && condition(record)){
+            dots.push(<ActiveIcon fontSize="large"  style={{color}}/>)
+        }
 
-    const classes = useStyles();
+    })
 
-    return (<ActiveIcon className={classes.icon}/>)
+    return dots;
+   
 }
+
 
 
 export default DotField;
