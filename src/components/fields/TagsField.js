@@ -1,13 +1,19 @@
 import React from 'react';
+import Chip from '@material-ui/core/Chip';
 
-const TagsField = ({ record }) => (
-  <ul>
-    {record.tags.map(item => (
-      <li key={item.name}>{item.name}</li>
-    ))}
-  </ul>
-);
+const TagsField = ({ record }) => {
 
-TagsField.defaultProps = { addLabel: true };
+  if(!record || !("tags" in record)){
+    return null
+  }
+
+  return (
+    <span>
+      {record.tags.map(item => (
+        <Chip size="small" variant="outlined" key={item.name} label={item.name} />
+      ))}
+    </span>
+  );
+}
 
 export default TagsField;

@@ -39,6 +39,9 @@ export const roles = [
   "asset",
   "flag"];
 
+export const hasValidRole = (role) => roles.includes(role)
+
+
 export const rolesObject = roles.map(role => ({id: role, name: role}))
   
 export const setActiveEvent = data => lsSet('activeEvent', data);

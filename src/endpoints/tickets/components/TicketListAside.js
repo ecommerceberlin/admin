@@ -9,7 +9,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography'
 
 const useStyles = makeStyles({
@@ -24,7 +23,7 @@ const Aside = () => {
     const classes = useStyles();
 
     return (
-    <div style={{ width: 200, margin: '1em' }}>
+    <Box ml={2}>
 
     <Typography variant="h6">Ticket stats</Typography>
 
@@ -36,35 +35,18 @@ const Aside = () => {
     <TableContainer >
     <Table className={classes.table} aria-label="simple table">
     <TableBody>
-    <TableRow>
-    <TableCell component="th" scope="row">costam</TableCell>
-    <TableCell align="right">ktostam</TableCell>
-    </TableRow>
 
     <TableRow>
-    <TableCell component="th" scope="row">costam</TableCell>
-    <TableCell align="right">ktostam</TableCell>
+    <TableCell component="th" scope="row">something</TableCell>
+    <TableCell align="right">one day</TableCell>
     </TableRow>
 
-    <TableRow>
-    <TableCell component="th" scope="row">costam</TableCell>
-    <TableCell align="right">ktostam</TableCell>
-    </TableRow>
 
-    <TableRow>
-    <TableCell component="th" scope="row">costam</TableCell>
-    <TableCell align="right">ktostam</TableCell>
-    </TableRow>
-
-    <TableRow>
-    <TableCell component="th" scope="row">costam</TableCell>
-    <TableCell align="right">ktostam</TableCell>
-    </TableRow>
     </TableBody>
     </Table>
     </TableContainer>
 
-    </div>
+    </Box>
     );
   };
 
