@@ -11,6 +11,9 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+
+const importantRoles = ["exhibitor"]
+
 const TicketRoleField = ({record, labelNotSet}) => {
 
     const classes = useStyles()
@@ -22,7 +25,7 @@ const TicketRoleField = ({record, labelNotSet}) => {
     const value = (get(record, "role") || "").trim()
 
     if(roles && Array.isArray(roles) && roles.includes(value)){
-        return (<Chip color="secondary" label={value} size="small" className={classes.root} />)
+        return (<Chip color={importantRoles.includes(value)? "secondary": "default"} label={value} size="small" variant="outline" className={classes.root} />)
     }
 
     return labelNotSet ? <span>{labelNotSet}</span>: null
