@@ -24,7 +24,7 @@ const TicketDetailsActions = ({ basePath, data, resource }) => (
   );
   
   
-  const TicketListQuickLoookup = props => (
+  const TicketListQuickLookup = props => (
     <Show
         {...props}
         /* disable the app title change when shown */
@@ -44,4 +44,4 @@ const TicketDetailsActions = ({ basePath, data, resource }) => (
   );
 
 
-export default TicketListQuickLoookup;
+export default TicketListQuickLookup;

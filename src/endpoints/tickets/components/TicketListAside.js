@@ -1,7 +1,8 @@
 
 import React from 'react'
-import {useListContext, Button, ListButton} from 'react-admin'
+import {useListContext, Button} from 'react-admin'
 import { makeStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -24,9 +25,9 @@ const Aside = () => {
 
     return (
     <div style={{ width: 200, margin: '1em' }}>
+
     <Typography variant="h6">Ticket stats</Typography>
 
-    <ListButton basePath="ticketgroups" label="Ticket Groups" />
 
     {/* <Typography variant="body2">
     Total views: {ids.map(id => data[id]).reduce((sum, post) => sum + post.id, 0)}
