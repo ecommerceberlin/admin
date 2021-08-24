@@ -20,8 +20,12 @@ function* changeGroup(actionData) {
   yield put(changeEventAction({...payload.active_event, is_active: payload.active_event_id == payload.active_event.id }));
 }
 
-
-function* getAdminsWhen(action) {
+/**
+ *  it is now handled by hook
+ * 
+ * 
+ 
+ function* getAdminsWhen(action) {
   const { meta } = action;
   if (meta.resource === 'companies') {
     yield put(
@@ -34,6 +38,10 @@ function* getAdminsWhen(action) {
     );
   }
 }
+
+ */
+
+
 
 function* removeCompanyFilters(action) {
   yield put(
@@ -65,9 +73,9 @@ export default function* appSaga() {
     function* changeGroupSaga(){ 
       yield takeEvery(CHANGE_GROUP, changeGroup)
     },
-    function* asdasdSaga(){ 
-      yield takeEvery(CRUD_GET_LIST_SUCCESS, getAdminsWhen)
-    },
+    // function* asdasdSaga(){ 
+    //   yield takeEvery(CRUD_GET_LIST_SUCCESS, getAdminsWhen)
+    // },
     function* handleRecordUpdateAfterFileUpload(){
       yield takeEvery(FILE_UPLOAD, recordUpdateAfterFileUpload)
     }
