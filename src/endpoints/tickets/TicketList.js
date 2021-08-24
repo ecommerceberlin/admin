@@ -49,10 +49,10 @@ const ViewList = props => {
   <SalesField label="Sales" />
 
   <DotField label="Status" options={{
-    red: (record) => record && !record.bookable,
-    orange: (record) => record && record.bookable && record.remaining < record.limit/4,
-    blue: (record) => record && record.remaining > 0 && record.errors.includes("future"),
-    green: (record) => record && record.bookable,
+    red: (record) => record && record.status === 0,
+    orange: (record) => record && record.status === 1,
+    green: (record) => record && record.status === 2,
+    blue: (record) => record && record.status === 3
   }} />
    
   <EditButton />
