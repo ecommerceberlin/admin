@@ -9,7 +9,7 @@ const SalesField = ({record}) => {
         return null;
     }
 
-    return <span>{get(record, "agg.sold", 0)}<LessImportantInfo text="/" />{get(record, "remaining")}</span>
+    return <span>{get(record, "agg.sold", 0)}<LessImportantInfo text="/" />{get(record, "limit")}</span>
 }
 
 export default SalesField

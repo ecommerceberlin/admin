@@ -46,7 +46,7 @@ const ViewList = props => {
 
   <TicketNameField label="Name" />
   <TicketPriceField label="Price" />  
-  <SalesField label="Sales" />
+  <SalesField label="Sold" />
 
   <DotField label="Status" options={{
     red: (record) => record && record.status === 0,
