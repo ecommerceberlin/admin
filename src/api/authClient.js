@@ -107,9 +107,10 @@ import {
   AUTH_GET_PERMISSIONS
 } from 'react-admin';
 
+import {httpClient} from './httpClient'
+
 export default (type, params) => {
-  if (type === AUTH_GET_PERMISSIONS) {
-  }
+
 
   if (type === AUTH_LOGIN) {
     const { username, password } = params;
@@ -157,11 +158,20 @@ export default (type, params) => {
   }
 
   if (type === AUTH_CHECK) {
+    console.info("AUTH_CHECK")
     const { resource } = params;
     return localStorage.getItem('token') ? Promise.resolve() : Promise.reject();
   }
 
   if (type === AUTH_GET_PERMISSIONS) {
+    
+
+    httpClient(`${process.env.REACT_APP_API_ENDPOINT}/me`).then(response => response.json).then(response => {
+
+      console.info("AUTH_GET_PERMISSIONS", response)
+
+    })
+
     return Promise.resolve();
   }
 
