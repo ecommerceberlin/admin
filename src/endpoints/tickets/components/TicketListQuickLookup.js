@@ -6,18 +6,22 @@ import {
   Show,
   SimpleShowLayout,
   TopToolbar,
-  DateField
+  DateField,
+  ReferenceManyField,
+  SimpleList
 } from 'react-admin';
 
-import RelatedParticipants from './RelatedParticipants';
+import RelatedParticipantsList from './RelatedParticipantsList'
+import RelatedParticipantsButton from './RelatedParticipantsButton';
 
+import Grid from '@material-ui/core/Grid'
 
 const TicketDetailsActions = ({ basePath, data, resource }) => (
     <TopToolbar>
         {/* <EditButton basePath={basePath} record={data} /> */}
         {/* Add your custom actions */}
   
-          <RelatedParticipants label="Show Participants" />
+          <RelatedParticipantsButton label="Show Participants" />
 
         {/* <Button color="primary" onClick={customAction}>Custom Action</Button> */}
     </TopToolbar>
@@ -25,22 +29,42 @@ const TicketDetailsActions = ({ basePath, data, resource }) => (
   
   
   const TicketListQuickLookup = props => (
+
     <Show
-        {...props}
-        /* disable the app title change when shown */
-        title=""
-      //  actions={<TicketDetailsActions />}
-        component="div"
+    {...props}
+    /* disable the app title change when shown */
+    title=""
+    //  actions={<TicketDetailsActions />}
+    component="div"
     >
+
+
+    <Grid container spacing={2}>
+      <Grid item md={6}>
+      
+      
         <SimpleShowLayout>
-            <TextField source="limit" />
-
-
-          <DateField source="start" showTime />
-          <DateField source="end" showTime />
-
+        <TextField source="limit" />
+        <DateField source="start" showTime />
+        <DateField source="end" showTime />
         </SimpleShowLayout>
-    </Show>
+     
+    
+    </Grid>
+      <Grid item md={6}>
+
+    
+
+      <RelatedParticipantsList {...props} />
+      
+    
+
+      
+      </Grid>
+    </Grid>
+
+     </Show>
+
   );
 
 
