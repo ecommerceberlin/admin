@@ -7,7 +7,9 @@ import TicketRoleField from './TicketRoleField'
 
 const ExtendedInfo = (props) => (
     <React.Fragment>
-        <TicketRoleField {...props} /><TagsField {...props}/>
+        <TicketRoleField {...props} />
+        <TagsField {...props} source="ticket_group.tags" color="secondary" />
+        <TagsField {...props}/>
     </React.Fragment>
 )
 

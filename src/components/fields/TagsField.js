@@ -1,7 +1,7 @@
 import React from 'react';
 import Chip from '@material-ui/core/Chip';
 import { makeStyles } from '@material-ui/core/styles';
-
+import get from 'lodash/get'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -9,18 +9,19 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const TagsField = ({ record }) => {
+const TagsField = ({ record, source="tags", variant="outlined", color="default" }) => {
 
   const classes = useStyles()
+  const tags = get(record, source, null);
 
-  if(!record || !("tags" in record)){
+  if(!record || !tags){
     return null
   }
 
   return (
     <span>
-      {record.tags.map(item => (
-        <Chip size="small" variant="outlined" key={item.name} label={item.name} className={classes.root} />
+      {tags.map(tag => (
+        <Chip size="small" color={color} variant={variant} key={tag.name} label={tag.name} className={classes.root} />
       ))}
     </span>
   );
