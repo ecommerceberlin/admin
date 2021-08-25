@@ -17,6 +17,8 @@ import { EventList, EventShow } from './endpoints/events';
 import { CompanyDataEdit, CompanyDataShow } from './endpoints/companydata';
 import { FieldsEdit } from './endpoints/fields';
 import { MessagesList, MessagesShow } from './endpoints/messages';
+import { LogList, LogIcon } from './endpoints/log';
+import { MarketingList, MarketingIcon } from './endpoints/marketing';
 
 import {PostList, PostEdit, PostCreate, PostIcon} from './endpoints/posts'
 import { getActiveEvent, getActiveGroup } from './api/app';
@@ -54,11 +56,11 @@ class App extends React.Component {
     return (
       <Admin
         disableTelemetry
-        //      title={<AppTitle />}
+        //title={<AppTitle />}
         layout={MyLayout}
         customReducers={customReducers}
         customSagas={[customSagas]}
-        customRoutes={customRoutes}
+        // customRoutes={customRoutes}
         authProvider={authProvider}
         dataProvider={dataProvider}
         initialState={initialState()}
@@ -78,6 +80,7 @@ class App extends React.Component {
             // options={{ label: 'Purchases' }}
             list={ canAccess(permissions, 'purchases') ? PurchaseList : null}
             icon={ PurchaseIcon }
+            options={{hideInMenu: true}}
           />,
 
           <Resource
@@ -90,6 +93,7 @@ class App extends React.Component {
               canAccess(permissions, 'participants') ? ParticipantShow : null
             }
             icon={ ParticipantIcon }
+            options={{hideInMenu: true}}
           />,
 
           <Resource
@@ -98,6 +102,7 @@ class App extends React.Component {
             show={canAccess(permissions, 'companies') ? CompanyShow : null} 
             create={canAccess(permissions, 'companies') ? CompanyCreate : null}
             icon={ CompanyIcon }
+            options={{hideInMenu: true}}
           />,
 
         
@@ -110,6 +115,21 @@ class App extends React.Component {
             create={canAccess(permissions, 'tickets') ? TicketCreate : null}
             icon={ TicketIcon }
           />,
+
+          <Resource
+          name="log"
+          list={canAccess(permissions, 'log') ? LogList : null}
+          icon={ LogIcon }
+          />,
+
+
+          <Resource
+          name="marketing"
+          list={canAccess(permissions, 'marketing') ? MarketingList : null}
+          icon={ MarketingIcon }
+          />,
+
+
 
           <Resource
             name="ticketgroups"
@@ -156,7 +176,7 @@ class App extends React.Component {
             show={canAccess(permissions, 'events') ? EventShow : null}
           />,
 
-          <Resource name="comments" />,
+          <Resource name="comments"  />,
 
           <Resource name="templates" />,
 
