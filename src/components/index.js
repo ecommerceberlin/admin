@@ -1,5 +1,6 @@
 export * from './bulkactionbuttons';
 export * from './fields';
+export * from './inputs';
 export { default as AppTitle } from './AppTitle';
 export { default as MyLayout } from './MyLayout';
 export { default as WithEvent } from './WithEvent';

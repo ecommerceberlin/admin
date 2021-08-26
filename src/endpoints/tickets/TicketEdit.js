@@ -2,6 +2,7 @@ import React from 'react';
 import { 
   Edit, 
   TextInput,
+
   DateTimeInput,
   NumberInput,
   TabbedForm,
@@ -11,6 +12,8 @@ import {
   ReferenceInput,
   FileInput,
   ImageField,
+  ArrayInput,
+  SimpleFormIterator,
   AutocompleteArrayInput,
   ReferenceManyField,
   Datagrid,
@@ -30,6 +33,7 @@ import {
 // import ActiveEventChipField from './ActiveEventChipField';
 import {TicketNameField} from './fields/TicketNameField'
 import {roles, useApiContext} from '../../api'
+import {JsonEditorInput} from '../../components'
 
 const redirect = (basePath, id, data) => `/companies/${data.company_id}/show`;
 
@@ -65,7 +69,7 @@ const TicketEdit = props => {
         </FormTab>
         <FormTab label="Extended">
           
-          <BooleanInput source="upselling" />
+        
 
           <AutocompleteArrayInput source="tags" choices={tags} 
            onCreate={(newTagName) => {
@@ -74,6 +78,8 @@ const TicketEdit = props => {
             return newTag;
           }}
           />
+          
+          <BooleanInput source="upselling" />
 
           {/* <FileInput source="thumbnail" validate={ [minLength(7), maxLength(200)] }>
             <ImageField source="thumbnail" title="title" />
@@ -85,7 +91,15 @@ const TicketEdit = props => {
           <TextInput source="thumbnail" fullWidth validate={[minLength(3), maxLength(100)]} />
           <TextInput source="image" fullWidth validate={[minLength(3), maxLength(100)]} />
           <TextInput source="details_url" validate={[minLength(3), maxLength(100)]} />
-  
+
+        <ArrayInput source="report">
+            <SimpleFormIterator>
+                <TextInput source="role" />
+            </SimpleFormIterator>
+        </ArrayInput>
+
+          <JsonEditorInput source="json" />
+
         </FormTab>
         <FormTab label="Participants">
 
