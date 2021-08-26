@@ -17,7 +17,7 @@ const DotField = ({options, record}) => {
         const condition = options[color]
 
         if(isFunction(condition) && condition(record)){
-            dots.push(<ActiveIcon fontSize="large"  style={{color}}/>)
+            dots.push(<ActiveIcon key={color} fontSize="large"  style={{color}}/>)
         }
 
     })

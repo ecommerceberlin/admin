@@ -14,20 +14,31 @@ const ExtendedInfo = (props) => (
 )
 
 
-const TicketNameField = (props) => {
+export const TicketNameField = (props) => {
 
     if(isEmpty(props.record)){
         return null;
     }
 
-    const {internal_name, translation_asset_id, _name, role} = props.record;
+    const {internal_name, translation_asset_id, _name} = props.record;
 
-    if(internal_name || translation_asset_id){
-        return <div>{internal_name || translation_asset_id} <ExtendedInfo {...props} /> </div>
+    if(internal_name.length > 0){
+        return internal_name
     }
 
-    return <div style={{color: "#999"}}>{_name} <ExtendedInfo {...props} /></div>
-
+    if(translation_asset_id.length > 0){
+         return translation_asset_id
     }
+    //legacy
+    return <span style={{color: props.grayout && "#999"}}>{_name}</span>
 
-export default TicketNameField
+}
+
+TicketNameField.defaultProps = {
+    grayout: true
+}
+
+
+const CominedField = (props) => (<div><TicketNameField {...props} /><ExtendedInfo {...props} /></div>) 
+
+export default CominedField
