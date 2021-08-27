@@ -34,6 +34,7 @@ import {
 import {TicketNameField} from './fields/TicketNameField'
 import {roles, useApiContext} from '../../api'
 import {JsonEditorInput} from '../../components'
+import RelatedParticipantsList from './components/RelatedParticipantsList';
 
 const redirect = (basePath, id, data) => `/companies/${data.company_id}/show`;
 
@@ -52,7 +53,7 @@ const TicketEdit = props => {
 
   return (<Edit title={<TicketNameField {...props} grayout={false} />} {...props}>
      <TabbedForm>
-        <FormTab label="Basic">
+        <FormTab label="Primary">
           <TextInput source="internal_name" validate={[required(), minLength(2), maxLength(100)]} />
           <TextInput source="translation_asset_id" validate={[required(), minLength(5), maxLength(100)]} />
           <NumberInput source="baseprice" validate={[number()]} />
@@ -67,7 +68,7 @@ const TicketEdit = props => {
           </ReferenceInput>
   
         </FormTab>
-        <FormTab label="Extended">
+        <FormTab label="Secondary">
           
         
 
@@ -98,18 +99,22 @@ const TicketEdit = props => {
             </SimpleFormIterator>
         </ArrayInput>
 
-          <JsonEditorInput source="json" />
+       
 
         </FormTab>
         <FormTab label="Participants">
-
+            <RelatedParticipantsList {...props} />
         </FormTab>
         <FormTab label="Log">
+
         <ReferenceManyField target="ticket_id" reference="log">
         <Datagrid>
           <TextField source="id" />
         </Datagrid>
         </ReferenceManyField>
+        </FormTab>
+        <FormTab label="Advanced">
+        <JsonEditorInput source="json" />
         </FormTab>
       </TabbedForm>
     </Edit>);

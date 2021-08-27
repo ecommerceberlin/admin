@@ -39,6 +39,6 @@ TicketNameField.defaultProps = {
 }
 
 
-const CominedField = (props) => (<div><TicketNameField {...props} /><ExtendedInfo {...props} /></div>) 
+const CominedField = (props) => (<div><TicketNameField {...props} />{` `}<ExtendedInfo {...props} /></div>) 
 
 export default CominedField
