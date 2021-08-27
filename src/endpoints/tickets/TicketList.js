@@ -32,9 +32,9 @@ const ViewList = props => {
     
   <List
     {...props}
-    actions={ <TicketListActions /> }
+   // actions={ <TicketListActions /> }
     perPage={100}
-    filters={<TicketListFilters />}
+    filters={ TicketListFilters }
     filter={{ event_id }}
     exporter={false}
     aside={<TicketListAside />}
