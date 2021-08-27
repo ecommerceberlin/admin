@@ -71,7 +71,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => ({
         const query = {
             id_like: params.ids,
         };
-        const url = `${apiUrl}/${resource}?${stringify(query)}`;
+        const url = `${apiUrl}/${resource}?${stringify(query, {arrayFormat: "bracket"})}`;
         return httpClient(url).then(({ json }) => ({ data: json.data }));
     },
 
