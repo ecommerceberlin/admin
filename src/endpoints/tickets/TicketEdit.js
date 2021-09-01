@@ -2,16 +2,9 @@ import React from 'react';
 import { 
   Edit, 
   TextInput,
-
-  DateTimeInput,
-  NumberInput,
   TabbedForm,
   FormTab,
-  SelectInput,
   BooleanInput,
-  ReferenceInput,
-  FileInput,
-  ImageField,
   ArrayInput,
   SimpleFormIterator,
   AutocompleteArrayInput,
@@ -23,7 +16,6 @@ import {
   minLength,
   maxLength,
   minValue,
-  maxValue,
   number,
   regex,
   email,
@@ -35,8 +27,7 @@ import {TicketNameField} from './fields/TicketNameField'
 import {roles, useApiContext} from '../../api'
 import {JsonEditorInput} from '../../components'
 import RelatedParticipantsList from './components/RelatedParticipantsList';
-
-const redirect = (basePath, id, data) => `/companies/${data.company_id}/show`;
+import form from './sharedInputs'
 
 const validateFirstName = [required(), minLength(2), maxLength(15)];
 const validateEmail = email();
@@ -51,27 +42,15 @@ const TicketEdit = props => {
 
   const [group_id, event_id] = useApiContext()
 
+
   return (<Edit title={<TicketNameField {...props} grayout={false} />} {...props}>
      <TabbedForm>
         <FormTab label="Primary">
-          <TextInput source="internal_name" validate={[required(), minLength(2), maxLength(100)]} />
-          <TextInput source="translation_asset_id" validate={[required(), minLength(5), maxLength(100)]} />
-          <NumberInput source="baseprice" validate={[number()]} />
-          <SelectInput source="price_currency" validate={[required()]} choices={[{id: "EUR", name: "EUR"}, {id: "PLN", name: "PLN"}]} />
-          <NumberInput source="limit" validate={[number()]} />
-          <DateTimeInput source="start" />
-          <DateTimeInput source="end" />
-          <SelectInput source="role" choices={roles.map(role=>({id: role, name: role}))} />
-          
-          <ReferenceInput allowEmpty={true} filter={{event_id}} label="Ticket Group" source="ticket_group_id" reference="ticketgroups">
-            <SelectInput optionText="name" />
-          </ReferenceInput>
-  
+        {form(event_id)}
         </FormTab>
         <FormTab label="Secondary">
           
-        
-
+    
           <AutocompleteArrayInput source="tags" choices={tags} 
            onCreate={(newTagName) => {
             const newTag = { id: newTagName.toLowerCase(), name: newTagName };

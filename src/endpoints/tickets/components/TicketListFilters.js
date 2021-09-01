@@ -26,8 +26,12 @@ const TicketListFilters = [
   </ReferenceInput>),
 
   <SelectInput source="role" choices={rolesObject} label="Role" alwaysOn />,
-  // <QuickFilter source="upgrade" label="Upselling"  defaultValue={1} />,
-  // <QuickFilter source="bookable" label="Inactive"  defaultValue={0} />
+  
+  // <QuickFilter source="upgrade" label="Upgrade"  defaultValue={1} />,
+  <QuickFilter source="unused" label="Unused (Sold=0, past date)"  defaultValue={1} />,
+  // <QuickFilter source="future" label="Future"  defaultValue={1} />,
+  // <QuickFilter source="free" label="Free"  defaultValue={1} />,
+  // <QuickFilter source="paid" label="Paid"  defaultValue={1} />
 
   // <TicketTagSelectInput source="tags" />
 

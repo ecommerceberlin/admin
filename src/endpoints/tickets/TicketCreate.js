@@ -1,51 +1,17 @@
-import React from 'react';
-import { Edit, SimpleForm, TextInput } from 'react-admin';
-// import ActiveEventButton from './ActiveEventButton';
-// import ActiveEventChipField from './ActiveEventChipField';
+import React from 'react'
+import { Create, SimpleForm } from 'react-admin'
+import form from './sharedInputs'
+import {useApiContext} from '../../api'
 
-import PurchaseStatusField from '../purchases/PurchaseStatusField';
-
-import Chip from '@material-ui/core/Chip';
-
-import get from 'lodash/get';
-
-const Title = ({ record }) => {
+const TicketEdit = props => {
+  const [group_id, event_id] = useApiContext()
   return (
-    <span>
-      {record
-        ? `${get(record, 'fields.fname')} ${get(record, 'fields.lname')} ${
-            record.email
-          }`
-        : ''}
-    </span>
+    <Create {...props}>
+      <SimpleForm>
+        {form(event_id)}
+      </SimpleForm>
+    </Create>
   );
-};
-
-const Roles = ({ record }) => (
-  <div>
-    {record &&
-      'roles' in record &&
-      record.roles.map(role => <Chip key={role} label={role} />)}
-  </div>
-);
-
-Roles.defaultProps = { addLabel: true };
-
-const ProfileFields = ({ record }) =>
-  // <ul>{Object.keys(record.fields).map(key => <li key={key}>{record.fields[key]}</li>)}</ul>
-
-  null;
-
-ProfileFields.defaultProps = { addLabel: true };
-
-const redirect = (basePath, id, data) => `/companies/${data.company_id}/show`;
-
-const TicketEdit = props => (
-  <Edit title={<Title />} {...props}>
-    <SimpleForm redirect={redirect}>
-      <TextInput source="value" />
-    </SimpleForm>
-  </Edit>
-);
+}
 
 export default TicketEdit;
