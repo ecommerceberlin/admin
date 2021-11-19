@@ -11,7 +11,11 @@ import { CompanyList, CompanyShow, CompanyCreate, CompanyIcon } from './endpoint
 import { PurchaseList, PurchaseIcon } from './endpoints/purchases';
 import { ParticipantList, ParticipantShow, ParticipantIcon } from './endpoints/participants';
 import { TicketList, TicketEdit, TicketIcon, TicketCreate } from './endpoints/tickets';
-import { TicketGroupList } from './endpoints/ticketgroups';
+import { 
+  TicketGroupList, 
+  TicketGroupCreate, 
+  TicketGroupEdit 
+} from './endpoints/ticketgroups';
 import { GroupList, GroupShow } from './endpoints/groups';
 import { EventList, EventShow } from './endpoints/events';
 import { CompanyDataEdit, CompanyDataShow } from './endpoints/companydata';
@@ -93,7 +97,7 @@ class App extends React.Component {
               canAccess(permissions, 'participants') ? ParticipantShow : null
             }
             icon={ ParticipantIcon }
-            options={{hideInMenu: true}}
+            //options={{hideInMenu: true}}
           />,
 
           <Resource
@@ -135,6 +139,12 @@ class App extends React.Component {
             name="ticketgroups"
             list={
               canAccess(permissions, 'ticketgroups') ? TicketGroupList : null
+            }
+            create={
+              canAccess(permissions, 'ticketgroups') ? TicketGroupCreate : null
+            }
+            edit={
+              canAccess(permissions, 'ticketgroups') ? TicketGroupEdit : null
             }
             options={{hideInMenu: true}}
           />,

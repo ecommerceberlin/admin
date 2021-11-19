@@ -11,7 +11,7 @@ import {
     number,
     FormTab
 } from 'react-admin'
-import {roles} from '../../api'
+import {roles} from '../../../api'
 
 const form = (event_id) => {
 

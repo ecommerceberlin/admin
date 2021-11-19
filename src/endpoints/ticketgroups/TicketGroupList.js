@@ -2,27 +2,13 @@ import React from 'react';
 import {
   List,
   Datagrid,
-  ChipField,
   NumberField,
   EditButton,
-  ReferenceManyField,
-  SimpleList
+  ReferenceManyField
 } from 'react-admin';
 
-
+import BoothColorField from './fields/BoothColorField'
 import { useApiContext } from '../../api';
-
-const BoothColorField = ({ record, ...rest }) => (
-  <ChipField
-    style={{
-      backgroundColor: record.booth.bgcolor,
-      color: record.booth.fontcolor
-    }}
-    record={record}
-    {...rest}
-  />
-);
-BoothColorField.defaultProps = { addLabel: true };
 
 const TicketGroupList = props => {
 
@@ -41,7 +27,7 @@ const TicketGroupList = props => {
         <BoothColorField source="name" />
         
         <NumberField source="limit" />
-        <NumberField source="tickets" />
+        <NumberField source="tickets" label="Assigned"/>
         <NumberField source="available" />
 
         <EditButton />

@@ -23,7 +23,7 @@ import {
 } from 'react-admin';
 // import ActiveEventButton from './ActiveEventButton';
 // import ActiveEventChipField from './ActiveEventChipField';
-import {TicketNameField} from './fields/TicketNameField'
+import {TicketGroupNameField} from './fields/TicketGroupNameField'
 import {roles, useApiContext} from '../../api'
 import {JsonEditorInput} from '../../components'
 import RelatedParticipantsList from './components/RelatedParticipantsList';
@@ -43,31 +43,20 @@ const TicketEdit = props => {
   const [group_id, event_id] = useApiContext()
 
 
-  return (<Edit title={<TicketNameField {...props} grayout={false} />} {...props}>
+  return (<Edit 
+//   title={<TicketGroupNameField {...props} grayout={false} />} 
+  {...props}
+  >
      <TabbedForm>
         <FormTab label="Primary">
         {form(event_id)}
         </FormTab>
-        <FormTab label="Secondary">
+        {/* <FormTab label="Secondary">
           
     
-          <AutocompleteArrayInput source="tags" choices={tags} 
-           onCreate={(newTagName) => {
-            const newTag = { id: newTagName.toLowerCase(), name: newTagName };
-            tags.push(newTag);
-            return newTag;
-          }}
-          />
           
           <BooleanInput source="upselling" />
 
-          {/* <FileInput source="thumbnail" validate={ [minLength(7), maxLength(200)] }>
-            <ImageField source="thumbnail" title="title" />
-          </FileInput> */}
-
-          {/* <FileInput source="image" validate={ [minLength(7), maxLength(200)] }>
-            <ImageField source="image" title="title" />
-          </FileInput> */}
           <TextInput source="thumbnail" fullWidth validate={[minLength(3), maxLength(100)]} />
           <TextInput source="image" fullWidth validate={[minLength(3), maxLength(100)]} />
           <TextInput source="details_url" validate={[minLength(3), maxLength(100)]} />
@@ -94,7 +83,7 @@ const TicketEdit = props => {
         </FormTab>
         <FormTab label="Advanced">
         <JsonEditorInput source="json" />
-        </FormTab>
+        </FormTab> */}
       </TabbedForm>
     </Edit>);
 } 
