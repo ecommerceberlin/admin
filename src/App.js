@@ -73,13 +73,7 @@ class App extends React.Component {
       >
         {permissions => [
 
-          <Resource 
-          name="votes" 
-          list={ VotersList } 
-          // edit={ PostEdit } 
-          // create={ PostCreate } 
-          // icon={ PostIcon }  
-          />,
+        
 
           <Resource 
             name="posts" 
@@ -88,6 +82,15 @@ class App extends React.Component {
             create={ PostCreate } 
             icon={ PostIcon }  
           />,
+
+          <Resource 
+          name="votes" 
+          list={ VotersList } 
+          // edit={ PostEdit } 
+          // create={ PostCreate } 
+          // icon={ PostIcon }  
+          />,
+          
 
           <Resource
             name="purchases"

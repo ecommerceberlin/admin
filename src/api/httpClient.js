@@ -8,7 +8,26 @@ import {fileUpload} from '../redux'
 
 /** OLD */
 
+export const fixApiPath = (path="") => {
+
+  path = path.trim()
+
+  if(!/^http/.test(path)){
+
+    if(path.charAt(0) !== "/"){
+      path = `/${path}`
+    }
+
+    path = `${process.env.REACT_APP_API_ENDPOINT}${path}`
+  }
+
+  return path
+}
+
+
 export const httpClient = (url, options = {}) => {
+
+  url = fixApiPath(url)
 
   const token = localStorage.getItem('token');
 

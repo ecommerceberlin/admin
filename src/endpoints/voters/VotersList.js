@@ -7,19 +7,17 @@ import {
   List,
   Datagrid,
   TextField,
-  EditButton,
+  DeleteButton,
   DateField
 } from 'react-admin';
 
 import {useApiContext } from '../../api'
 // import TicketTags from './components/TicketTags';
+import FilterByAppId from './filters/FilterByAppId'
 
 const ListActions = (props) => (
   <TopToolbar>
-      
-      <ExportButton  maxResults="50000" />
-     
-    
+      <ExportButton  maxResults="50000" />    
   </TopToolbar>
 );
 
@@ -33,12 +31,12 @@ const ViewList = props => {
     {...props}
     actions={ <ListActions /> }
     perPage={100}
-  //  filters={ TicketListFilters }
+    filters={ [<FilterByAppId label="Linkedin App" source="linkedin_client_id" alwaysOn />] }
     filter={{ group_id }}
    // exporter={false}
    // aside={<TicketListAside />}
    // bulkActionButtons={ <TicketListBulkActions />}
-    sort={{ field: 'start', order: 'DESC' }}
+    sort={{ field: 'id', order: 'DESC' }}
    
   >
   <Datagrid>
@@ -49,7 +47,8 @@ const ViewList = props => {
   <TextField source="account.lname" />
   <TextField source="account.locale" />
   <TextField source="contestant.email" label="Voted on" />
-
+  <DeleteButton />
+  
   </Datagrid>
   </List>
       
