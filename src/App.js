@@ -23,8 +23,10 @@ import { FieldsEdit } from './endpoints/fields';
 import { MessagesList, MessagesShow } from './endpoints/messages';
 import { LogList, LogIcon } from './endpoints/log';
 import { MarketingList, MarketingIcon } from './endpoints/marketing';
-
 import {PostList, PostEdit, PostCreate, PostIcon} from './endpoints/posts'
+import {VotersList} from './endpoints/voters'
+
+
 import { getActiveEvent, getActiveGroup } from './api/app';
 
 
@@ -70,6 +72,14 @@ class App extends React.Component {
         initialState={initialState()}
       >
         {permissions => [
+
+          <Resource 
+          name="votes" 
+          list={ VotersList } 
+          // edit={ PostEdit } 
+          // create={ PostCreate } 
+          // icon={ PostIcon }  
+          />,
 
           <Resource 
             name="posts" 
@@ -153,7 +163,9 @@ class App extends React.Component {
             name="groups"
             list={canAccess(permissions, 'groups') ? GroupList : null}
             show={canAccess(permissions, 'groups') ? GroupShow : null}
-            options={{ label: 'Projects', hideInMenu: true}}
+            options={{ 
+              label: 'Projects', 
+              hideInMenu: true}}
           />,
 
           <Resource
@@ -168,7 +180,9 @@ class App extends React.Component {
           />,
 
           <Resource
-            options={{hideInMenu: true}}
+            options={{
+              hideInMenu: true
+            }}
             name="companydata"
             edit={
               canAccess(permissions, 'companydata') ? CompanyDataEdit : null
