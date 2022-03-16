@@ -6,5 +6,6 @@ export { default as ChangeValueFromPredefinedSet} from './ChangeValueFromPredefi
 export { default as MoveOrCopyToOtherGroup} from './MoveOrCopyToOtherGroup'
 export { default as MassChangeFlags} from './MassChangeFlags'
 export { default as CloneItemsButton} from './CloneItemsButton'
+export { default as CopyToNewerEvent} from './CopyToNewerEvent'
 
 

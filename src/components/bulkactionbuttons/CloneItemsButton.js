@@ -45,7 +45,7 @@ const CloneItemsButton = ({resource, basePath, selectedIds}) => {
         });
     }
 
-    return <Button label="clone" onClick={handleAction} variant="outlined" startIcon={<FileCopyIcon />} />
+    return <Button label="clone" onClick={handleAction} variant="text" startIcon={<FileCopyIcon />} />
 
 
 }
