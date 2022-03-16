@@ -7,3 +7,4 @@ export { default as WithEvent } from './WithEvent';
 export { default as QuickFilter } from './QuickFilter'
 export { default as LessImportantInfo } from './LessImportantInfo'
 
+export { default as Button } from './Button'
