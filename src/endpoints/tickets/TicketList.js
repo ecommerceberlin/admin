@@ -7,14 +7,14 @@ import {
 } from 'react-admin';
 
 import { 
-  DotField
+  DotField,
+  CloneItemsButton
 } from '../../components';
 
 import {
   TicketListActions,
   TicketListFilters,
   TicketListAside,
-  TicketListBulkActions,
   TicketListQuickLookup
 } from './components'
 
@@ -24,6 +24,11 @@ import {useApiContext } from '../../api'
 import {SalesField, TicketNameField, TicketPriceField} from './fields'
 
 
+const BulkActions = (props) => (
+  <React.Fragment>
+    <CloneItemsButton {...props} />
+  </React.Fragment>
+)
 
 const ViewList = props => {
 
@@ -38,7 +43,7 @@ const ViewList = props => {
     filter={{ event_id }}
     exporter={false}
     aside={<TicketListAside />}
-    bulkActionButtons={ <TicketListBulkActions />}
+    bulkActionButtons={ <BulkActions />}
     sort={{ field: 'start', order: 'DESC' }}
    
   >

@@ -5,3 +5,6 @@ export { default as Admins } from './Admins';
 export { default as ChangeValueFromPredefinedSet} from './ChangeValueFromPredefinedSet'
 export { default as MoveOrCopyToOtherGroup} from './MoveOrCopyToOtherGroup'
 export { default as MassChangeFlags} from './MassChangeFlags'
+export { default as CloneItemsButton} from './CloneItemsButton'
+
+
