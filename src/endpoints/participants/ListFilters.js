@@ -5,7 +5,7 @@ import { rolesObject } from '../../api/app';
 
 const Filters = props => (
   <Filter {...props}>
-    <TextInput label="Search" source="q" alwaysOn />
+    {/* <TextInput label="Search" source="q" alwaysOn /> */}
 
     <FilterByTicketId source="ticket_id" alwaysOn allowEmpty />
 

@@ -27,7 +27,7 @@ const ModifyTicketGroupTicket = ({ids = []}) => {
     return <Table rows={withGroupId} columns={[
         {name: "name", render: "_name"},
         {name: "ticket_group_id", render: "ticket_group.name"},
-        {name: "target", render: () => <Select />}
+      //  {name: "target", render: (item) => <Select cacheKey={} />}
     ]}/>
 }
 

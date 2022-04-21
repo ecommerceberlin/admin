@@ -31,7 +31,7 @@ const Filters = props => {
 
   return (
     <Filter {...props}>
-      <TextInput label="Search" source="q" alwaysOn />
+      {/* <TextInput label="Search" source="q" alwaysOn /> */}
   
       {/* <SelectInput source="role" choices={roles} alwaysOn allowEmpty /> */}
 
@@ -39,7 +39,7 @@ const Filters = props => {
       <SelectInput optionText="name" shouldRenderSuggestions={()=>true} />
       </ReferenceInput> */}
     
-      <RadioButtonGroupInput source="status" choices={statuses} alwaysOn />
+      {/* <RadioButtonGroupInput source="status" choices={statuses} alwaysOn /> */}
   
     </Filter>
   );
@@ -63,8 +63,8 @@ const ParticipantList = (props) => {
     perPage={100}
     filters={<Filters />}
     filter={{ event_id }}
-    // bulkActionButtons={<CustomBulkActions />}
-    exporter={false}
+    bulkActionButtons={false}
+   // exporter={false}
     // filterDefaultValues={{status: "all"}}
   >
     <Datagrid>
