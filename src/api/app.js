@@ -4,17 +4,55 @@ export const uniqueValues = arr => [...new Set(uniqueValues)];
 
 export const capitalizeFirstLetter = (string) =>  string.charAt(0).toUpperCase() + string.slice(1)
 
-export const lsGet = key => {
-  const item = localStorage.getItem(key);
 
-  try {
-    return JSON.parse(item);
-  } catch (error) {
-    return null;
+export const getKey = key => `admin.eventjuicer.com/${key}`
+
+export const lsGet = (key, ifNotFound = "") => {
+    try {
+      const data = localStorage.getItem(getKey(key))
+      return data ? JSON.parse(data) : ifNotFound
+    } catch (error) {
+      return ifNotFound
+    }
   }
-};
+  
+  
+  export const lsSet = (key, value) => localStorage.setItem(getKey(key), JSON.stringify(value))
+  
+  export const lsRem = (key) => localStorage.removeItem( getKey(key) )
 
-export const lsSet = (key, value) => localStorage.setItem(key, JSON.stringify(value));
+
+  export function useLocalStorage(key, initialValue) {
+    // State to store our value
+    // Pass initial state function to useState so logic is only executed once
+    const [storedValue, setStoredValue] = React.useState(() => {
+      try {
+        return lsGet(key, initialValue)
+      } catch (error) {
+        console.log(error);
+        return initialValue;
+      }
+    });
+  
+    const setValue = value => {
+      try {
+        // Allow value to be a function so we have same API as useState
+        const valueToStore = value instanceof Function ? value(storedValue) : value;
+        setStoredValue(valueToStore);      
+        lsSet(key, valueToStore)
+      } catch (error) {
+        // A more advanced implementation would handle the error case
+        console.log(error);
+      }
+    };
+  
+    return [storedValue, setValue];
+  }
+
+
+
+
+
 
 export const statuses = [
   { id: 'all', name: 'ALL' },

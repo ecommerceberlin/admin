@@ -45,6 +45,15 @@ const Filters = props => {
   );
 }
 
+const VipField = ({record}) => {
+
+  if(!record){
+    return null
+  }
+
+  return record.going
+
+}
 
 
 const CustomBulkActions = props => (
@@ -69,8 +78,9 @@ const ParticipantList = (props) => {
   >
     <Datagrid>
       <TextField source="email" />
+      <VipField />
       <DateField source="created_at" showTime />
-      <TextField source="status" />
+      {/* <TextField source="status" /> */}
 
       <ReferenceArrayField
         label="Roles"

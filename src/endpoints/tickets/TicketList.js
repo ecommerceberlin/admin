@@ -8,7 +8,8 @@ import {
 
 import { 
   DotField,
-  CloneItemsButton
+  CloneItemsButton,
+  CopyToNewerEvent
 } from '../../components';
 
 import {
@@ -27,6 +28,7 @@ import {SalesField, TicketNameField, TicketPriceField} from './fields'
 const BulkActions = (props) => (
   <React.Fragment>
     <CloneItemsButton {...props} />
+    {/* <CopyToNewerEvent {...props} /> */}
   </React.Fragment>
 )
 
