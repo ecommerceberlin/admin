@@ -1,7 +1,7 @@
 
 import { Grid, Box } from "@material-ui/core"
 import { makeStyles } from "@material-ui/styles"
-import { Table } from "../../../components"
+import { Table, CopyToClipboardButton } from "../../../components"
 import { orange } from "@material-ui/core/colors"
 
 const useStyles = makeStyles({
@@ -41,8 +41,8 @@ const ParticipantDetails = ({id, record, resource }) => {
                 {name: "value", render: (item)=> item.value}
             ]} rows={[
                 {key: "id", value: record.id},
-                {key: "code", value: record.code},
-                {key: "token", value: "xxxx"}
+                {key: "ticket", value: <span><CopyToClipboardButton variant="text" text={record.code}/></span> },
+                {key: "panel", value: <span><CopyToClipboardButton variant="text" text={record.token} /></span>}
             ]} />
 
             </Grid>

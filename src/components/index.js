@@ -11,3 +11,5 @@ export { default as Aside } from './Aside'
 export { default as Button } from './Button'
 export { default as Table } from './Table'
 export { default as Select } from './Select'
+export { default as CopyToClipboardButton } from './CopyToClipboardButton'
+
