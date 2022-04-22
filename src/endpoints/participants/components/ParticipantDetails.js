@@ -17,8 +17,8 @@ const transformValueIfNeeded = (val) => {
         return (new URL(val)).pathname
     }
 
-    if(val.length > 50){
-        return `${val.substring(0, 50)}...`
+    if(val.length > 70){
+        return `${val.substring(0, 70)}...`
     }
 
     return val
@@ -34,19 +34,20 @@ const ParticipantDetails = ({id, record, resource }) => {
 
     return (<Box className={classes.root}>
             <Grid container spacing={2}>
-            <Grid item>
+            <Grid item xs={12} md={6}>
 
             <Table columns={[
                 {name: "key", render: (item)=> item.key},
                 {name: "value", render: (item)=> item.value}
             ]} rows={[
-                {key: "id", value: record.id},
                 {key: "ticket", value: <span><CopyToClipboardButton variant="text" text={record.code}/></span> },
-                {key: "panel", value: <span><CopyToClipboardButton variant="text" text={record.token} /></span>}
+                {key: "panel", value: <span><CopyToClipboardButton variant="text" text={record.token} /></span>},
+                {key: "ids", value: record.id},
+                {key: "company id", value: record.company_id}
             ]} />
 
             </Grid>
-            <Grid item>
+            <Grid item xs={12} md={6}>
             <Table columns={[
                 {name: "key", render: (item)=> item.key},
                 {name: "value", render: (item)=> item.value}

@@ -11,7 +11,8 @@ import {
   TextInput, 
   SelectInput, 
   Filter,
-  ReferenceInput,
+  ReferenceField,
+  ReferenceManyField,
   ReferenceArrayField, 
   SingleFieldList,
   RadioButtonGroupInput
@@ -69,7 +70,7 @@ const ParticipantList = (props) => {
     filters={<Filters />}
     filter={{ event_id }}
     bulkActionButtons={false}
-    aside={<Aside />}
+    aside={<Aside>Recent actions</Aside>}
    // exporter={false}
     // filterDefaultValues={{status: "all"}}
 
@@ -79,6 +80,26 @@ const ParticipantList = (props) => {
       <ComboField source="email" />
    
       {/* <TextField source="status" /> */}
+
+      <ReferenceField
+        label="Company"
+        reference="companies"
+        source="company_id"
+        filter={{event_id}}
+      >
+          <FunctionField
+            render={record =>
+              record.slug ? (
+                <ChipField source="slug" record={record} />
+              ) : (
+                <span />
+              )
+            }
+          />
+    
+      </ReferenceField>
+
+
 
       <ReferenceArrayField
         label="Roles"
@@ -98,6 +119,9 @@ const ParticipantList = (props) => {
           />
         </SingleFieldList>
       </ReferenceArrayField>
+
+
+
 
       <DateField source="created_at" showTime />
 
