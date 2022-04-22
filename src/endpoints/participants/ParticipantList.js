@@ -22,8 +22,9 @@ import {
   SendMessageAction,
   WithEvent
 } from '../../components';
-
 import { roles, statuses, useApiContext } from '../../api';
+import { ComboField } from './components';
+
 
 const Filters = props => {
 
@@ -45,15 +46,6 @@ const Filters = props => {
   );
 }
 
-const VipField = ({record}) => {
-
-  if(!record){
-    return null
-  }
-
-  return record.going
-
-}
 
 
 const CustomBulkActions = props => (
@@ -77,9 +69,9 @@ const ParticipantList = (props) => {
     // filterDefaultValues={{status: "all"}}
   >
     <Datagrid>
-      <TextField source="email" />
-      <VipField />
-      <DateField source="created_at" showTime />
+     
+      <ComboField source="email" />
+   
       {/* <TextField source="status" /> */}
 
       <ReferenceArrayField
@@ -101,6 +93,8 @@ const ParticipantList = (props) => {
         </SingleFieldList>
       </ReferenceArrayField>
 
+      <DateField source="created_at" showTime />
+      
       {/* <TextField source="lang" /> */}
       <ShowButton />
   
