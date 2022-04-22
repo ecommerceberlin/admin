@@ -1,6 +1,7 @@
 import { isObject } from 'lodash';
 import { makeStyles } from '@material-ui/styles';
 import { grey } from '@material-ui/core/colors';
+import { useMediaQuery } from '@material-ui/core';
 
 const useStyles = makeStyles({
     e: {
@@ -16,17 +17,19 @@ const useStyles = makeStyles({
     },
 
     uk: {
+        fontSize: "80%",
         color: grey[400],
     },
 
     uv: {
-        color: grey[700],
+        color: grey[500],
     }
 
 })
 
 const ComboField = ({record}) => {
 
+    const isDesktop = useMediaQuery(theme => theme.breakpoints.up("sm"))
     const classes = useStyles()
 
     if(!record){
@@ -39,7 +42,7 @@ const ComboField = ({record}) => {
         Object.keys(record.utms).forEach(utm => 
           utms.push( 
               <span className={classes.u}>
-                  <span  className={classes.uk}>{utm.replace("utm_", "")}</span>{` `}
+                  {isDesktop ? <span  className={classes.uk}>{utm.replace("utm_", "")}</span>: null}{` `}
                   <span  className={classes.uv}>{record.utms[utm]}</span>
               </span>) 
         )
