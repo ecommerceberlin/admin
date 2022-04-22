@@ -18,7 +18,7 @@ const transformValueIfNeeded = (val) => {
     }
 
     if(val.length > 50){
-        return val.substring(0, 50)
+        return `${val.substring(0, 50)}...`
     }
 
     return val
