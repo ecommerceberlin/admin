@@ -10,6 +10,20 @@ const useStyles = makeStyles({
     }
 })
 
+
+const transformValueIfNeeded = (val) => {
+
+    if(val.includes("http")){
+        return (new URL(val)).pathname
+    }
+
+    if(val.length > 50){
+        return val.substring(0, 50)
+    }
+
+    return val
+}
+
 const ParticipantDetails = ({id, record, resource }) => {
 
     const classes = useStyles()
@@ -19,7 +33,7 @@ const ParticipantDetails = ({id, record, resource }) => {
     }
 
     return (<Box className={classes.root}>
-            <Grid container>
+            <Grid container spacing={2}>
             <Grid item>
 
             <Table columns={[
@@ -37,7 +51,7 @@ const ParticipantDetails = ({id, record, resource }) => {
                 {name: "key", render: (item)=> item.key},
                 {name: "value", render: (item)=> item.value}
             ]} rows={
-            Object.keys(record.profile || {}).map(key => ({ key, value: record.profile[key] })).filter(item=>item.value)
+            Object.keys(record.profile || {}).map(key => ({ key, value: transformValueIfNeeded(record.profile[key]) })).filter(item=>item.value)
             } />
             </Grid>
             </Grid>
