@@ -3,6 +3,13 @@ import { makeStyles } from '@material-ui/styles';
 import { grey } from '@material-ui/core/colors';
 import { useMediaQuery } from '@material-ui/core';
 
+const allowedUtms = [
+    "utm_source",
+    "utm_campaign",
+    // "utm_medium"
+]
+
+
 const useStyles = makeStyles({
     e: {
         fontWeight: 400,
@@ -39,13 +46,18 @@ const ComboField = ({record}) => {
     const utms = []
   
     if(isObject(record.utms)){
-        Object.keys(record.utms).forEach(utm => 
-          utms.push( 
-              <span className={classes.u}>
-                  {isDesktop ? <span  className={classes.uk}>{utm.replace("utm_", "")}</span>: null}{` `}
-                  <span  className={classes.uv}>{record.utms[utm]}</span>
-              </span>) 
-        )
+        Object.keys(record.utms).forEach(utm => {
+
+            if(allowedUtms.some(item => utm === item) ){
+
+                utms.push( 
+                    <span className={classes.u}>
+                        {isDesktop ? <span  className={classes.uk}>{utm.replace("utm_", "")}</span>: null}{` `}
+                        <span  className={classes.uv}>{record.utms[utm]}</span>
+                    </span>) 
+            }
+
+        })
     }
   
     return (<span>
