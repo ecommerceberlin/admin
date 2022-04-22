@@ -20,10 +20,14 @@ import {useSelector} from 'react-redux'
 import {
   SetStatusAction,
   SendMessageAction,
-  WithEvent
+  WithEvent,
+  Aside,
 } from '../../components';
 import { roles, statuses, useApiContext } from '../../api';
-import { ComboField } from './components';
+import { 
+  ComboField,
+  ParticipantDetails 
+} from './components';
 
 
 const Filters = props => {
@@ -65,10 +69,12 @@ const ParticipantList = (props) => {
     filters={<Filters />}
     filter={{ event_id }}
     bulkActionButtons={false}
+    aside={<Aside />}
    // exporter={false}
     // filterDefaultValues={{status: "all"}}
+
   >
-    <Datagrid>
+    <Datagrid expand={<ParticipantDetails />}>
      
       <ComboField source="email" />
    
@@ -80,7 +86,7 @@ const ParticipantList = (props) => {
         source="ticket_ids"
         filter={{event_id}}
       >
-        <SingleFieldList>
+        <SingleFieldList linkType={false}>
           <FunctionField
             render={record =>
               record.role ? (
@@ -94,7 +100,7 @@ const ParticipantList = (props) => {
       </ReferenceArrayField>
 
       <DateField source="created_at" showTime />
-      
+
       {/* <TextField source="lang" /> */}
       <ShowButton />
   
