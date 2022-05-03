@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Aside } from '../../../components'
+import { Aside, Table } from '../../../components'
 import { useApiContext, useGet } from '../../../api'
 
 const ParticipantsAside = () => {
@@ -9,8 +9,20 @@ const ParticipantsAside = () => {
     const {not_going, going} = data
 
     return (<Aside>
-       Going {going} <br/>
-       Not going {not_going}
+
+    <Table 
+    minWidth={300}
+    columns={[
+        {name: "metrics", render: (item)=> <strong>{item.key}</strong>},
+        {name: "value", render: (item)=> item.value},
+    ]}
+    rows={[
+    {key: "Going", value: data.going },
+    {key: "Not going", value: data.not_going },
+    ]} />
+
+
+
     </Aside>)
 
 }

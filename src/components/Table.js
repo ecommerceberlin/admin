@@ -12,9 +12,9 @@ import {isEmpty, isFunction, get } from 'lodash';
 
 
 
- const useStyles = makeStyles(theme => ({
+ const useStyles = ({minWidth=650}) => makeStyles(theme => ({
     table: {
-      minWidth: 650,
+      minWidth,
     },
     active: {
       color: "black",
@@ -32,9 +32,9 @@ import {isEmpty, isFunction, get } from 'lodash';
 
  
 
-const CustomTable = ({rows=[], columns=[], showHeader=false, baseLabel=""}) => {
+const CustomTable = ({rows=[], columns=[], showHeader=false, baseLabel="", minWidth=650}) => {
 
-    const classes = useStyles()
+    const classes = useStyles({minWidth})()
     const translate = useTranslate()
 
     if(isEmpty(rows) || isEmpty(columns)){
