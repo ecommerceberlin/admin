@@ -17,8 +17,9 @@ const ParticipantsAside = () => {
         {name: "value", render: (item)=> item.value},
     ]}
     rows={[
-    {key: "Going", value: data.going },
-    {key: "Not going", value: data.not_going },
+        {key: "Total", value: data.total },
+        {key: "Going", value: data.going },
+        {key: "Not going", value: data.not_going },
     ]} />
 
 
