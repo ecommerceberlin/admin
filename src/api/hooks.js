@@ -1,5 +1,8 @@
+import React from 'react'
 import {useSelector} from 'react-redux'
-import {useQueryWithStore} from 'react-admin'
+import {useQueryWithStore, DataProviderContext} from 'react-admin'
+import { isString } from 'lodash'
+
 
 export const useApiContext = () => {
 
@@ -42,3 +45,42 @@ export const useGroupEvents = () => {
     return data
 
 }
+
+
+
+
+export const useGet = (path, usePublicApi=false) => {
+
+
+    const [data, setData] = React.useState(false)
+    const [error, setError] = React.useState(false)
+    const [loading, setLoading] = React.useState(true)
+    const dataProvider = React.useContext(DataProviderContext);
+  
+    React.useEffect(()=>{
+  
+      let isCancelled = false;
+  
+      if(path && isString(path)){
+        dataProvider.get(path, usePublicApi).then(({data}) => {
+          if(!isCancelled){
+            setLoading(false)
+            setData(data)
+          }
+        }).catch(error => {
+          if(!isCancelled){
+            setLoading(false)
+            setError(error)
+          }
+        })
+      }
+  
+      return () => {
+        isCancelled = true;
+      };
+  
+    }, [path, usePublicApi])
+  
+    return {data, loading, error}
+  
+  }

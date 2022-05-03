@@ -24,7 +24,6 @@ export const fixApiPath = (path="") => {
   return path
 }
 
-
 export const httpClient = (url, options = {}) => {
 
   url = fixApiPath(url)
@@ -45,6 +44,15 @@ const dataProvider = restProvider(
   httpClient
 );
 
+const extendDataProvider = (dataProvider) => ({
+
+  ...dataProvider,
+
+  get: (endpoint = false) => httpClient(fixApiPath(endpoint)).then(({ json }) => ({
+    data: json.data,
+  }))
+
+}) 
 
 export const convertFileToBase64 =  (file) => new Promise((resolve, reject) => {
   const reader = new FileReader();
@@ -86,4 +94,4 @@ export const useUploadFile = () => {
 
 }
 
-export default dataProvider;
+export default extendDataProvider(dataProvider);
