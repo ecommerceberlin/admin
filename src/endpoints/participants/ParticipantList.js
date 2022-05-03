@@ -17,17 +17,21 @@ import {
   SingleFieldList,
   RadioButtonGroupInput
 } from 'react-admin';
+
 import {useSelector} from 'react-redux'
+
 import {
   SetStatusAction,
   SendMessageAction,
-  WithEvent,
-  Aside,
+  WithEvent
 } from '../../components';
+
 import { roles, statuses, useApiContext } from '../../api';
+
 import { 
   ComboField,
-  ParticipantDetails 
+  ParticipantDetails,
+  ParticipantAside
 } from './components';
 
 
@@ -70,7 +74,7 @@ const ParticipantList = (props) => {
     filters={<Filters />}
     filter={{ event_id }}
     bulkActionButtons={false}
-    aside={<Aside>Recent actions</Aside>}
+    aside={<ParticipantAside />}
    // exporter={false}
     // filterDefaultValues={{status: "all"}}
 

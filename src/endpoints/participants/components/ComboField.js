@@ -51,7 +51,7 @@ const ComboField = ({record}) => {
             if(allowedUtms.some(item => utm === item) ){
 
                 utms.push( 
-                    <span className={classes.u}>
+                    <span key={utm} className={classes.u}>
                         {isDesktop ? <span  className={classes.uk}>{utm.replace("utm_", "")}</span>: null}{` `}
                         <span  className={classes.uv}>{record.utms[utm]}</span>
                     </span>) 
