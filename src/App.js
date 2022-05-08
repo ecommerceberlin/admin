@@ -1,243 +1,71 @@
 import React from 'react';
-import { Admin, Resource } from 'react-admin';
-
+import { Admin, Resource, AdminContext, AdminUI, Loading } from 'react-admin';
 import dataProvider from './api/httpClient';
 import authProvider from './api/authClient';
-import { customReducers, customSagas } from './redux';
-import { AppTitle, MyLayout } from './components';
+import { AppTitle, MyLayout, MyDialog } from './components';
 import customRoutes from './customRoutes';
+import resourcesArr from './resources'
+import settings from './settings';
+import { ModalContext, UserContext, SettingsContext, CacheContext } from './contexts';
+import i18nProvider, {useTranslations} from './i18n'
 
-import { CompanyList, CompanyShow, CompanyCreate, CompanyIcon } from './endpoints/companies';
-import { PurchaseList, PurchaseIcon } from './endpoints/purchases';
-import { ParticipantList, ParticipantShow, ParticipantIcon } from './endpoints/participants';
-import { TicketList, TicketEdit, TicketIcon, TicketCreate } from './endpoints/tickets';
-import { 
-  TicketGroupList, 
-  TicketGroupCreate, 
-  TicketGroupEdit 
-} from './endpoints/ticketgroups';
-import { GroupList, GroupShow } from './endpoints/groups';
-import { EventList, EventShow } from './endpoints/events';
-import { CompanyDataEdit, CompanyDataShow } from './endpoints/companydata';
-import { FieldsEdit } from './endpoints/fields';
-import { MessagesList, MessagesShow } from './endpoints/messages';
-import { LogList, LogIcon } from './endpoints/log';
-import { MarketingList, MarketingIcon } from './endpoints/marketing';
-import {PostList, PostEdit, PostCreate, PostIcon} from './endpoints/posts'
-import {VotersList} from './endpoints/voters'
+const CustomLayout = (props) => {
 
-
-import { getActiveEvent, getActiveGroup } from './api/app';
-
-
-export const canAccess = (permissions, resource) => {
-  // if (!activeEventId() && resource !== 'groups') {
-  //   return false;
-  // }
-
-  return true;
-};
-
-
-const initialState = () => {
-
-  const event = getActiveEvent()
-  const group = getActiveGroup()
-
-  if(new Object(event)!== event || new Object(group)!==group){
-    return {}
-  }
-
-  return {
-    app: {
-      event, group
-    }
-  }
-
+  return (
+    <ModalContext>
+    <MyLayout {...props} />
+    <MyDialog />  
+    </ModalContext>)
 }
 
-class App extends React.Component {
 
-  render() {
-    return (
-      <Admin
-        disableTelemetry
-        //title={<AppTitle />}
-        layout={MyLayout}
-        // customReducers={customReducers}
-        // customSagas={[customSagas]}
-        // customRoutes={customRoutes}
-          // initialState={initialState()}
-        authProvider={authProvider}
-        dataProvider={dataProvider}
-      
+function CustomAdminUI() {
+
+  const translations = useTranslations()
+
+  // const dataProvider = useDataProvider();
+
+  if(!translations){
+    // return <Loading />
+  }
+
+
+  return (
+      <AdminUI 
+        layout={CustomLayout}
+        // loginPage={ CustomLogin }
+        // logoutButton={ LogoutButton } 
+        // theme={ getTheme() }
+        // customRoutes={ customRoutes }
+        // dashboard={ Logistics }
+        // catchAll={ Logistics }
       >
-        {permissions => [
-
-        
-
-          <Resource 
-            name="posts" 
-            list={ PostList } 
-            edit={ PostEdit } 
-            create={ PostCreate } 
-            icon={ PostIcon }  
-          />,
-
-          <Resource 
-          name="votes" 
-          list={ VotersList } 
-          // edit={ PostEdit } 
-          // create={ PostCreate } 
-          // icon={ PostIcon }  
-          />,
-          
-
-          <Resource
-            name="purchases"
-            // options={{ label: 'Purchases' }}
-            list={ canAccess(permissions, 'purchases') ? PurchaseList : null}
-            icon={ PurchaseIcon }
-            options={{hideInMenu: true}}
-          />,
-
-          <Resource
-            name="participants"
-            options={{ label: 'Registrations' }}
-            list={
-              canAccess(permissions, 'participants') ? ParticipantList : null
-            }
-            show={
-              canAccess(permissions, 'participants') ? ParticipantShow : null
-            }
-            icon={ ParticipantIcon }
-            //options={{hideInMenu: true}}
-          />,
-
-          <Resource
-            name="companies"
-            list={canAccess(permissions, 'companies') ? CompanyList : null}
-            show={canAccess(permissions, 'companies') ? CompanyShow : null} 
-            create={canAccess(permissions, 'companies') ? CompanyCreate : null}
-            icon={ CompanyIcon }
-            options={{hideInMenu: true}}
-          />,
-
-        
-   
-
-          <Resource
-            name="tickets"
-            list={canAccess(permissions, 'tickets') ? TicketList : null}
-            edit={canAccess(permissions, 'tickets') ? TicketEdit : null}
-            create={canAccess(permissions, 'tickets') ? TicketCreate : null}
-            icon={ TicketIcon }
-          />,
-
-          <Resource
-          name="log"
-          list={canAccess(permissions, 'log') ? LogList : null}
-          icon={ LogIcon }
-          />,
-
-
-          <Resource
-          name="marketing"
-          list={canAccess(permissions, 'marketing') ? MarketingList : null}
-          icon={ MarketingIcon }
-          />,
-
-
-
-          <Resource
-            name="ticketgroups"
-            list={
-              canAccess(permissions, 'ticketgroups') ? TicketGroupList : null
-            }
-            create={
-              canAccess(permissions, 'ticketgroups') ? TicketGroupCreate : null
-            }
-            edit={
-              canAccess(permissions, 'ticketgroups') ? TicketGroupEdit : null
-            }
-            options={{hideInMenu: true}}
-          />,
-
-          <Resource
-            name="groups"
-            list={canAccess(permissions, 'groups') ? GroupList : null}
-            show={canAccess(permissions, 'groups') ? GroupShow : null}
-            options={{ 
-              label: 'Projects', 
-              hideInMenu: true}}
-          />,
-
-          <Resource
-            name="messages"
-            list={canAccess(permissions, 'messages') ? MessagesList : null}
-            show={canAccess(permissions, 'messages') ? MessagesShow : null}
-          />,
-
-          <Resource
-            name="fields"
-            edit={canAccess(permissions, 'fields') ? FieldsEdit : null}
-          />,
-
-          <Resource
-            options={{
-              hideInMenu: true
-            }}
-            name="companydata"
-            edit={
-              canAccess(permissions, 'companydata') ? CompanyDataEdit : null
-            }
-            show={
-              canAccess(permissions, 'companydata') ? CompanyDataShow : null
-            }
-          />,
-
-          <Resource
-            options={{hideInMenu: true}}
-            name="events"
-          //  list={canAccess(permissions, 'events') ? EventList : null}
-            list={ EventList}
-            show={canAccess(permissions, 'events') ? EventShow : null}
-          />,
-
-          <Resource name="comments"  />,
-
-          <Resource name="templates" />,
-
-          <Resource name="messages" />,
-
-          <Resource name="admins" />,
-          
-
-          <Resource
-          name="feed"
-          // options={{ label: 'Feed' }}
-          // list={canAccess(permissions, 'feed') ? PurchaseList : null}
-          />,
-
-          <Resource
-          name="reports"
-          />,
-
-          <Resource
-          name="settings"
-          />,
-
-          <Resource 
-          options={{hideInMenu: true}}
-          name="related" 
-          />,
-
-
-
-        ]}
-      </Admin>
-    );
-  }
+     {resourcesArr}
+      </AdminUI>
+  );
 }
+
+
+function App() {
+  return (
+    <AdminContext 
+      dataProvider={ dataProvider }
+      i18nProvider={ i18nProvider }
+      authProvider={ authProvider }
+      // customReducers={ reducers }
+      // customSagas={ sagas }
+    > 
+    <SettingsContext data={settings}>
+      <UserContext>
+        <CacheContext>
+          <CustomAdminUI />
+        </CacheContext>
+      </UserContext>
+    </SettingsContext>
+    </AdminContext>
+  );
+}
+
+
 
 export default App;
