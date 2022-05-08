@@ -2,7 +2,7 @@ import React, {useCallback} from 'react';
 import { useDispatch } from 'react-redux';
 import get from 'lodash/get';
 import classNames from 'classnames';
-import {useQueryWithStore} from 'react-admin'
+import {useGetList} from 'react-admin'
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
 import deepOrange from '@material-ui/core/colors/deepOrange';
@@ -33,17 +33,15 @@ const SelectAdminField = ({label="", basePath="", record={}}) => {
   const dispatch = useDispatch()
   const [group_id, event_id] = useApiContext()
 
-  const {data, loading, error} = useQueryWithStore({
-    type: "getList",
-    resource: "admins",
-    payload: {
-      pagination: {page: 1, perPage: 100},
-      sort: {field: "initials", order: "ASC"},
-      filter: {
-        event_id
-      }
+  const {data, isLoading, isError} = useGetList("admins", {
+    pagination: {page: 1, perPage: 100},
+    sort: {field: "initials", order: "ASC"},
+    filter: {
+      event_id
     }
   })
+  
+  
 
   const getActiveAdmin = (replacement = null) => {
     if(!data || !("admin_id" in record)){

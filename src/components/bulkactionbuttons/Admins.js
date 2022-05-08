@@ -1,11 +1,11 @@
 import React from 'react';
-import { useQueryWithStore } from 'react-admin'
+import { useGetList } from 'react-admin'
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
-import {useApiContext} from '../../api'
+import {useEventId} from '../../api'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -17,21 +17,17 @@ const useStyles = makeStyles(theme => ({
 
 const Admins = ({onClick, selected = 0}) => {
 
-  const [group_id, event_id] = useApiContext()
+  const event_id = useEventId()
   const classes = useStyles()
-  const {data, loading, error} = useQueryWithStore({
-    type: "getList",
-    resource: "admins",
-    payload: {
-      pagination: {page: 1, perPage: 100},
-      sort: {field: "initials", order: "ASC"},
-      filter: {
-        event_id
-      }
+  const {data, isLoading} = useGetList("admins", {
+    pagination: {page: 1, perPage: 100},
+    sort: {field: "initials", order: "ASC"},
+    filter: {
+      event_id
     }
   })
 
-  if(loading || error){
+  if(isLoading){
     return null
   }
 

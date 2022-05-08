@@ -1,33 +1,44 @@
 import React from 'react'
-import {useSelector} from 'react-redux'
-import {useQueryWithStore, DataProviderContext} from 'react-admin'
+import {useGetList, DataProviderContext} from 'react-admin'
 import { isString } from 'lodash'
+import { useLocalStorage } from './app'
+
+
+
+
+
+export const useGroupId = () => {
+
+    const [group_id] = useLocalStorage("group_id", 0)
+    return group_id
+}
+
+export const useEventId = () => {
+
+  const [event_id] = useLocalStorage("event_id", 0)
+  return event_id
+}
 
 
 export const useApiContext = () => {
 
-    const event = useSelector(state => state.app.event)
-    const group = useSelector(state => state.app.group)
+  const group_id = useGroupId()
+  const event_id = useEventId()
 
-    return [group? group.id : 0, event ? event.id: 0, group, event];
+  return [group_id, event_id];
 
 }
 
 
-
 export const useTickets = (ids=[]) => {
 
-    const [group_id, event_id] = useApiContext();
+    const event_id = useEventId();
 
-    const {data} = useQueryWithStore({
-        type: "getList",
-        resource: "tickets",
-        payload: {
-            pagination: {page: 1, perPage: 500},
-            sort: "id",
-            order: "DESC",
-            filter: {event_id}
-        }
+    const {data} = useGetList("tickets", {
+      pagination: {page: 1, perPage: 500},
+      sort: "id",
+      order: "DESC",
+      filter: {event_id}
     })
 
     const filtered = (data || []).filter(item => ids.includes(item.id))

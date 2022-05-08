@@ -1,8 +1,7 @@
 import React, {useCallback} from 'react';
-import { useDispatch } from 'react-redux';
 import get from 'lodash/get';
 import classNames from 'classnames';
-import {useQueryWithStore, useInput} from 'react-admin'
+import { useInput} from 'react-admin'
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
 import deepOrange from '@material-ui/core/colors/deepOrange';
@@ -31,7 +30,6 @@ const useStyles = makeStyles(theme => ({
 const SelectAdminField = (props) => {
 
   const classes = useStyles()
-//   const dispatch = useDispatch()
   const [group_id, event_id] = useApiContext()
 
   const {
@@ -40,7 +38,9 @@ const SelectAdminField = (props) => {
     isRequired
 } = useInput(props);
 
-//   const {data, loading, error} = useQueryWithStore({
+//   const {data, loading, error} = useGetList()
+
+{
 //     type: "getList",
 //     resource: "admins",
 //     payload: {
