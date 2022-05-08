@@ -1,9 +1,6 @@
-import get from 'lodash/get';
+
 
 export const uniqueValues = arr => [...new Set(uniqueValues)];
-
-export const capitalizeFirstLetter = (string) =>  string.charAt(0).toUpperCase() + string.slice(1)
-
 
 export const getKey = key => `admin.eventjuicer.com/${key}`
 
