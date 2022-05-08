@@ -1,6 +1,6 @@
 import React from 'react';
 import { FunctionField } from 'react-admin';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@mui/material/styles';
 import get from 'lodash/get';
 
 const styles = {

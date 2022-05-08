@@ -14,7 +14,7 @@ import {
 import RelatedParticipantsList from './RelatedParticipantsList'
 import RelatedParticipantsButton from './RelatedParticipantsButton';
 
-import Grid from '@material-ui/core/Grid'
+import Grid from '@mui/material/Grid'
 
 const TicketDetailsActions = ({ basePath, data, resource }) => (
     <TopToolbar>

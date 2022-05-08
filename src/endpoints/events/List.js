@@ -12,7 +12,7 @@ import {
   useGetOne
 } from 'react-admin';
 
-import Typography from '@material-ui/core/Typography'
+import Typography from '@mui/material/Typography'
 
 import {useApiContext} from '../../api'
 import SelectAll from './actions/SelectAll';

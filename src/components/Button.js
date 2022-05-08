@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslate } from 'react-admin';
 
-import MuiButton from '@material-ui/core/Button';
+import MuiButton from '@mui/material/Button';
 
 const Button = ({variant="contained", color="primary", label="label", ...rest}) => {
 

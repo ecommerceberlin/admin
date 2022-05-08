@@ -6,8 +6,8 @@ import {
 } from 'react-admin';
 
 // import get from 'lodash/get'
-import { makeStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
+import { makeStyles } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 // import VolumeUpIcon from '@mui/icons-material/VolumeUp';

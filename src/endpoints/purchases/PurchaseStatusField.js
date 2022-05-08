@@ -2,10 +2,10 @@ import React from 'react';
 import { showNotification, refreshView, UPDATE } from 'react-admin';
 
 import compose from 'recompose/compose';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import Chip from '@material-ui/core/Chip';
-import { withStyles } from '@material-ui/core/styles';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import Chip from '@mui/material/Chip';
+import { withStyles } from '@mui/material/styles';
 import Icon from '@mui/icons-material/Edit';
 
 import { statuses as styles } from '../../styles';

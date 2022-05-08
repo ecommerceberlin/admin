@@ -1,6 +1,6 @@
 import React from 'react';
-import CardActions from '@material-ui/core/CardActions';
-import { withStyles } from '@material-ui/core/styles';
+import CardActions from '@mui/material/CardActions';
+import { withStyles } from '@mui/material/styles';
 import SelectAll from './actions/SelectAll';
 
 const styles = {

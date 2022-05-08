@@ -5,11 +5,11 @@ import { crudGetList } from 'react-admin';
 import { createMessage } from '../redux';
 import debounce from 'lodash/debounce';
 
-import TextField from '@material-ui/core/TextField';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import TextField from '@mui/material/TextField';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 import dataProvider from '../api/httpClient';
 
 class EmailForm extends Component {

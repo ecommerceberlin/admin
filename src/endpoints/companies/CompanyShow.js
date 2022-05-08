@@ -11,7 +11,7 @@ import {
   ReferenceManyField,
   NumberField
 } from 'react-admin';
-import Chip from '@material-ui/core/Chip';
+import Chip from '@mui/material/Chip';
 
 import PurchaseStatusField from '../purchases/PurchaseStatusField';
 import ShowTitle from './ShowTitle';

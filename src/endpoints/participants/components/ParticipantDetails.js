@@ -2,7 +2,7 @@
 import { Grid, Box } from "@material-ui/core"
 import { makeStyles } from "@material-ui/styles"
 import { Table, CopyToClipboardButton } from "../../../components"
-import { orange } from "@material-ui/core/colors"
+import { orange } from "@mui/material/colors"
 
 const useStyles = makeStyles({
     root: {

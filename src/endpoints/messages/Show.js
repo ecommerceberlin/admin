@@ -18,7 +18,7 @@ import {
 
 import PurchaseStatusField from '../purchases/PurchaseStatusField';
 
-import Chip from '@material-ui/core/Chip';
+import Chip from '@mui/material/Chip';
 
 import get from 'lodash/get';
 

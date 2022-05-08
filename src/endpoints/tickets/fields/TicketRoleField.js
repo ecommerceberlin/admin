@@ -1,8 +1,8 @@
 
 import React from 'react'
 import get from 'lodash/get'
-import { makeStyles } from '@material-ui/core/styles';
-import Chip from '@material-ui/core/Chip'
+import { makeStyles } from '@mui/material/styles';
+import Chip from '@mui/material/Chip'
 import { roles } from '../../../api'
 
 const useStyles = makeStyles((theme) => ({

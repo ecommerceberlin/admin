@@ -6,7 +6,7 @@ import { translate } from 'react-admin';
 import get from 'lodash/get';
 import { stringify } from 'qs';
 
-import Button from '@material-ui/core/Button';
+import Button from '@mui/material/Button';
 
 /*
 

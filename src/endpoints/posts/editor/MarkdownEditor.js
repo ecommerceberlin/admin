@@ -1,10 +1,10 @@
 
 import React, {useState, useEffect, Children} from "react";
 import { useInput, Labeled, fetchUtils, useRefresh } from 'react-admin';
-import Box from '@material-ui/core/Box';
-import {makeStyles} from '@material-ui/core/styles';
+import Box from '@mui/material/Box';
+import {makeStyles} from '@mui/material/styles';
 import Alert from '@material-ui/lab/Alert'; 
-import Button from '@material-ui/core/Button'; 
+import Button from '@mui/material/Button'; 
 import Editor from "rich-markdown-editor";
 import debounce from "lodash/debounce";
 import * as embeds  from './embeds';

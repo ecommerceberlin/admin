@@ -18,15 +18,15 @@ import {
     AutocompleteInput,
     Button
 } from 'react-admin';
-// import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography'
+// import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography'
 import {useApiContext} from '../../api';
 import get from 'lodash/get'
 import categories from './categories'
 import {CroppedTextField} from '../../components'
 import PostListBulkActions from './components/PostListBulkActions'
 import PostFlagsField from './components/PostFlagsField'
-import IconButton from '@material-ui/core/IconButton';
+import IconButton from '@mui/material/IconButton';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 const PostFilter = (props) => (
     <Filter {...props}>

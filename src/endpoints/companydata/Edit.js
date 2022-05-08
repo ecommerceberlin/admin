@@ -1,7 +1,7 @@
 import React from 'react';
 import { Edit, SimpleForm, TextField, TextInput } from 'react-admin';
 
-import Chip from '@material-ui/core/Chip';
+import Chip from '@mui/material/Chip';
 import get from 'lodash/get';
 
 const Title = ({ record }) => {

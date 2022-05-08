@@ -1,8 +1,8 @@
 
 import React, {forwardRef} from 'react';
 import { AppBar, UserMenu, MenuItemLink } from 'react-admin';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@mui/material/Typography';
+import { makeStyles } from '@mui/material/styles';
 import GroupAndEventSelect from './GroupAndEventSelect'
 import SettingsIcon from '@mui/icons-material/Settings';
 

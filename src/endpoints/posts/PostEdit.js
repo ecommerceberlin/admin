@@ -17,11 +17,11 @@ import {
     useMutation,
     useRefresh
 } from 'react-admin';
-import Typography from '@material-ui/core/Typography'
+import Typography from '@mui/material/Typography'
 import RaEditor from './editor/MarkdownEditor'
 import categories from './categories'
 import {useApiContext} from '../../api';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/material/styles';
 import cn from 'classnames'
 
 /**

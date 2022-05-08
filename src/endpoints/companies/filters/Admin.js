@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 // import compose from 'recompose/compose';
-// import { withStyles } from '@material-ui/core/styles';
+// import { withStyles } from '@mui/material/styles';
 
 import {
   SelectInput

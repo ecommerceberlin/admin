@@ -3,9 +3,9 @@ import { useDispatch } from 'react-redux';
 import get from 'lodash/get';
 import classNames from 'classnames';
 import {useGetList} from 'react-admin'
-import Avatar from '@material-ui/core/Avatar';
-import { makeStyles } from '@material-ui/core/styles';
-import deepOrange from '@material-ui/core/colors/deepOrange';
+import Avatar from '@mui/material/Avatar';
+import { makeStyles } from '@mui/material/styles';
+import deepOrange from '@mui/material/colors/deepOrange';
 import { changeCompanyAdmin, showDialog, hideDialog } from '../../../redux';
 import {Admins} from '../../../components';
 import {useApiContext} from '../../../api'

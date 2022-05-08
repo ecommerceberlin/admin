@@ -15,7 +15,7 @@ import {
 } from 'react-admin';
 
 import PurchaseStatusField from '../purchases/PurchaseStatusField';
-import Chip from '@material-ui/core/Chip';
+import Chip from '@mui/material/Chip';
 import ShowTitle from './ShowTitle';
 import { uniqueValues } from '../../api/app';
 

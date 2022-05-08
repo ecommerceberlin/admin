@@ -1,12 +1,12 @@
 
 import React, {useEffect} from 'react';
 import { useRedirect, useGetList} from 'react-admin';
-import { makeStyles } from '@material-ui/core/styles';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import IconButton from '@material-ui/core/IconButton';
+import { makeStyles } from '@mui/material/styles';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import IconButton from '@mui/material/IconButton';
 import SettingsIcon from '@mui/icons-material/Settings';
 import ActiveIcon from '@mui/icons-material/FiberManualRecord';
 import {changeEvent, changeGroup, showDialog} from '../redux'
@@ -14,7 +14,7 @@ import {useApiContext} from '../api'
 import find from 'lodash/find'
 import { hideDialog } from '../redux';
 // import { createSelector } from 'reselect'
-import Typography from '@material-ui/core/Typography';
+import Typography from '@mui/material/Typography';
 
 const useStyles = makeStyles((theme) => ({
       
