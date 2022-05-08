@@ -3,7 +3,6 @@ import { fetchUtils, useRefresh, useUpdate } from 'react-admin';
 import restProvider from './restProvider';
 import {getActiveEvent, getActiveGroup} from './app'
 import get from 'lodash/get'
-import {fileUpload} from '../redux'
 
 /** OLD */
 
@@ -83,7 +82,7 @@ export const useUploadFile = () => {
   // const refresh = useRefresh();
   const dispatch = useDispatch()
   const doUploadImage = (file, resource, id) => uploadFile(file, resource, id).then(data => {
-      dispatch(fileUpload(resource, id, data))
+      // dispatch(fileUpload(resource, id, data))
       // refresh()
 
       return data

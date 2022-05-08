@@ -11,8 +11,6 @@ import {
 import {useApiContext, useTickets} from '../../api'
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import Button from '../Button'
-import {useDispatch} from 'react-redux'
-import { showDialog } from "../../redux";
 import { Table, Select } from "..";
 import { CacheContext, useCache, useSetCache, GroupEventsContext, useGroupEvents } from "../../contexts";
 

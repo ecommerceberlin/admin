@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import dataProvider from '../../api/httpClient';
 import get from 'lodash/get';
 
@@ -23,7 +22,4 @@ DynamicField.defaultProps = {
   sortable: false
 };
 
-export default connect(
-  state => ({ filters: state.admin.resources.companies.list.params.filter }),
-  {}
-)(DynamicField);
+export default DynamicField

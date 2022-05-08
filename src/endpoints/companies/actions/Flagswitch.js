@@ -1,8 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import Switch from '@mui/material/Switch';
 
-import { changeResourceFlag } from '../../../redux';
 
 class Flagswitch extends React.Component {
   constructor(props) {
@@ -55,9 +53,4 @@ Flagswitch.defaultProps = {
   unCheckedValue: '0'
 };
 
-export default connect(
-  null,
-  {
-    changeResourceFlag
-  }
-)(Flagswitch);
+export default Flagswitch

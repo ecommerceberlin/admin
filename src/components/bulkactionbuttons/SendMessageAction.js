@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Button, crudCreate, showNotification } from 'react-admin';
+import { Button, showNotification, useCreate } from 'react-admin';
 import EmailForm from '../EmailForm';
 import Email from '@mui/icons-material/Email';
-import { showDialog, hideDialog } from '../../redux';
 /* 
 
   PROPS
@@ -42,12 +40,12 @@ class SendMessageAction extends Component {
       return;
     }
 
-    crudCreate(
-      'messages',
-      { resource, ids: selectedIds, ...message },
-      basePath,
-      false
-    );
+    // crudCreate(
+    //   'messages',
+    //   { resource, ids: selectedIds, ...message },
+    //   basePath,
+    //   false
+    // );
   };
 
   showDialog = () => {
@@ -76,7 +74,4 @@ SendMessageAction.defaultProps = {
   label: 'actions.send_message'
 };
 
-export default connect(
-  (state, props) => ({ message: state.app.message }),
-  { crudCreate, showNotification, showDialog, hideDialog }
-)(SendMessageAction);
+export default SendMessageAction

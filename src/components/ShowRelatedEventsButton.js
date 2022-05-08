@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import { Link} from 'react-router';
 import { translate } from 'react-admin';
@@ -60,12 +59,12 @@ const mapStateToProps = state => ({
   limits: state.resourcelimit
 });
 
-const enhance = compose(
-  translate,
-  connect(
-    mapStateToProps,
-    null
-  )
-);
+// const enhance = compose(
+//   translate,
+//   connect(
+//     mapStateToProps,
+//     null
+//   )
+// );
 
-export default enhance(ShowRelatedEventsButton);
+export default ShowRelatedEventsButton

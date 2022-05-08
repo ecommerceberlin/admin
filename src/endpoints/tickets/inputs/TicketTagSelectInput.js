@@ -5,7 +5,6 @@ import { useInput} from 'react-admin'
 import Avatar from '@mui/material/Avatar';
 import { makeStyles } from '@mui/material/styles';
 import deepOrange from '@mui/material/colors/deepOrange';
-import { changeCompanyAdmin, showDialog, hideDialog } from '../../../redux';
 import {Admins} from '../../../components';
 import {useApiContext} from '../../../api'
 import TextField from '@mui/material/TextField';
@@ -40,7 +39,6 @@ const SelectAdminField = (props) => {
 
 //   const {data, loading, error} = useGetList()
 
-{
 //     type: "getList",
 //     resource: "admins",
 //     payload: {

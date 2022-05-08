@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+
 // import compose from 'recompose/compose';
 // import { withStyles } from '@mui/material/styles';
 
@@ -33,7 +33,4 @@ class Admin extends React.Component {
 
 Admin.defaultProps = {};
 
-export default connect(
-  state => ({ admins: state.admin.resources.admins }),
-  {}
-)(Admin);
+export default Admin

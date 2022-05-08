@@ -1,11 +1,9 @@
 import React, {useCallback} from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
 import { Button, showNotification } from 'react-admin';
 import Icon from '@mui/icons-material/SupervisorAccount';
-import { showDialog, hideDialog } from '../../../redux';
-
 import { Admins } from '../../../components';
-import { bulkChangeCompanyAdmin } from '../../../redux';
+
+
 
 /* 
 

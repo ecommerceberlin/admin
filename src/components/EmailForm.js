@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 
 import { crudGetList } from 'react-admin';
-import { createMessage } from '../redux';
 import debounce from 'lodash/debounce';
 
 import TextField from '@mui/material/TextField';

@@ -1,17 +1,16 @@
 import React from 'react';
-import { SelectInput, crudGetList } from 'react-admin';
-import { connect } from 'react-redux';
+import { SelectInput } from 'react-admin';
 
 //https://github.com/marmelab/react-admin/blob/6015670a863bef868a0cafcfb1706187609a6369/packages/ra-core/src/actions/dataActions.js
 
 class FilterByTicketId extends React.Component {
   componentWillMount() {
-    this.props.crudGetList(
-      'tickets',
-      { page: 1, perPage: 100 },
-      { field: 'id', order: 'ASC' },
-      { event_id: this.props.event.id }
-    );
+    // this.props.crudGetList(
+    //   'tickets',
+    //   { page: 1, perPage: 100 },
+    //   { field: 'id', order: 'ASC' },
+    //   { event_id: this.props.event.id }
+    // );
   }
 
   buildTicketList() {
@@ -34,10 +33,4 @@ FilterByTicketId.defaultProps = {
   event: {}
 };
 
-export default connect(
-  state => ({
-    event: state.app.event,
-    tickets: state.admin.resources.tickets
-  }),
-  { crudGetList }
-)(FilterByTicketId);
+export default FilterByTicketId

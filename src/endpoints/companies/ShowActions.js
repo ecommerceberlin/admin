@@ -3,9 +3,10 @@ import {
   EditButton,
   RefreshButton,
   ListButton,
-  CardActions
 } from 'react-admin';
 import Button from '@mui/material/Button';
+import CardActions from '@mui/material/CardActions';
+
 
 const cardActionStyle = {
   zIndex: 2,

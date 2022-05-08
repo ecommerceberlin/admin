@@ -9,10 +9,8 @@ import InputLabel from '@mui/material/InputLabel';
 import IconButton from '@mui/material/IconButton';
 import SettingsIcon from '@mui/icons-material/Settings';
 import ActiveIcon from '@mui/icons-material/FiberManualRecord';
-import {changeEvent, changeGroup, showDialog} from '../redux'
 import {useApiContext} from '../api'
 import find from 'lodash/find'
-import { hideDialog } from '../redux';
 // import { createSelector } from 'reselect'
 import Typography from '@mui/material/Typography';
 

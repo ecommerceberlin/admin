@@ -10,14 +10,12 @@ import {
 
 import {useApiContext} from '../../api'
 import { VisibilityOff } from '@mui/icons-material';
-import {showDialog, hideDialog} from '../../redux'
-import {useDispatch} from 'react-redux'
 import { makeStyles } from '@mui/material/styles';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-
+import { useSetModal } from "../../contexts";
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
@@ -54,6 +52,7 @@ const ChangeValueFromPredefinedSet = ({ selectedIds, label, choices, basePath, f
     
     const [category, setCategory] = useState("");
     const [group_id, event_id] = useApiContext();
+    const modal = useSetModal()
     const refresh = useRefresh();
     const notify = useNotify();
     const unselectAll = useUnselectAll();
@@ -75,11 +74,13 @@ const ChangeValueFromPredefinedSet = ({ selectedIds, label, choices, basePath, f
     );
 
 
-    const handleDialog = () =>  dispatch(showDialog({
-            title: "Select target category",
-            content: <CategorySelect category={category} choices={choices} onChange={setCategoryCallback} />,
-            onConfirm: category ? updateMany : undefined
-    }))
+    const handleDialog = () =>  modal("Select target category", <CategorySelect category={category} choices={choices} onChange={setCategoryCallback} />) 
+    
+    // dispatch(showDialog({
+    //         title: ,
+    //         content: 
+    //         onConfirm: category ? updateMany : undefined
+    // }))
     
     
     useEffect(()=>{

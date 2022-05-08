@@ -14,7 +14,7 @@ import {
     number,
     maxLength,
     AutocompleteInput,
-    useMutation,
+    useUpdate,
     useRefresh
 } from 'react-admin';
 import Typography from '@mui/material/Typography'
@@ -49,19 +49,23 @@ const Aside = ({ record }) => {
 
     const classes = useStyles();
     const refresh = useRefresh();
+
     const [mutate, { loading }] = useMutation();
-    const approve = event =>  mutate({
-        type: 'update',
-        resource: 'posts',
-        payload: {
-            id: record.id,
-            data: { cover_image_id: event.target.id }
-        }
-    }, {
-        onSuccess: () => {
-            refresh();
-        }
-    });
+    const approve = event =>  update("posts", {
+        id: record.id,
+        data: { cover_image_id: event.target.id }
+    })
+    
+    
+    // mutate({
+    //     type: 'update',
+    //     resource: '',
+    //     payload: 
+    // }, {
+    //     onSuccess: () => {
+    //         refresh();
+    //     }
+    // });
 
     const handleDragStart = (event, path) => {
         /**
