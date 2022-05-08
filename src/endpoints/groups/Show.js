@@ -8,29 +8,30 @@ import {
   DateField
 } from 'react-admin';
 
-import { WithEvent } from '../../components';
+import { useEventId } from '../../api';
 
 const Title = ({ record }) => {
   return <span>{record ? `${record.name} events` : ''}</span>;
 };
 
-const ViewShow = props => (
-  <WithEvent>
-    {activeEventId => (
-      <Show title={<Title />} {...props}>
-        <SimpleShowLayout>
-          <ArrayField source="events">
-            <Datagrid>
-              <TextField source="name" />
-              <TextField source="loc" />
-              <DateField source="starts" showTime />
-              <DateField source="ends" showTime />
-            </Datagrid>
-          </ArrayField>
-        </SimpleShowLayout>
-      </Show>
-    )}
-  </WithEvent>
-);
+const ViewShow = props => {
+
+  const activeEventId = useEventId()
+
+  return (
+  <Show title={<Title />} {...props}>
+    <SimpleShowLayout>
+      <ArrayField source="events">
+        <Datagrid>
+          <TextField source="name" />
+          <TextField source="loc" />
+          <DateField source="starts" showTime />
+          <DateField source="ends" showTime />
+        </Datagrid>
+      </ArrayField>
+    </SimpleShowLayout>
+  </Show>);
+
+}
 
 export default ViewShow;

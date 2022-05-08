@@ -22,7 +22,6 @@ import {
 import {
   SetStatusAction,
   SendMessageAction,
-  WithEvent
 } from '../../components';
 
 import { roles, statuses, useApiContext } from '../../api';

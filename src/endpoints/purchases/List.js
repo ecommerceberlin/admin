@@ -17,9 +17,9 @@ import { ReferenceField } from 'react-admin';
 import {
   SetStatusAction,
   SendMessageAction,
-  WithEvent
 } from '../../components';
 import PurchaseStatusField from './PurchaseStatusField';
+import { useEventId } from '../../api';
 
 const Filters = props => (
   <Filter {...props}>
@@ -45,40 +45,42 @@ const ShowParticipantButton = ({ record, basePath, ...rest }) => (
   />
 );
 
-const ViewList = props => (
-  <WithEvent>
-    {activeEventId => (
-      <List
-        bulkActionButtons={<CustomBulkActions />}
-        {...props}
-        perPage={50}
-        filters={<Filters />}
-        filter={{ event_id: activeEventId }}
-        exporter={false}
+const ViewList = props => {
+
+  const activeEventId = useEventId()
+  
+  return (
+    <List
+    bulkActionButtons={<CustomBulkActions />}
+    {...props}
+    perPage={50}
+    filters={<Filters />}
+    filter={{ event_id: activeEventId }}
+    exporter={false}
+  >
+    <Datagrid>
+      <PurchaseStatusField source="status" />
+  
+      <TextField source="email" />
+  
+      <DateField source="created_at" showTime />
+  
+      <NumberField source="amount" textAlign="right" />
+  
+      <ReferenceField
+        label="Company"
+        reference="companies"
+        source="company_id"
+        linkType="show"
       >
-        <Datagrid>
-          <PurchaseStatusField source="status" />
+        <ChipField source="slug" sortable={false} />
+      </ReferenceField>
+  
+      <ShowParticipantButton />
+    </Datagrid>
+  </List>
+  );
 
-          <TextField source="email" />
-
-          <DateField source="created_at" showTime />
-
-          <NumberField source="amount" textAlign="right" />
-
-          <ReferenceField
-            label="Company"
-            reference="companies"
-            source="company_id"
-            linkType="show"
-          >
-            <ChipField source="slug" sortable={false} />
-          </ReferenceField>
-
-          <ShowParticipantButton />
-        </Datagrid>
-      </List>
-    )}
-  </WithEvent>
-);
+}
 
 export default ViewList;

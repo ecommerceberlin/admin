@@ -1,8 +1,7 @@
 import React from 'react';
 import { List, Datagrid, TextField, ShowButton } from 'react-admin';
 
-import { WithEvent } from '../../components';
-
+import { useEventId } from '../../api';
 import ActiveEvent from './ActiveEvent';
 import RelatedEvents from './RelatedEvents';
 
@@ -12,34 +11,36 @@ const CustomBulkActions = props => (
   </React.Fragment>
 );
 
-const ViewList = props => (
-  <WithEvent>
-    {activeEventId => (
+const ViewList = props => {
+
+  const activeEventId = useEventId()
+
+    return (
       <List
-        actions={null}
-        bulkActionButtons={<CustomBulkActions />}
-        {...props}
-        perPage={200}
-        //filters={<Filters />}
-      >
-        <Datagrid>
-          <TextField source="id" />
+      actions={null}
+      bulkActionButtons={<CustomBulkActions />}
+      {...props}
+      perPage={200}
+      //filters={<Filters />}
+    >
+      <Datagrid>
+        <TextField source="id" />
 
-          <TextField source="name" />
+        <TextField source="name" />
 
-          <ActiveEvent
-            label="Active event"
-            source="active_event.name"
-            activeEventId={activeEventId}
-          />
+        <ActiveEvent
+          label="Active event"
+          source="active_event.name"
+          activeEventId={activeEventId}
+        />
 
-          <RelatedEvents label="Show events" />
+        <RelatedEvents label="Show events" />
 
-          <ShowButton label="Details" />
-        </Datagrid>
-      </List>
-    )}
-  </WithEvent>
-);
+        <ShowButton label="Details" />
+      </Datagrid>
+    </List>
+    );
+
+}
 
 export default ViewList;

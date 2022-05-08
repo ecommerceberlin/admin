@@ -15,10 +15,10 @@ import {
   Filter
 } from 'react-admin';
 import { ReferenceArrayField, SingleFieldList } from 'react-admin';
+import { useEventId } from '../../api';
 import {
   SetStatusAction,
-  SendMessageAction,
-  WithEvent
+  SendMessageAction
 } from '../../components';
 
 import FilterByUserId from './FilterByUserId';
@@ -48,37 +48,37 @@ const CustomBulkActions = props => (
   </React.Fragment>
 );
 
-const ViewList = props => (
-  <WithEvent>
-    {activeEventId => (
-      <List
-        {...props}
-        perPage={100}
-        filters={<Filters />}
-        filter={{ event_id: activeEventId }}
-        bulkActionButtons={<CustomBulkActions />}
-      >
-        <Datagrid>
-          <TextField source="email" />
-          <TextField source="status" />
+const ViewList = props => {
 
-          <ReferenceArrayField
-            label="Roles"
-            reference="tickets"
-            source="ticket_ids"
-          >
-            <SingleFieldList>
-              <ChipField source="role" />
-            </SingleFieldList>
-          </ReferenceArrayField>
-
-          <DateField source="created_at" showTime />
-          <TextField source="amount" />
-          <ShowButton />
-        </Datagrid>
-      </List>
-    )}
-  </WithEvent>
-);
+  const activeEventId = useEventId()
+  return (
+    <List
+          {...props}
+          perPage={100}
+          filters={<Filters />}
+          filter={{ event_id: activeEventId }}
+          bulkActionButtons={<CustomBulkActions />}
+        >
+          <Datagrid>
+            <TextField source="email" />
+            <TextField source="status" />
+  
+            <ReferenceArrayField
+              label="Roles"
+              reference="tickets"
+              source="ticket_ids"
+            >
+              <SingleFieldList>
+                <ChipField source="role" />
+              </SingleFieldList>
+            </ReferenceArrayField>
+  
+            <DateField source="created_at" showTime />
+            <TextField source="amount" />
+            <ShowButton />
+          </Datagrid>
+        </List>
+  );
+}
 
 export default ViewList;
