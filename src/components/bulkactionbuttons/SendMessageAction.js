@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, crudCreate, showNotification } from 'react-admin';
 import EmailForm from '../EmailForm';
-import Email from '@material-ui/icons/Email';
+import Email from '@mui/icons-material/Email';
 import { showDialog, hideDialog } from '../../redux';
 /* 
 

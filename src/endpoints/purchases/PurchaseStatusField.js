@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { showNotification, refreshView, UPDATE } from 'react-admin';
 
 import compose from 'recompose/compose';
@@ -7,7 +6,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Chip from '@material-ui/core/Chip';
 import { withStyles } from '@material-ui/core/styles';
-import Icon from '@material-ui/icons/Edit';
+import Icon from '@mui/icons-material/Edit';
 
 import { statuses as styles } from '../../styles';
 import { statuses } from '../../api/app';
@@ -116,12 +115,12 @@ class PurchaseStatusField extends React.Component {
   }
 }
 
-const enhance = compose(
-  withStyles(styles),
-  connect(
-    null,
-    { showNotification, refreshView }
-  )
-);
+// const enhance = compose(
+//   withStyles(styles),
+//   connect(
+//     null,
+//     { showNotification, refreshView }
+//   )
+// );
 
-export default enhance(PurchaseStatusField);
+export default PurchaseStatusField

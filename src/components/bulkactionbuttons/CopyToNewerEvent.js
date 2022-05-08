@@ -4,12 +4,12 @@ import {
     useRefresh,
     useNotify,
     useUnselectAll,
-    useQueryWithStore,
+    useGetList,
     useCreate,
 } from 'react-admin';
 
 import {useApiContext, useTickets} from '../../api'
-import FileCopyIcon from '@material-ui/icons/FileCopy';
+import FileCopyIcon from '@mui/icons-material/FileCopy';
 import Button from '../Button'
 import {useDispatch} from 'react-redux'
 import { showDialog } from "../../redux";
@@ -47,16 +47,14 @@ const CopyToNewerEvent = ({ selectedIds, basePath, resource, label="copy to newe
 
     console.log( shouldRemapTicketGroupId )
 
-    const {data, loading, error} = useQueryWithStore({
-        type: "getList",
-        resource: "events",
-        payload: {
-            pagination: {page: 1, perPage: 500},
-            sort: "id",
-            order: "DESC",
-            filter: {group_id}
-        }
+    const {data, isLoading, error} = useGetList("events", {
+        pagination: {page: 1, perPage: 500},
+        sort: "id",
+        order: "DESC",
+        filter: {group_id}
     })
+    
+
 
     console.log(data)
 

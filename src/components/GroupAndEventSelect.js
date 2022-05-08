@@ -8,8 +8,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import IconButton from '@material-ui/core/IconButton';
-import SettingsIcon from '@material-ui/icons/Settings';
-import ActiveIcon from '@material-ui/icons/FiberManualRecord';
+import SettingsIcon from '@mui/icons-material/Settings';
+import ActiveIcon from '@mui/icons-material/FiberManualRecord';
 import {changeEvent, changeGroup, showDialog} from '../redux'
 import {useApiContext} from '../api'
 import find from 'lodash/find'

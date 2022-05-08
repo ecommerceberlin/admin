@@ -1,1 +1,1 @@
-export {default as CommentIcon} from '@material-ui/icons/Message';
+export {default as CommentIcon} from '@mui/icons-material/Message';

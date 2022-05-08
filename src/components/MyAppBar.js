@@ -4,7 +4,7 @@ import { AppBar, UserMenu, MenuItemLink } from 'react-admin';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import GroupAndEventSelect from './GroupAndEventSelect'
-import SettingsIcon from '@material-ui/icons/Settings';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 const useStyles = makeStyles((theme) => ({
 

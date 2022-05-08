@@ -1,6 +1,6 @@
 import React from 'react';
 import {useNotify} from 'react-admin';
-import FileCopy from '@material-ui/icons/FileCopy';
+import FileCopy from '@mui/icons-material/FileCopy';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Button from './Button'
 

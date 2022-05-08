@@ -1,26 +1,22 @@
 import Button from '../Button'
-import { useRefresh, useNotify, useUnselectAll, useCreate, useQueryWithStore } from 'react-admin';
+import { useRefresh, useNotify, useUnselectAll, useCreate, useGetList } from 'react-admin';
 import {useApiContext} from '../../api'
-import FileCopyIcon from '@material-ui/icons/FileCopy';
+import FileCopyIcon from '@mui/icons-material/FileCopy';
 const CloneItemsButton = ({resource, basePath, selectedIds}) => {
 
     const [group_id, event_id] = useApiContext()
     const refresh = useRefresh();
     const notify = useNotify();
     const unselectAll = useUnselectAll(resource);
-    const {data} = useQueryWithStore({
-        type: "getList",
-        resource,
-        payload: {
-            pagination: {page: 1, perPage: 500},
-            sort: "id",
-            order: "DESC",
-            filter: {event_id}
-        }
+
+    const {data} = useGetList(resource, {
+        pagination: {page: 1, perPage: 500},
+        sort: "id",
+        order: "DESC",
+        filter: {event_id}
     })
 
     const [create] = useCreate();
-
 
     const handleAction = () => {
         selectedIds.forEach(ticket_id => {

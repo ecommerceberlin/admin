@@ -1,6 +1,6 @@
 
 import React from 'react'
-import ActiveIcon from '@material-ui/icons/FiberManualRecord';
+import ActiveIcon from '@mui/icons-material/FiberManualRecord';
 import isObject from 'lodash/isObject'
 import isFunction from 'lodash/isFunction'
 import isEmpty from 'lodash/isEmpty'

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, crudUpdateMany } from 'react-admin';
 import { Confirm } from 'react-admin';
-import Forward from '@material-ui/icons/Forward';
+import Forward from '@mui/icons-material/Forward';
 
 class SetStatusAction extends Component {
   handleDialogClose = () => {

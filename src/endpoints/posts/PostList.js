@@ -27,7 +27,7 @@ import {CroppedTextField} from '../../components'
 import PostListBulkActions from './components/PostListBulkActions'
 import PostFlagsField from './components/PostFlagsField'
 import IconButton from '@material-ui/core/IconButton';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 const PostFilter = (props) => (
     <Filter {...props}>
         <TextInput label="Search" source="q" />

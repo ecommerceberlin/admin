@@ -1,5 +1,5 @@
 
 
 export { default as MarketingList } from './MarketingList';
-export { default as MarketingIcon} from '@material-ui/icons/VolumeUp';
+export { default as MarketingIcon} from '@mui/icons-material/VolumeUp';
 

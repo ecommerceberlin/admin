@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ImageEye from '@material-ui/icons/RemoveRedEye';
+import ImageEye from '@mui/icons-material/RemoveRedEye';
 import { Link } from 'react-router-dom';
 //import { linkToRecord } from 'ra-core';
 import { stringify } from 'qs';

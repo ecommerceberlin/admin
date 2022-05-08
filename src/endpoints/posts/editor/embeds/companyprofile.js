@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import Paper from '@material-ui/core/Paper'
-import BusinessIcon from '@material-ui/icons/Business';
+import BusinessIcon from '@mui/icons-material/Business';
 import {dataProvider} from '../../../../api'
 
 const CompanyProfile = ({attrs}) => {
