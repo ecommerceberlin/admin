@@ -1,7 +1,7 @@
 // in src/Menu.js
 import * as React from 'react';
 // import { createElement } from 'react';
-import { useMediaQuery } from '@material-ui/core';
+import { useMediaQuery } from '@mui/material';
 import { 
     MenuItemLink, 
     useResourceDefinitions,
@@ -12,7 +12,7 @@ import {
 import DefaultIcon from '@mui/icons-material/ViewList';
 import LabelIcon from '@mui/icons-material/Label';
 import { withRouter } from 'react-router-dom';
-import {capitalizeFirstLetter} from '../api'
+import {capitalizeFirstLetter} from '../helpers'
 
 const Menu = ({ onMenuClick, logout }) => {
     

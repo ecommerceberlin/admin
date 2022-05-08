@@ -9,7 +9,7 @@ import {
 } from 'react-admin';
 
 import {useApiContext} from '../../api'
-import { VisibilityOff } from '@material-ui/icons';
+import { VisibilityOff } from '@mui/icons-material';
 
 const MoveOrCopyToOtherGroup = ({ selectedIds, label, data, basePath, filterValues, Icon, resource }) => {
     

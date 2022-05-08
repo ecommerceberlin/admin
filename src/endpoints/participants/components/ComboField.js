@@ -1,7 +1,7 @@
 import { isObject } from 'lodash';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
-import { useMediaQuery } from '@material-ui/core';
+import useMediaQuery  from '@mui/material/useMediaQuery';
 
 const allowedUtms = [
     "utm_source",

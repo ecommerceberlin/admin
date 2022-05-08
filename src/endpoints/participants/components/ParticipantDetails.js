@@ -1,6 +1,7 @@
 
-import { Grid, Box } from "@material-ui/core"
-import { makeStyles } from "@material-ui/styles"
+import Box from "@mui/material/Box"
+import Grid from "@mui/material/Grid"
+import { makeStyles } from "@mui/material/styles"
 import { Table, CopyToClipboardButton } from "../../../components"
 import { orange } from "@mui/material/colors"
 

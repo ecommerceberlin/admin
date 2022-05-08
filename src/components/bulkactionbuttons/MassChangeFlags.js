@@ -10,7 +10,7 @@ import {
 } from 'react-admin';
 
 import {useDispatch} from 'react-redux'
-import { VisibilityOff } from '@material-ui/icons';
+import { VisibilityOff } from '@mui/icons-material';
 import Grid from '@mui/material/Grid';
 import  { useApiContext } from '../../api'
 import { showDialog, hideDialog } from '../../redux'

@@ -69,7 +69,7 @@ import {
     useNotify,
     useUnselectAll,
 } from 'react-admin';
-import { VisibilityOff } from '@material-ui/icons';
+import { VisibilityOff } from '@mui/icons-material';
 
 const ResetViewsButton = ({ selectedIds }) => {
     const refresh = useRefresh();

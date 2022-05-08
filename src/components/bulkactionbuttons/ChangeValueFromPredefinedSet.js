@@ -9,7 +9,7 @@ import {
 } from 'react-admin';
 
 import {useApiContext} from '../../api'
-import { VisibilityOff } from '@material-ui/icons';
+import { VisibilityOff } from '@mui/icons-material';
 import {showDialog, hideDialog} from '../../redux'
 import {useDispatch} from 'react-redux'
 import { makeStyles } from '@mui/material/styles';
