@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
 const SelectAdminField = ({label="", basePath="", record={}}) => {
 
   const classes = useStyles()
-  const dispatch = useDispatch()
+
   const [group_id, event_id] = useApiContext()
 
   const {data, isLoading, isError} = useGetList("admins", {

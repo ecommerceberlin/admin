@@ -80,7 +80,7 @@ export const uploadFile = (file, type="", id = 0) => new Promise((resolve, rejec
 export const useUploadFile = () => {
 
   // const refresh = useRefresh();
-  const dispatch = useDispatch()
+
   const doUploadImage = (file, resource, id) => uploadFile(file, resource, id).then(data => {
       // dispatch(fileUpload(resource, id, data))
       // refresh()

@@ -36,7 +36,7 @@ const CopyToNewerEvent = ({ selectedIds, basePath, resource, label="copy to newe
     const refresh = useRefresh();
     const notify = useNotify();
     const unselectAll = useUnselectAll();
-    const dispatch = useDispatch()
+
     const [tickets, withGroupId] = useTickets(selectedIds)
     const events = useGroupEvents()
     const mappings = useCache("mappings", {})

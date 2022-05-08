@@ -52,7 +52,7 @@ const MassChangeFlags = ({ selectedIds, label, data, basePath, filterValues, Ico
     const refresh = useRefresh();
     const notify = useNotify();
     const unselectAll = useUnselectAll();
-    const dispatch = useDispatch();
+
 
     const setFlagCallback = useCallback((newflag, value) => setFlag({[newflag]: value}))
 

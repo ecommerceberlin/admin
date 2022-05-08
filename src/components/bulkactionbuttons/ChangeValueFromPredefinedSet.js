@@ -56,7 +56,7 @@ const ChangeValueFromPredefinedSet = ({ selectedIds, label, choices, basePath, f
     const refresh = useRefresh();
     const notify = useNotify();
     const unselectAll = useUnselectAll();
-    const dispatch = useDispatch();
+
     const setCategoryCallback = useCallback((e) => setCategory(e.target.value) )
 
     const [updateMany, { loading }] = useUpdateMany(

@@ -13,6 +13,7 @@ import {useApiContext} from '../api'
 import find from 'lodash/find'
 // import { createSelector } from 'reselect'
 import Typography from '@mui/material/Typography';
+import { useSetModal } from '../contexts';
 
 const useStyles = makeStyles((theme) => ({
       
@@ -51,7 +52,7 @@ const SelectGroup = () => {
 
     const classes = useStyles();
     const [group_id] = useApiContext();
-    const dispatch = useDispatch();
+
 
     const { data, isLoading, error } = useGetList("groups", { 
         pagination: { page: 1, perPage: 100 }, 
@@ -92,7 +93,7 @@ const SelectEvent = (props) => {
 
     const classes = useStyles();
     const [group_id, event_id] = useApiContext();
-    const dispatch = useDispatch();
+
 
 
     const { data, loading, error } = useQuery({ 
@@ -109,8 +110,8 @@ const SelectEvent = (props) => {
     }
     
     const handleChangeEvent = (e) => {
-        dispatch(changeEvent(find(data, {id: e.target.value})))
-        dispatch(hideDialog());
+         (changeEvent(find(data, {id: e.target.value})))
+         (hideDialog());
     }
 
     const filteredData = (data || []).filter(event => event.group_id == group_id)
@@ -136,7 +137,7 @@ const SelectEvent = (props) => {
 const Configure = () => {
 
     const [group_id, event_id, group, event] = useApiContext();
-    const dispatch = useDispatch();
+
     const classes = useStyles();
 
     useEffect(() => {
@@ -149,7 +150,7 @@ const Configure = () => {
 
     // const Dialog = React.memo((props) => )
 
-    const handleDialog = () => dispatch(showDialog({
+    const handleDialog = () =>  (showDialog({
         title: "Change group and event",
         content: <div><SelectGroup /> <SelectEvent /></div>
     }))

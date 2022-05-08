@@ -19,7 +19,7 @@ selectedIds: [1]
 
 const BulkAssignAdmin = ({ basePath, selectedIds= [], label='actions.send_message'}) => {
 
-  const dispatch = useDispatch()
+
 
   const handleConfirm = useCallback(id => {
 
