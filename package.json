@@ -20,7 +20,8 @@
     "react-dropzone": "~14.2.1",
     "react-scripts": "5.0.1",
     "rich-markdown-editor": "^11.21.3",
-    "slugify": "^1.6.5"
+    "slugify": "^1.6.5",
+    "styled-components": "^5.3.5"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,json,css}": [
