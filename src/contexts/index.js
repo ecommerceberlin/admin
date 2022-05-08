@@ -1,4 +1,5 @@
 export * from './cache'
 export * from './groupevents'
 export * from './modal'
+export * from './settings'
 export * from './user'
