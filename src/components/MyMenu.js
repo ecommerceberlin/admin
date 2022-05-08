@@ -11,7 +11,7 @@ import {
 
 import DefaultIcon from '@mui/icons-material/ViewList';
 import LabelIcon from '@mui/icons-material/Label';
-import { withRouter } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import {capitalizeFirstLetter} from '../helpers'
 
 const Menu = ({ onMenuClick, logout }) => {
@@ -54,4 +54,4 @@ const Menu = ({ onMenuClick, logout }) => {
     );
 };
 
-export default withRouter(Menu);
+export default Menu
