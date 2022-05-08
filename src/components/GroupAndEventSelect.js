@@ -1,6 +1,6 @@
 
 import React, {useEffect} from 'react';
-import { useRedirect, useGetList} from 'react-admin';
+import { useRedirect, useGetList, useGetOne} from 'react-admin';
 import {makeStyles} from '@mui/styles'
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
@@ -93,19 +93,15 @@ const SelectEvent = (props) => {
 
     const classes = useStyles();
     const [group_id, event_id] = useApiContext();
+    const modal = useSetModal()
 
 
-
-    const { data, loading, error } = useQuery({ 
-        type: 'getList',
-        resource: 'events',
-        payload: { 
-            pagination: { page: 1, perPage: 100 }, 
-            sort: { field: 'id', order: 'DESC' }
-        }
+    const { data, isLoading, error } = useGetList("events", { 
+        pagination: { page: 1, perPage: 100 }, 
+        sort: { field: 'id', order: 'DESC' }
     });
 
-    if(!group_id || error){
+    if(!group_id || isLoading || error){
         return null
     }
     
@@ -136,9 +132,11 @@ const SelectEvent = (props) => {
 
 const Configure = () => {
 
-    const [group_id, event_id, group, event] = useApiContext();
-
+    const [group_id, event_id] = useApiContext();
+    const {data, isLoading, error} = useGetOne("events", {id: event_id})
     const classes = useStyles();
+
+    const modal = useSetModal()
 
     useEffect(() => {
 
@@ -150,19 +148,19 @@ const Configure = () => {
 
     // const Dialog = React.memo((props) => )
 
-    const handleDialog = () =>  (showDialog({
-        title: "Change group and event",
-        content: <div><SelectGroup /> <SelectEvent /></div>
-    }))
-
+    const handleDialog = () => modal("Change group and event", <div><SelectGroup /> <SelectEvent /></div>) 
+     
+    if(isLoading){
+        return null
+    }
     
     return (<div className={classes.root}>
-      {event.is_active && <ActiveIcon className={classes.icon}/>}
+      {data.is_active && <ActiveIcon className={classes.icon}/>}
         <Typography
         variant="h6"
         color="inherit"
         className={classes.title}
-    >{event.name}</Typography> 
+    >{data.name}</Typography> 
     <IconButton 
         color="inherit" 
         aria-label="manage events" 
