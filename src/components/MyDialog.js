@@ -6,7 +6,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import {makeStyles} from '@mui/material/styles';
+import {makeStyles} from '@mui/styles'
 
 import Button from './Button';
 import {useModal, useCloseModal} from '../contexts'

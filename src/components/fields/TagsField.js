@@ -1,6 +1,6 @@
 import React from 'react';
 import Chip from '@mui/material/Chip';
-import { makeStyles } from '@mui/material/styles';
+import {makeStyles} from '@mui/styles'
 import get from 'lodash/get'
 
 const useStyles = makeStyles((theme) => ({

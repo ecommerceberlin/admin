@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslate } from 'react-admin';
 import Chip from '@mui/material/Chip';
-import {makeStyles} from '@mui/material/styles';
+import {makeStyles} from '@mui/styles'
 
 const useQuickFilterStyles = makeStyles(theme => ({
     chip: {

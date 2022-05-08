@@ -1,11 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ImageEye from '@mui/icons-material/RemoveRedEye';
-import { Link } from 'react-router';
-//import { linkToRecord } from 'ra-core';
-import { stringify } from 'qs';
-
-import { Button } from 'react-admin';
+import { stringify } from '../../../helpers';
+import { Button, Link } from 'react-admin';
 
 const ShowButton = ({
   basePath = '',
@@ -17,10 +14,7 @@ const ShowButton = ({
     component={Link}
     to={{
       pathname: 'participants',
-      search: stringify(
-        { filter: JSON.stringify({ ticket_id: record.id }) },
-        { strictNullHandling: true }
-      )
+      search: stringify({ ticket_id: record.id })
     }}
     label={label}
     {...rest}

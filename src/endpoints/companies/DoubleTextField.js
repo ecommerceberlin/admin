@@ -1,9 +1,9 @@
 import React from 'react';
 import { FunctionField } from 'react-admin';
-import { withStyles } from '@mui/material/styles';
+import {makeStyles} from '@mui/styles'
 import get from 'lodash/get';
 
-const styles = {
+const useStyles = makeStyles({
   primary: {
     display: 'block',
     fontSize: '0.92rem'
@@ -12,23 +12,23 @@ const styles = {
     display: 'block',
     color: '#888888'
   }
-};
+});
 
-const DoubleTextField = ({ classes, primary, secondary, ...rest }) => (
-  <FunctionField
-    {...rest}
-    className={classes.name}
-    render={record => (
-      <React.Fragment>
-        <span className={classes.primary}>{get(record, primary)}</span>
-        <span className={classes.secondary}>{get(record, secondary)}</span>
-      </React.Fragment>
-    )}
-  />
-);
+const DoubleTextField = ({ primary, secondary, ...rest }) => {
+  const classes = useStyles()
+  return (
+    <FunctionField
+      {...rest}
+      className={classes.name}
+      render={record => (
+        <React.Fragment>
+          <span className={classes.primary}>{get(record, primary)}</span>
+          <span className={classes.secondary}>{get(record, secondary)}</span>
+        </React.Fragment>
+      )}
+    />
+  );
+}
 
-DoubleTextField.defaultProps = {
-  addLabel: true
-};
 
-export default withStyles(styles)(DoubleTextField);
+export default DoubleTextField

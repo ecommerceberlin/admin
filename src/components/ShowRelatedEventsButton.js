@@ -1,10 +1,8 @@
 import React from 'react';
 import compose from 'recompose/compose';
-import { Link} from 'react-router';
-import { translate } from 'react-admin';
+import { translate, Link } from 'react-admin';
 import get from 'lodash/get';
 import { stringify } from 'qs';
-
 import Button from '@mui/material/Button';
 
 /*

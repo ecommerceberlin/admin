@@ -10,7 +10,7 @@ import {
 
 import {useApiContext} from '../../api'
 import { VisibilityOff } from '@mui/icons-material';
-import { makeStyles } from '@mui/material/styles';
+import {makeStyles} from '@mui/styles'
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';

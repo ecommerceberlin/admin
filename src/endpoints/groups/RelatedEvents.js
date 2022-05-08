@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ImageEye from '@mui/icons-material/RemoveRedEye';
-import { Link } from 'react-router';
-import { stringify } from 'qs';
-
-import { Button } from 'react-admin';
+import { stringify } from '../../helpers';
+import { Button, Link } from 'react-admin';
 
 const RelatedEvents = ({
   basePath = '',
@@ -16,10 +14,7 @@ const RelatedEvents = ({
     component={Link}
     to={{
       pathname: 'events',
-      search: stringify(
-        { filter: JSON.stringify({ group_id: record.id }) },
-        { strictNullHandling: true }
-      )
+      search: stringify({ group_id: record.id } )
     }}
     label={label}
     {...rest}

@@ -2,7 +2,7 @@
 import React, {forwardRef} from 'react';
 import { AppBar, UserMenu, MenuItemLink } from 'react-admin';
 import Typography from '@mui/material/Typography';
-import { makeStyles } from '@mui/material/styles';
+import {makeStyles} from '@mui/styles'
 import GroupAndEventSelect from './GroupAndEventSelect'
 import SettingsIcon from '@mui/icons-material/Settings';
 

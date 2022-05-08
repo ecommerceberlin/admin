@@ -1,19 +1,21 @@
 import React from 'react';
-import { withStyles } from '@mui/material/styles';
+import {makeStyles} from '@mui/styles'
 import { ChipField } from 'react-admin';
 import { useApiContext} from '../api';
 
-const styles = {
+const useStyles = makeStyles({
   active: {
     backgroundColor: 'green',
     color: 'white'
   },
 
   not_active: {}
-};
+});
 
-const ActiveEventChipField = ({ classes, record, ...rest }) => {
+const ActiveEventChipField = ({record, ...rest }) => {
   const [group_id, event_id] = useApiContext();
+  const classes = useStyles()
+  
    return (
     <ChipField
       className={
@@ -25,4 +27,4 @@ const ActiveEventChipField = ({ classes, record, ...rest }) => {
   );
 };
 
-export default withStyles(styles)(ActiveEventChipField);
+export default ActiveEventChipField

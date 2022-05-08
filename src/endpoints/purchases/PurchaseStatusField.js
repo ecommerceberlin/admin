@@ -1,11 +1,9 @@
 import React from 'react';
 import { showNotification, refreshView, UPDATE } from 'react-admin';
-
-import compose from 'recompose/compose';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Chip from '@mui/material/Chip';
-import { withStyles } from '@mui/material/styles';
+import {makeStyles} from '@mui/styles'
 import Icon from '@mui/icons-material/Edit';
 
 import { statuses as styles } from '../../styles';
@@ -116,7 +114,6 @@ class PurchaseStatusField extends React.Component {
 }
 
 // const enhance = compose(
-//   withStyles(styles),
 //   connect(
 //     null,
 //     { showNotification, refreshView }

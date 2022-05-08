@@ -1,7 +1,7 @@
 
 import React, {useEffect} from 'react';
 import { useRedirect, useGetList} from 'react-admin';
-import { makeStyles } from '@mui/material/styles';
+import {makeStyles} from '@mui/styles'
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';

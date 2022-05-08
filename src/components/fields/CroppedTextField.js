@@ -1,6 +1,6 @@
 import React from 'react'
 import get from 'lodash/get'
-import { makeStyles } from '@mui/material/styles';
+import {makeStyles} from '@mui/styles'
 
 const useStyles = makeStyles((theme) => ({
     text: {
