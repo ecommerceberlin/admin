@@ -1,6 +1,6 @@
 import React from 'react';
 //import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+
 
 const AppTitle = ({ event, ...rest }) => {
   //console.log(event, rest);
@@ -13,7 +13,10 @@ AppTitle.defaultProps = {
 
 AppTitle.propTypes = {};
 
-export default connect(
-  state => ({ event: state.app.event }),
-  {}
-)(AppTitle);
+export default AppTitle
+
+
+// connect(
+//   state => ({ event: state.app.event }),
+//   {}
+// )();

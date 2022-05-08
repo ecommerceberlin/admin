@@ -3,7 +3,6 @@ import { fetchUtils, useRefresh, useUpdate } from 'react-admin';
 import restProvider from './restProvider';
 import {getActiveEvent, getActiveGroup} from './app'
 import get from 'lodash/get'
-import {useDispatch} from 'react-redux'
 import {fileUpload} from '../redux'
 
 /** OLD */

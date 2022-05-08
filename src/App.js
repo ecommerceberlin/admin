@@ -64,12 +64,13 @@ class App extends React.Component {
         disableTelemetry
         //title={<AppTitle />}
         layout={MyLayout}
-        customReducers={customReducers}
-        customSagas={[customSagas]}
+        // customReducers={customReducers}
+        // customSagas={[customSagas]}
         // customRoutes={customRoutes}
+          // initialState={initialState()}
         authProvider={authProvider}
         dataProvider={dataProvider}
-        initialState={initialState()}
+      
       >
         {permissions => [
 

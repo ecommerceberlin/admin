@@ -18,7 +18,6 @@ import {
   RadioButtonGroupInput
 } from 'react-admin';
 
-import {useSelector} from 'react-redux'
 
 import {
   SetStatusAction,

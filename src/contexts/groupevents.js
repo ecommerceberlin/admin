@@ -1,7 +1,7 @@
 
 import React from 'react'
 import {useGetList} from 'react-admin'
-import {useApiContext} from '../api'
+import {useGroupId, useLocalStorage} from '../api'
 
 
 export const GroupEventsContextContainer = React.createContext({});
@@ -9,8 +9,9 @@ export const GroupEventsContextContainer = React.createContext({});
 
 export const GroupEventsContext = ({children}) => {
 
-    const [group_id, event_id] = useApiContext();
-    
+    const [group_id, setGroupId] = useLocalStorage("group_id")
+    const [event_id, setEventId] = useLocalStorage("event_id")
+
     const {data, isLoading, isError} = useGetList("events", {
         pagination: {page: 1, perPage: 500},
         sort: "id",
@@ -19,8 +20,10 @@ export const GroupEventsContext = ({children}) => {
     })
 
     const value = React.useMemo(() => ({
-        data
-    }), [data])
+        data,
+        setGroupId,
+        setEventId
+    }), [data, setGroupId, setEventId])
 
     return <GroupEventsContextContainer.Provider value={value}>{children}</GroupEventsContextContainer.Provider>
 }

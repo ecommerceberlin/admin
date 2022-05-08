@@ -1,7 +1,6 @@
 
 import React, {useEffect} from 'react';
-import { useDispatch } from 'react-redux'
-import { useRedirect, useQuery} from 'react-admin';
+import { useRedirect, useGetList} from 'react-admin';
 import { makeStyles } from '@material-ui/core/styles';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -56,14 +55,12 @@ const SelectGroup = () => {
     const [group_id] = useApiContext();
     const dispatch = useDispatch();
 
-    const { data, loading, error } = useQuery({ 
-        type: 'getList',
-        resource: 'groups',
-        payload: { 
-            pagination: { page: 1, perPage: 100 }, 
-            sort: { field: 'active_event_id', order: 'DESC' }
-        }
-    });
+    const { data, isLoading, error } = useGetList("groups", { 
+        pagination: { page: 1, perPage: 100 }, 
+        sort: { field: 'active_event_id', order: 'DESC' }
+    })
+    
+
 
     if(error){
         return  null

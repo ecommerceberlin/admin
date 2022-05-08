@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { connect } from 'react-redux';
+
 import { crudGetList } from 'react-admin';
 import { createMessage } from '../redux';
 import debounce from 'lodash/debounce';
@@ -131,10 +131,13 @@ EmailForm.defaultProps = {
   event: {}
 };
 
-export default connect(
-  state => ({
-    event: state.app.event,
-    templates: state.admin.resources.templates
-  }),
-  { createMessage, crudGetList }
-)(EmailForm);
+export default EmailForm
+
+
+// connect(
+//   state => ({
+//     event: state.app.event,
+//     templates: state.admin.resources.templates
+//   }),
+//   { createMessage, crudGetList }
+// )();
