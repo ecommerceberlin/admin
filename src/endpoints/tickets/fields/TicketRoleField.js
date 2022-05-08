@@ -1,7 +1,7 @@
 
 import React from 'react'
 import get from 'lodash/get'
-import { makeStyles } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
 import Chip from '@mui/material/Chip'
 import { roles } from '../../../api'
 

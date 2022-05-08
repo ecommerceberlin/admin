@@ -21,7 +21,7 @@ import Typography from '@mui/material/Typography'
 import RaEditor from './editor/MarkdownEditor'
 import categories from './categories'
 import {useApiContext} from '../../api';
-import { makeStyles } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
 import cn from 'classnames'
 
 /**

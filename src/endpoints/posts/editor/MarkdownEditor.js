@@ -2,7 +2,7 @@
 import React, {useState, useEffect, Children} from "react";
 import { useInput, Labeled, fetchUtils, useRefresh } from 'react-admin';
 import Box from '@mui/material/Box';
-import {makeStyles} from '@mui/material/styles';
+import {makeStyles} from '@mui/styles';
 import Alert from '@mui/material/Alert'; 
 import Button from '@mui/material/Button'; 
 import Editor from "rich-markdown-editor";

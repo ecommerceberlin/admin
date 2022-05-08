@@ -16,6 +16,7 @@
     "pusher-js": "^7.0.6",
     "react": "~18.1.0",
     "react-admin": "^4.0.3",
+    "react-admin-color-input": "^3.0.0-beta.0",
     "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "~18.1.0",
     "react-dropzone": "~14.2.1",
@@ -40,8 +41,7 @@
   "devDependencies": {
     "husky": "^7.0.4",
     "lint-staged": "^12.4.1",
-    "prettier": "^2.6.2",
-    "react-admin-color-input": "^3.0.0-beta.0"
+    "prettier": "^2.6.2"
   },
   "browserslist": [
     ">0.2%",

@@ -3,7 +3,7 @@ import get from 'lodash/get';
 import classNames from 'classnames';
 import {useGetList} from 'react-admin'
 import Avatar from '@mui/material/Avatar';
-import { makeStyles } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
 import deepOrange from '@mui/material/colors/deepOrange';
 import {Admins} from '../../../components';
 import {useApiContext} from '../../../api'

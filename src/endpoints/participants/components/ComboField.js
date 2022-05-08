@@ -1,5 +1,5 @@
 import { isObject } from 'lodash';
-import { makeStyles } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
 import { grey } from '@mui/material/colors';
 import useMediaQuery  from '@mui/material/useMediaQuery';
 
