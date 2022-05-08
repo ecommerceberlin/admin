@@ -2,6 +2,35 @@
 
 import slugify from 'slugify'
 import isString from 'lodash/isString'
+import { stringify as _stringify } from 'qs';
+
+export const timestamp = () => Math.floor(Date.now() / 1000)
+
+export const uniqueValues = arr => [...new Set(uniqueValues)];
+
+export const getKey = key => `admin.eventjuicer.com/${key}`
+
+export const lsGet = (key, ifNotFound = "") => {
+    try {
+      const data = localStorage.getItem(getKey(key))
+      return data ? JSON.parse(data) : ifNotFound
+    } catch (error) {
+      return ifNotFound
+    }
+  }
+  
+  
+  export const lsSet = (key, value) => localStorage.setItem(getKey(key), JSON.stringify(value))
+  
+  export const lsRem = (key) => localStorage.removeItem( getKey(key) )
+
+
+
+
+export const stringify = (obj) => _stringify(
+  { filter: JSON.stringify(obj) },
+  { strictNullHandling: true }
+)
 
 export const slug = (str = '', replacement = '-') => slugify(str, {
   replacement,

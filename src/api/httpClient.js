@@ -1,7 +1,7 @@
 import React from 'react'
 import { fetchUtils, useRefresh, useUpdate } from 'react-admin';
 import restProvider from './restProvider';
-import {getActiveEvent, getActiveGroup} from './app'
+import { lsGet } from '../helpers';
 import get from 'lodash/get'
 
 /** OLD */
@@ -26,7 +26,7 @@ export const httpClient = (url, options = {}) => {
 
   url = fixApiPath(url)
 
-  const token = localStorage.getItem('token');
+  const token = lsGet('token');
 
   if ( !options.headers) {
     options.headers = new Headers();
@@ -71,8 +71,8 @@ export const uploadFile = (file, type="", id = 0) => new Promise((resolve, rejec
       file: encoded,
       type,
       id,
-      event_id: get(getActiveEvent(), "id"),
-      group_id: get(getActiveGroup(), "id")
+      event_id: lsGet("event_id"),
+      group_id: lsGet("group_id")
     })})).then(({json}) => resolve(json.data))
 
 })

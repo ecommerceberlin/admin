@@ -16,7 +16,7 @@ import Chip from '@mui/material/Chip';
 import PurchaseStatusField from '../purchases/PurchaseStatusField';
 import ShowTitle from './ShowTitle';
 import ShowActions from './ShowActions';
-import { uniqueValues } from '../../api/app';
+import { uniqueValues } from '../../helpers';
 
 const Roles = ({ record, source }) =>
   record &&

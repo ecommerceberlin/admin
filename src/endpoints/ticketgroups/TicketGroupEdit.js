@@ -49,7 +49,7 @@ const TicketEdit = props => {
   >
      <TabbedForm>
         <FormTab label="Primary">
-        {form(event_id)}
+        {/* {form(event_id)} */}
         </FormTab>
         {/* <FormTab label="Secondary">
           
