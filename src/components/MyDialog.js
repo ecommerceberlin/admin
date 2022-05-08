@@ -1,95 +1,85 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Slide from '@material-ui/core/Slide';
-
-//custom
-import PropTypes from 'prop-types';
 import { useTranslate } from 'react-admin';
-import { useSelector, useDispatch } from 'react-redux';
-import { hideDialog } from '../redux';
-import isFunction from 'lodash/isFunction'
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="down" ref={ref} {...props} />;
-});
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import {makeStyles} from '@mui/material/styles';
 
-function MyDialog({confirm, cancel, confirmColor}) {
+import Button from './Button';
+import {useModal, useCloseModal} from '../contexts'
+import isEmpty from 'lodash/isEmpty'
+import {looksLikeLabel, containsNoHtml} from '../helpers'
 
-  const translate = useTranslate();
-  const dispatch = useDispatch();
-  const state = useSelector(state => state.ui.dialog)
+const useStyles = makeStyles(theme => ({
 
-  const hasConfirmAction = 'onConfirm' in state && isFunction(state.onConfirm)
+  // modal: {
+  //   width: '90%',
+  //   maxWidth: 1000
+  // },
+  // imageContainer: {
+  //   padding: '2em',
+  //   margin: '2em'
+  // },
+  // image: {
+  //   maxWidth: '100%'
+  // }
 
-  const handleConfirm = () => {
-    state.onConfirm();
-    dispatch(hideDialog())
-  }
+}))
 
-  const handleClose = () => {
-    if('onClose' in state && isFunction(state.onClose)){
-      state.onClose();
-    }
-    dispatch(hideDialog())
-  };
+const CustomModal = () => {
+  const translate = useTranslate()
+  const modal = useModal()
+  const handleClose = useCloseModal()
+  const {title, label, body, image, buttons, fullScreen} = modal
 
-  return (
-    
-      <Dialog
-        open={"title" in state}
-         TransitionComponent={Transition}
-        // keepMounted
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-slide-title"
-        aria-describedby="alert-dialog-slide-description"
-        maxWidth="md"
-      >
-        <DialogTitle id="alert-dialog-slide-title"> {'title' in state ? state.title : ''} </DialogTitle>
-        <DialogContent>
+  return (  <Dialog
+    open={!isEmpty(modal)}
+    onClose={handleClose}
+    aria-labelledby="alert-dialog-title"
+    aria-describedby="alert-dialog-description"
+    maxWidth="md"
+    fullWidth={true}
+    fullScreen={fullScreen}
+  >
+    <DialogTitle id="alert-dialog-title">{looksLikeLabel(title)? translate(title): title}</DialogTitle>
+    <DialogContent>
+      {containsNoHtml(title) ? <DialogContentText id="alert-dialog-description">{looksLikeLabel(body)? translate(body): body}</DialogContentText>: body}
+    </DialogContent>
+    <DialogActions>{[
+          ...(buttons? buttons: []),
+          <Button key="close" label={"common.close"} onClick={handleClose} />
+    ]}</DialogActions>
+  </Dialog>)
+};
 
-           {'content' in state ? state.content: ''}
 
-          {/* <DialogContentText id="alert-dialog-slide-description">
-         
-          </DialogContentText> */}
-        </DialogContent>
+export default CustomModal
 
-        <DialogActions>
-        {hasConfirmAction && <Button color="secondary" onClick={handleConfirm} >{confirm}</Button>}
-        <Button onClick={handleClose} color="default">{cancel}</Button>
-        </DialogActions>
-</Dialog>
+
+/**
+ * 
+ 
+ return (
+    <Dialog
+      // title={title}
+      // actions={}
+      // modal={false}
+      open={}
+      onClose={close}
+    ><div>
+      {body || ''}
+
+      {image ? (
+      <div style={style.imageContainer}>
+      <img style={style.image} src={image} alt="" />
+      </div>
+      ) : null}
+    </div>
    
-  );
-}
+    </Dialog>
 
 
-
-MyDialog.propTypes = {
-
-  cancel: PropTypes.string.isRequired,
-  confirm: PropTypes.string.isRequired,
-  confirmColor: PropTypes.string.isRequired,
-
-  dialog: PropTypes.shape({
-    title: PropTypes.string,
-    content: PropTypes.node,
-    onConfirm: PropTypes.func,
-    onClose: PropTypes.func
-  })
-};
-
-MyDialog.defaultProps = {
-  cancel: 'Cancel',
-  confirm: 'Confirm',
-  confirmColor: 'primary'
-};
-
-
-export default MyDialog
+ */
