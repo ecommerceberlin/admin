@@ -25,11 +25,8 @@ export const useCompany = (path = "id", replacement) => {
 }
 
 export const useLoginSuccess = () => {
-    const {setProfile, setToken} = React.useContext(UserContextContainer)  
-    return React.useCallback(({token, data}) => {
-        setToken(token)
-        setProfile(data)
-    },[setProfile, setToken])
+    const {setToken} = React.useContext(UserContextContainer)  
+    return React.useCallback((token) => setToken(token), [setToken])
 }
 
 export const useLogoutSuccess = () => {
