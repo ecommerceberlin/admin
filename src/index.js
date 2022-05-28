@@ -23,6 +23,6 @@ Sentry.init({
   
 
 
-root.render(<App id="app" tab="home" />);
+root.render(<App tab="home" />);
 
 registerServiceWorker();
