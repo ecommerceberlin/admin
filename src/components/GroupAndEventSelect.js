@@ -1,24 +1,27 @@
 
 import React, {useEffect} from 'react';
-import { useRedirect, useGetList, useGetOne} from 'react-admin';
 import {makeStyles} from '@mui/styles'
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
 import IconButton from '@mui/material/IconButton';
+import Box from '@mui/material/Box';
 import SettingsIcon from '@mui/icons-material/Settings';
 import ActiveIcon from '@mui/icons-material/FiberManualRecord';
-import {useApiContext} from '../api'
-import find from 'lodash/find'
-// import { createSelector } from 'reselect'
+import {useEventId, useGroupId} from '../api'
 import Typography from '@mui/material/Typography';
-import { useSetModal } from '../contexts';
+import { 
+    useSetModal, 
+    useUserGroups, 
+    useChangeGroupOrEvent, 
+    useCurrentEvent, 
+    useGroupEvents,
+    useCloseModal
+} from '../contexts';
+import MySelect from './MySelect';
 
 const useStyles = makeStyles((theme) => ({
       
       select: {
-        // color: "#fff"
+        // color: "#fff",
+        minWidth: 200,
       },
 
       icon: {
@@ -49,94 +52,70 @@ const useStyles = makeStyles((theme) => ({
 
 const SelectGroup = () => {
 
+    const data = useUserGroups();
+    const {setGroupId} = useChangeGroupOrEvent()
+    const group_id = useGroupId()
 
-    const classes = useStyles();
-    const [group_id] = useApiContext();
-
-
-    const { data, isLoading, error } = useGetList("groups", { 
-        pagination: { page: 1, perPage: 100 }, 
-        sort: { field: 'active_event_id', order: 'DESC' }
-    })
-    
-
-
-    if(error){
-        return  null
+    if(!data){
+        return null
     }
 
-    const handleChangeGroup = (e) => dispatch(changeGroup(find(data, {id: e.target.value})));
-
-    return (
-
-        <FormControl className={classes.formControl}>
-        <InputLabel id="change-group-label">Group</InputLabel>
-        <Select
-            id="select-group"
-            labelId="change-group-label"
-            value={group_id}
-            onChange={ handleChangeGroup }
-            autoWidth={true}
-            variant="outlined"
-            className={classes.select}
-            // renderValue={id => get(find(data, {id}), "name")}
-        >
-        {(data || []).map(({id, name}) => <MenuItem key={id} value={id}>{name}</MenuItem> )}
-        </Select>
-        </FormControl>)
+    return (<MySelect label="Select Group" value={group_id} onChange={setGroupId} options={data} />)
     
 }
 
 
 
-const SelectEvent = (props) => {
+const SelectEvent = () => {
 
+    const {setEventId} = useChangeGroupOrEvent()
+    const data = useGroupEvents()
+    const event_id = useEventId()
+    const group_id = useGroupId()
+    const closeModal = useCloseModal()
+
+    if(!group_id || !data){
+        return null
+    }
+
+    const handleEventChange = React.useCallback((newEventId)=>{
+        if(newEventId > 0){
+            setEventId(newEventId)
+            closeModal()
+        }
+    }, [setEventId, closeModal])
+    
+    return (<MySelect label="Select Event" value={event_id} onChange={handleEventChange} options={data} />)
+
+}
+
+
+const CurrentSelection = () => {
+
+    const data = useCurrentEvent()
     const classes = useStyles();
-    const [group_id, event_id] = useApiContext();
-    const modal = useSetModal()
 
-
-    const { data, isLoading, error } = useGetList("events", { 
-        pagination: { page: 1, perPage: 100 }, 
-        sort: { field: 'id', order: 'DESC' }
-    });
-
-    if(!group_id || isLoading || error){
+    if(!data){
         return null
     }
     
-    const handleChangeEvent = (e) => {
-         (changeEvent(find(data, {id: e.target.value})))
-         (hideDialog());
-    }
-
-    const filteredData = (data || []).filter(event => event.group_id == group_id)
-
-    return (
-        <FormControl className={classes.formControl}>
-        <InputLabel id="change-event-label">Event</InputLabel>
-        <Select
-            id="select-event"
-            labelId="change-event-label"
-            value={event_id}
-            onChange={ handleChangeEvent }
-            autoWidth={true}
-            variant="outlined"
-            className={classes.select}
-        >
-        {filteredData.map(({id, name, is_active}) => <MenuItem key={id} value={id}>{is_active && <ActiveIcon className={classes.icon}/>}{name}</MenuItem> )}
-        </Select>
-        </FormControl>)
-    
+    return (<div>{data.is_active && <ActiveIcon className={classes.icon}/>}
+        <Typography
+        variant="h6"
+        color="inherit"
+        className={classes.title}
+    >{data.name}</Typography> 
+    </div>)
 }
 
-const Configure = () => {
 
-    const [group_id, event_id] = useApiContext();
-    const {data, isLoading, error} = useGetOne("events", {id: event_id})
-    const classes = useStyles();
 
+const GroupAndEventSelect = () => {
+
+    const group_id = useGroupId()
+    const event_id = useEventId()
     const modal = useSetModal()
+    const classes = useStyles();
 
     useEffect(() => {
 
@@ -144,23 +123,14 @@ const Configure = () => {
             handleDialog();
         }
     
-    },[])
+    }, [group_id, event_id])
 
-    // const Dialog = React.memo((props) => )
+    const handleDialog = () => modal("Change group and event", <Box sx={{m:2}}><SelectGroup /> <SelectEvent /></Box>) 
 
-    const handleDialog = () => modal("Change group and event", <div><SelectGroup /> <SelectEvent /></div>) 
-     
-    if(isLoading){
-        return null
-    }
-    
     return (<div className={classes.root}>
-      {data.is_active && <ActiveIcon className={classes.icon}/>}
-        <Typography
-        variant="h6"
-        color="inherit"
-        className={classes.title}
-    >{data.name}</Typography> 
+    
+    {event_id? <CurrentSelection />: null}
+    
     <IconButton 
         color="inherit" 
         aria-label="manage events" 
@@ -169,8 +139,10 @@ const Configure = () => {
     >
     <SettingsIcon />
     </IconButton>
+
     </div>)
 }
 
 
-export default Configure;
+
+export default GroupAndEventSelect;
