@@ -20,7 +20,12 @@ export const lsGet = (key, ifNotFound = "") => {
   }
   
   
-  export const lsSet = (key, value) => localStorage.setItem(getKey(key), JSON.stringify(value))
+  export const lsSet = (key, value) => {
+
+    localStorage.setItem(getKey(key), JSON.stringify(value));
+    window.dispatchEvent(new Event(`storage/${key}`));
+
+  }
   
   export const lsRem = (key) => localStorage.removeItem( getKey(key) )
 

@@ -1,9 +1,7 @@
 import React from 'react';
-import { Notification, useLogin, useNotify, useTheme, Login } from 'react-admin';
-import { ThemeProvider, makeStyles } from '@mui/styles';
+import { useLogin, Login } from 'react-admin';
+import { makeStyles } from '@mui/styles';
 import Box from '@mui/material/Box';
-import { useLoginSuccess } from '../contexts';
-
 import Form from './Form'
 
 
@@ -31,15 +29,8 @@ const CustomLogin = () => {
 
   const classes = useStyles()
   const login = useLogin();
-  const notify = useNotify();
-  const onLoginSuccess = useLoginSuccess()
 
-  const onSubmit = data => {
-      console.log(data)
-      login(data).then(data => onLoginSuccess(data)).catch(() =>
-          notify('Invalid email or password')
-      );
-  };
+
 
   return (
      <Login>
@@ -48,7 +39,7 @@ const CustomLogin = () => {
      
       <Form 
         title="ra.auth.sign_in" 
-        onSubmit={onSubmit} 
+        onSubmit={login} 
         fields={[
             {name: "email"},
             {name: "password", type: "password"}

@@ -27,7 +27,8 @@ const authProvider = {
         return response.json();
       }).then(({ access_token }) => {
         if(access_token){
-          resolve(access_token)
+          lsSet("token", access_token)
+          resolve()
         }
         reject()
       });
