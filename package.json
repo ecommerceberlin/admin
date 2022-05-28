@@ -34,8 +34,8 @@
   },
   "scripts": {
     "precommit": "lint-staged",
-    "dev": "react-scripts start",
-    "start": "HTTPS=true react-scripts start",
+    "dev": "GENERATE_SOURCEMAP=false react-scripts start",
+    "start": "HTTPS=true GENERATE_SOURCEMAP=false react-scripts start",
     "build": "CI=false react-scripts build",
     "test": "react-scripts test --env=jsdom"
   },
