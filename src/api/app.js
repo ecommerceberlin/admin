@@ -31,29 +31,7 @@ export function useLocalStorage(key, initialValue) {
 
 
 
-export const statuses = [
-  { id: 'all', name: 'ALL' },
-  { id: 'new', name: 'NEW' },
-  { id: 'hold', name: 'HOLD' },
-  { id: 'ok', name: 'OK' },
-  { id: 'cancelled', name: 'CANCELLED' }
-];
 
-export const roles = [
-  "visitor", 
-  "exhibitor", 
-  "presenter", 
-  "contestant",
-  "contestant_person", 
-  "contestant_company",
-  "representative",
-  "juror",
-  "party",
-  "service_external",
-  "service_internal",
-  "asset",
-  "flag"
-];
 
 
 export const hasValidRole = (role) => roles.includes(role)
