@@ -1,6 +1,8 @@
 import React, {useEffect} from 'react'
 import get from 'lodash/get'
 import { lsGet } from '../helpers';
+import {useGetList} from 'react-admin'
+
 export const UserContextContainer = React.createContext({});
 
 
@@ -15,6 +17,20 @@ export const useToken = () => {
 export const useLogoutSuccess = () => {
     const {setToken} = React.useContext(UserContextContainer)  
     return React.useCallback(() => setToken(""), [setToken])
+}
+
+
+export const useUserGroups = () => {
+
+
+
+    const { data, isLoading, error } = useGetList("groups", { 
+        pagination: { page: 1, perPage: 100 }, 
+        sort: { field: 'active_event_id', order: 'DESC' }
+    })
+
+    return data
+
 }
 
 export const UserContext = ({children}) => {
