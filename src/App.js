@@ -1,14 +1,13 @@
 import React from 'react';
-import { Admin, Resource, AdminContext, AdminUI, Loading } from 'react-admin';
+import { AdminContext, AdminUI, Loading } from 'react-admin';
 import dataProvider from './api/httpClient';
 import authProvider from './api/authClient';
-import { AppTitle, MyLayout, MyDialog } from './components';
-import customRoutes from './customRoutes';
+import { AppTitle, MyLayout, MyDialog, MyLogin } from './components';
 import resourcesArr from './resources'
 import settings from './settings';
-import { ModalContext, UserContext, SettingsContext, CacheContext } from './contexts';
+import { GroupEventsContext, ModalContext, UserContext, SettingsContext, CacheContext } from './contexts';
 import i18nProvider, {useTranslations} from './i18n'
-
+import Dashboard from './endpoints/Dashboard';
 const CustomLayout = (props) => {
 
   return (
@@ -33,12 +32,12 @@ function CustomAdminUI() {
   return (
       <AdminUI 
         layout={CustomLayout}
-        // loginPage={ CustomLogin }
+        loginPage={ MyLogin }
+        title="Admin"
         // logoutButton={ LogoutButton } 
         // theme={ getTheme() }
-        // customRoutes={ customRoutes }
-        // dashboard={ Logistics }
-        // catchAll={ Logistics }
+         dashboard={ Dashboard }
+         catchAll={ Dashboard }
       >
      {resourcesArr}
       </AdminUI>
@@ -52,16 +51,17 @@ function App() {
       dataProvider={ dataProvider }
       i18nProvider={ i18nProvider }
       authProvider={ authProvider }
-      // customReducers={ reducers }
-      // customSagas={ sagas }
+      // requireAuth
     > 
-    <SettingsContext data={settings}>
-      <UserContext>
-        <CacheContext>
-          <CustomAdminUI />
-        </CacheContext>
-      </UserContext>
-    </SettingsContext>
+      <SettingsContext data={settings}>
+        <UserContext>
+          <GroupEventsContext>
+            <CacheContext>
+              <CustomAdminUI />
+            </CacheContext>
+          </GroupEventsContext>
+        </UserContext>
+      </SettingsContext>
     </AdminContext>
   );
 }
