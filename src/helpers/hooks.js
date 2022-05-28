@@ -1,32 +1,49 @@
 import React from 'react'
 import {useGetList, DataProviderContext} from 'react-admin'
 import { isString } from 'lodash'
-import { useLocalStorage } from './app'
+import { useEventId } from '../contexts'
+import {lsGet, lsSet} from './index'
 
 
+export function useLocalStorage(key, initialValue) {
+  // State to store our value
+  // Pass initial state function to useState so logic is only executed once
+  const [storedValue, setStoredValue] = React.useState(() => {
+    try {
+      return lsGet(key, initialValue)
+    } catch (error) {
+      console.log(error);
+      return initialValue;
+    }
+  });
 
+  const setValue = value => {
+    try {
+      // Allow value to be a function so we have same API as useState
+      const valueToStore = value instanceof Function ? value(storedValue) : value;
+      setStoredValue(valueToStore);      
+      lsSet(key, valueToStore)
+    } catch (error) {
+      // A more advanced implementation would handle the error case
+      console.log(error);
+    }
+  };
 
-
-export const useGroupId = () => {
-
-    const [group_id] = useLocalStorage("group_id", 0)
-    return group_id
+  return [storedValue, setValue];
 }
 
-export const useEventId = () => {
 
-  const [event_id] = useLocalStorage("event_id", 0)
-  return event_id
-}
+export const hasValidRole = (role) => roles.includes(role)
 
+export const rolesObject = roles.map(role => ({id: role, name: role}))
+  
+export const resizeCloudinaryImage = (url, width = 600, height = 600, format = "jpg") => {
+  //check if not already resized!
+  if (url && /cloudinary/.test(url) && /image\/upload\/v[0-9]+/.test(url)) {
+    return url.replace(/\.svg$/i, `.${format}`).replace("image/upload/", `image/upload/w_${width},h_${height},c_limit,f_auto/`);
+  }
 
-export const useApiContext = () => {
-
-  const group_id = useGroupId()
-  const event_id = useEventId()
-
-  return [group_id, event_id];
-
+  return url; //do nothing!
 }
 
 
@@ -47,16 +64,6 @@ export const useTickets = (ids=[]) => {
     return [filtered, withTicketGroupId]
 
 }
-
-
-export const useGroupEvents = () => {
-
-  
-
-    return data
-
-}
-
 
 
 
