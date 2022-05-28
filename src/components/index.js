@@ -15,5 +15,7 @@ export { default as CopyToClipboardButton } from './CopyToClipboardButton'
 
 export { default as MyDialog } from './MyDialog'
 export { default as MyTypography } from './MyTypography'
+export { default as MySelect } from './MySelect'
+
 export { default as Form } from './Form'
 export { default as CustomPage } from './CustomPage'
