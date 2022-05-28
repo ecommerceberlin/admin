@@ -23,7 +23,7 @@ const Menu = ({ onMenuClick, logout }) => {
 
     const { loading, permissions } = usePermissions();
 
-    const filtered = resources.filter(resource => resource.hasList && !("hideInMenu" in resource.options))
+    const filtered = resources.filter(resource => resource.hasList && resource.options && !("hideInMenu" in resource.options))
 
     return (
         <div style={{marginTop: 20}}>
