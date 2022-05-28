@@ -40,26 +40,61 @@ const MyUserMenu = props => (
 );
 
 
+
+
 const MyAppBar = (props) => {
-    
+
     const classes = useStyles();
-  
+
     return (
-        <AppBar {...props} userMenu={<MyUserMenu />}>
+        <AppBar
+            sx={{
+                "& .RaAppBar-title": {
+                    flex: 1,
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                },
+            }}
+            {...props}
+        >
             <Typography
                 variant="h6"
                 color="inherit"
                 className={classes.title}
                 id="react-admin-title"
             />
-
+         
             <GroupAndEventSelect />
 
-      
             {/* <Logo /> */}
             <span className={classes.spacer} />
         </AppBar>
     );
 }
+
+
+
+// const MyAppBar = (props) => {
+    
+//     const classes = useStyles();
+  
+//     return (
+//         <AppBar {...props} userMenu={<MyUserMenu />}>
+//             <Typography
+//                 variant="h6"
+//                 color="inherit"
+//                 className={classes.title}
+//                 id="react-admin-title"
+//             />
+
+//            
+
+      
+//             {/* <Logo /> */}
+//             <span className={classes.spacer} />
+//         </AppBar>
+//     );
+// }
 
 export default MyAppBar;
