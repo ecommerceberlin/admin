@@ -1,179 +1,85 @@
 
-// import {
-//   AUTH_LOGIN,
-//   AUTH_LOGOUT,
-//   AUTH_CHECK,
-//   AUTH_ERROR,
-//   AUTH_GET_PERMISSIONS
-// } from 'react-admin';
+import { lsGet, lsSet, lsRem } from '../helpers'
+import { httpClient } from './httpClient';
 
-// import { fetchUtils } from 'react-admin';
+const authProvider = {
+  // authentication
+  login: params => new Promise((resolve,reject)=>{
 
-// import {
-//   validateToken,
-//   clearUserData,
-//   refreshUserData,
-//   getToken,
-//   checkAccessFor
-// } from '../helpers';
-
-// export default  {
-
-
-//   login: (params) => {
-
-//     const {token} = params;
-    
-//     clearUserData();
-
-//     if (token !== undefined && validateToken(token)) {
-//       return refreshUserData(token);
-//     } else {
-//       const options = {
-//         headers: new Headers({
-//           Accept: 'application/json',
-//           'x-token': `${token}`
-//         })
-//       };
-
-//       options.method = 'POST';
-//       options.body = JSON.stringify(params);
-
-//       return fetchUtils
-//         .fetchJson(
-//           `${process.env.REACT_APP_API_ENDPOINT}/authenticate`,
-//           options
-//         )
-//         .then(({ json }) => {
-//           console.log(json);
-//           //storeUserData(token, response);
-//           //localStorage.setItem('token', token);
-//           //return Promise.resolve();
-//           return Promise.reject('auth.checkEmail');
-//         });
-//     }
-
-
-
-    // const request = new Request('https://mydomain.com/authenticate', {
-    //     method: 'POST',
-    //     body: JSON.stringify({ username, password }),
-    //     headers: new Headers({ 'Content-Type': 'application/json' }),
-    // });
-    // return fetch(request)
-    //     .then(response => {
-    //         if (response.status < 200 || response.status >= 300) {
-    //             throw new Error(response.statusText);
-    //         }
-    //         return response.json();
-    //     })
-    //     .then(({ token }) => {
-    //    //     const decodedToken = decodeJwt(token);
-    //      //   localStorage.setItem('token', token);
-    //        // localStorage.setItem('permissions', decodedToken.permissions);
-    //     });
-// },
-// logout: () => {
-//     localStorage.removeItem('token');
-//     localStorage.removeItem('permissions');
-//     return Promise.resolve();
-// },
-// checkError: error => {
-   
-// },
-// checkAuth: () => {
-//     return localStorage.getItem('token') ? Promise.resolve() : Promise.reject();
-// },
-// getPermissions: () => {
-
-//     return checkAccessFor("/?noperms");
-//     // return role ? Promise.resolve(role) : Promise.reject();
-// }
-
-
-
-
-// };
-
-
-
-
-
-import {
-  AUTH_LOGIN,
-  AUTH_LOGOUT,
-  AUTH_ERROR,
-  AUTH_CHECK,
-  AUTH_GET_PERMISSIONS
-} from 'react-admin';
-
-import {httpClient} from './httpClient'
-
-export default (type, params) => {
-
-
-  if (type === AUTH_LOGIN) {
-    const { username, password } = params;
+    const { email, password } = params;
 
     const formData = new FormData();
     formData.append('client_id', process.env.REACT_APP_OAUTH_CLIENT_ID);
     formData.append('grant_type', process.env.REACT_APP_OAUTH_GRANT_TYPE);
     formData.append('scope', process.env.REACT_APP_OAUTH_SCOPE);
-    formData.append('username', username);
+    formData.append('username', email);
     formData.append('password', password);
 
     const request = new Request(process.env.REACT_APP_OAUTH_TOKEN_URL, {
       method: 'POST',
       body: formData
-
-      // headers: new Headers({ 'Content-Type': 'application/json' }),
     });
 
-    return fetch(request)
-      .then(response => {
+    fetch(request).then(response => {
         if (response.status < 200 || response.status >= 300) {
-          throw new Error(response.statusText);
+          reject(response.statusText)
         }
         return response.json();
-      })
-      .then(({ access_token }) => {
-        console.log(access_token);
-
-        localStorage.setItem('token', access_token);
+      }).then(({ access_token }) => {
+        if(access_token){
+          resolve(access_token)
+        }
+        reject()
       });
-  }
-
-  if (type === AUTH_LOGOUT) {
-    localStorage.removeItem('token');
-    return Promise.resolve();
-  }
-
-  if (type === AUTH_ERROR) {
-    const status = params.status;
-    if (status === 401 || status === 403) {
-      localStorage.removeItem('token');
-      return Promise.reject();
-    }
-    return Promise.resolve();
-  }
-
-  if (type === AUTH_CHECK) {
-    console.info("AUTH_CHECK")
-    const { resource } = params;
-    return localStorage.getItem('token') ? Promise.resolve() : Promise.reject();
-  }
-
-  if (type === AUTH_GET_PERMISSIONS) {
+  }),
     
+  checkError: error => Promise.resolve(/* ... */),
+  checkAuth: params => lsGet("token")? Promise.resolve(/* ... */) : Promise.reject(),
+  logout: () => new Promise((resolve, reject) => {
+    lsRem("token");
+    resolve();
+  }),
+  getIdentity: () => new Promise((resolve, reject)=>{
 
-    httpClient(`${process.env.REACT_APP_API_ENDPOINT}/me`).then(response => response.json).then(response => {
-
-      console.info("AUTH_GET_PERMISSIONS", response)
-
-    })
-
-    return Promise.resolve();
+  try {
+      const { id, initials } = lsGet("profile")
+      return Promise.resolve({ id, fullName: initials });
+  } catch (error) {
+      return Promise.reject(error);
   }
 
-  return Promise.reject('Unkown method');
+  }),
+  // authorization
+  getPermissions: () => new Promise((resolve, reject)=>{
+
+    httpClient(`/me`).then(response => response.json).then(response => {
+
+            // console.info("getPermissions", response)
+            lsSet("profile", response.data)
+            resolve(response.data)
+    })
+      
+  }),
 };
+
+
+
+
+//   if (type === AUTH_ERROR) {
+//     const status = params.status;
+//     if (status === 401 || status === 403) {
+//       localStorage.removeItem('token');
+//       return Promise.reject();
+//     }
+//     return Promise.resolve();
+//   }
+
+//   if (type === AUTH_CHECK) {
+//     console.info("AUTH_CHECK")
+//     const { resource } = params;
+//     return localStorage.getItem('token') ? Promise.resolve() : Promise.reject();
+//   }
+
+
+
+export default authProvider
