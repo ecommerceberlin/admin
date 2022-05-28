@@ -6,7 +6,7 @@ import Avatar from '@mui/material/Avatar';
 import { makeStyles } from '@mui/styles';
 import deepOrange from '@mui/material/colors/deepOrange';
 import {Admins} from '../../../components';
-import {useApiContext} from '../../../api'
+import { useEventId } from '../../../contexts';
 
 const useStyles = makeStyles(theme => ({
   avatar: {
@@ -29,8 +29,7 @@ const SelectAdminField = ({label="", basePath="", record={}}) => {
 
   const classes = useStyles()
 
-  const [group_id, event_id] = useApiContext()
-
+  const event_id = useEventId()
   const {data, isLoading, isError} = useGetList("admins", {
     pagination: {page: 1, perPage: 100},
     sort: {field: "initials", order: "ASC"},

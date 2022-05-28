@@ -6,7 +6,7 @@ import Avatar from '@mui/material/Avatar';
 import { makeStyles } from '@mui/styles';
 import deepOrange from '@mui/material/colors/deepOrange';
 import {Admins} from '../../../components';
-import {useApiContext} from '../../../api'
+
 import TextField from '@mui/material/TextField';
 
 const useStyles = makeStyles(theme => ({
@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
 const SelectAdminField = (props) => {
 
   const classes = useStyles()
-  const [group_id, event_id] = useApiContext()
+
 
   const {
     input: { name, onChange, ...rest },

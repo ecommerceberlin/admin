@@ -1,8 +1,18 @@
 
 
+import BusinessIcon from '@mui/icons-material/Business';
 
 const settings = {
 
+  
+
+    menuItems: [
+        {name: "profile", icon: BusinessIcon, children: [
+          "companies", 
+          "people",
+          "purchases"
+        ]},
+    ],
 
     statuses: [
         { id: 'all', name: 'ALL' },

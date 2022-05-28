@@ -1,10 +1,11 @@
 import { useEffect } from 'react'
 import { Aside, Table } from '../../../components'
-import { useApiContext, useGet } from '../../../api'
+import { useGet } from '../../../datasources'
+import { useEventId } from '../../../contexts'
 
 const ParticipantsAside = () => {
 
-    const [_, event_id] = useApiContext()
+    const event_id = useEventId()
     const {data, checking, error} = useGet(`participant-stats?event_id=${event_id}`)
     const {not_going, going} = data
 

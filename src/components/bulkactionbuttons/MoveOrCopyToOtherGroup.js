@@ -8,12 +8,10 @@ import {
     useUnselectAll,
 } from 'react-admin';
 
-import {useApiContext} from '../../api'
 import { VisibilityOff } from '@mui/icons-material';
 
 const MoveOrCopyToOtherGroup = ({ selectedIds, label, data, basePath, filterValues, Icon, resource }) => {
     
-    const [group_id, event_id] = useApiContext();
     const refresh = useRefresh();
     const notify = useNotify();
     const unselectAll = useUnselectAll();

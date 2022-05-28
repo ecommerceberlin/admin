@@ -5,12 +5,21 @@ import MenuItem from '@mui/material/MenuItem';
 import Chip from '@mui/material/Chip';
 import {makeStyles} from '@mui/styles'
 import Icon from '@mui/icons-material/Edit';
-
-import { statuses as styles } from '../../styles';
-import { statuses } from '../../api/app';
 import dataProvider from '../../api/httpClient';
+import { useSettings } from '../../contexts';
 
-class PurchaseStatusField extends React.Component {
+const PurchaseStatusField = () => {
+
+  const statuses = useSettings("statuses")
+
+
+  return null
+}
+
+
+/*
+
+class XXXPurchaseStatusField extends React.Component {
   constructor(props) {
     super(props);
 
@@ -113,11 +122,6 @@ class PurchaseStatusField extends React.Component {
   }
 }
 
-// const enhance = compose(
-//   connect(
-//     null,
-//     { showNotification, refreshView }
-//   )
-// );
+*/
 
 export default PurchaseStatusField

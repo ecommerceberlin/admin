@@ -8,11 +8,12 @@ import {
 } from 'react-admin';
 
 import BoothColorField from './fields/BoothColorField'
-import { useApiContext } from '../../api';
+import { useEventId } from '../../contexts'; 
+
 
 const TicketGroupList = props => {
 
-  const [group_id, event_id] = useApiContext()
+  const event_id = useEventId()
 
   return (
     <List 

@@ -8,12 +8,12 @@ import {
     useCreate,
 } from 'react-admin';
 
-import {useApiContext, useTickets} from '../../api'
+import {useTickets} from '../../datasources'
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import Button from '../Button'
 import { Table, Select } from "..";
-import { CacheContext, useCache, useSetCache, GroupEventsContext, useGroupEvents } from "../../contexts";
-
+import { CacheContext, useCache, useSetCache, GroupEventsContext, useGroupId } from "../../contexts";
+import { useGroupEvents } from "../../datasources";
 
 
 const ModifyTicketGroupTicket = ({ids = []}) => {
@@ -32,7 +32,8 @@ const ModifyTicketGroupTicket = ({ids = []}) => {
 
 const CopyToNewerEvent = ({ selectedIds, basePath, resource, label="copy to newer event" }) => {
     
-    const [group_id, event_id] = useApiContext();
+
+    const group_id = useGroupId()
     const refresh = useRefresh();
     const notify = useNotify();
     const unselectAll = useUnselectAll();

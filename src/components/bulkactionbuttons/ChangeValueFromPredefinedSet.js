@@ -8,7 +8,6 @@ import {
     useUnselectAll,
 } from 'react-admin';
 
-import {useApiContext} from '../../api'
 import { VisibilityOff } from '@mui/icons-material';
 import {makeStyles} from '@mui/styles'
 import InputLabel from '@mui/material/InputLabel';
@@ -51,7 +50,6 @@ const CategorySelect = ({category, choices, onChange}) => {
 const ChangeValueFromPredefinedSet = ({ selectedIds, label, choices, basePath, filterValues, Icon, resource }) => {
     
     const [category, setCategory] = useState("");
-    const [group_id, event_id] = useApiContext();
     const modal = useSetModal()
     const refresh = useRefresh();
     const notify = useNotify();

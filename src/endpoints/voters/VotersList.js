@@ -11,7 +11,7 @@ import {
   DateField
 } from 'react-admin';
 
-import {useApiContext } from '../../api'
+import { useGroupId } from '../../contexts';
 // import TicketTags from './components/TicketTags';
 import FilterByAppId from './filters/FilterByAppId'
 
@@ -24,7 +24,8 @@ const ListActions = (props) => (
 
 const ViewList = props => {
 
-  const [group_id, event_id] = useApiContext()
+
+  const group_id = useGroupId()
   return (
     
   <List

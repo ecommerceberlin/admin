@@ -15,7 +15,7 @@ import {
   Filter
 } from 'react-admin';
 import { ReferenceArrayField, SingleFieldList } from 'react-admin';
-import { useEventId } from '../../api';
+import { useEventId } from '../../contexts';
 import {
   SetStatusAction,
   SendMessageAction

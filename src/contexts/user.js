@@ -1,7 +1,5 @@
 import React, {useEffect} from 'react'
-import get from 'lodash/get'
 import { lsGet } from '../helpers';
-import {useGetList} from 'react-admin'
 
 export const UserContextContainer = React.createContext({});
 
@@ -11,27 +9,17 @@ export const useToken = () => {
     return token
 }
 
-
-
-
 export const useLogoutSuccess = () => {
     const {setToken} = React.useContext(UserContextContainer)  
     return React.useCallback(() => setToken(""), [setToken])
 }
 
+export const useProfile = () => {
 
-export const useUserGroups = () => {
-
-
-
-    const { data, isLoading, error } = useGetList("groups", { 
-        pagination: { page: 1, perPage: 100 }, 
-        sort: { field: 'active_event_id', order: 'DESC' }
-    })
-
-    return data
-
+    const {profile} = React.useContext(UserContextContainer)  
+    return profile
 }
+
 
 export const UserContext = ({children}) => {
 
@@ -58,7 +46,10 @@ export const UserContext = ({children}) => {
            
         });
 
-        return () => window.removeEventListener("storage/token");
+        return () => {
+            window.removeEventListener("storage/profile");
+            window.removeEventListener("storage/token");
+        }
     }, [setProfile, setToken])
 
     const value = React.useMemo(()=> ({

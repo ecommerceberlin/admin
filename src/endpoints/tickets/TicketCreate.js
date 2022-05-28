@@ -1,10 +1,11 @@
 import React from 'react'
 import { Create, SimpleForm } from 'react-admin'
 import form from './components/sharedInputs'
-import {useApiContext} from '../../api'
+import { useEventId } from '../../contexts'
 
 const TicketCreate = props => {
-  const [group_id, event_id] = useApiContext()
+
+  const event_id = useEventId()
   return (
     <Create {...props}>
       <SimpleForm>

@@ -12,7 +12,6 @@ import {
 
 import { VisibilityOff } from '@mui/icons-material';
 import Grid from '@mui/material/Grid';
-import  { useApiContext } from '../../api'
 import MuiButton from '@mui/material/Button';
 import {makeStyles} from '@mui/styles'
 
@@ -48,7 +47,6 @@ const FlagButtons = ({data, onClick, resource}) => {
 const MassChangeFlags = ({ selectedIds, label, data, basePath, filterValues, Icon, resource }) => {
     
     const [flag, setFlag] = useState(null);
-    const [group_id, event_id] = useApiContext();
     const refresh = useRefresh();
     const notify = useNotify();
     const unselectAll = useUnselectAll();

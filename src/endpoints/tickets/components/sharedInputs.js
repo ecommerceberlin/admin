@@ -11,7 +11,7 @@ import {
     number,
     FormTab
 } from 'react-admin'
-import {roles} from '../../../api'
+import { RoleSelectInput } from '../../../components'
 
 const form = (event_id) => {
 
@@ -23,7 +23,7 @@ const form = (event_id) => {
         <NumberInput source="limit" validate={[number()]} />,
         <DateTimeInput source="start" />,
         <DateTimeInput source="end" />,
-        <SelectInput allowEmpty={true} source="role" choices={roles.map(role=>({id: role, name: role}))} />,    
+        <RoleSelectInput allowEmpty={true} source="role" />,    
         <ReferenceInput allowEmpty={true} filter={{event_id}} label="Ticket Group" source="ticket_group_id" reference="ticketgroups">
         <SelectInput optionText="name" />
         </ReferenceInput>

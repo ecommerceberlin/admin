@@ -8,7 +8,7 @@ import {
   DateField
 } from 'react-admin';
 
-import { useEventId } from '../../api';
+import { useEventId } from '../../contexts';
 
 const Title = ({ record }) => {
   return <span>{record ? `${record.name} events` : ''}</span>;

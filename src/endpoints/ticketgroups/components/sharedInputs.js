@@ -12,9 +12,9 @@ import {
     AutocompleteArrayInput
 } from 'react-admin'
 
-import {roles, useApiContext} from '../../../api'
+import { RoleSelectInput } from '../../../components'
 // import { ColorInput } from 'react-admin-color-input';
-const tags = roles.map(role=>({id: role, name: role}))
+
 
 const form = (event_id) => {
 

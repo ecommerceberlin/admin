@@ -24,7 +24,6 @@ import {
 // import ActiveEventButton from './ActiveEventButton';
 // import ActiveEventChipField from './ActiveEventChipField';
 import {TicketGroupNameField} from './fields/TicketGroupNameField'
-import {roles, useApiContext} from '../../api'
 import {JsonEditorInput} from '../../components'
 import RelatedParticipantsList from './components/RelatedParticipantsList';
 import form from './components/sharedInputs'
@@ -36,11 +35,9 @@ const validateZipCode = regex(/^\d{5}$/, 'Must be a valid Zip Code');
 const validateGender = choices(['m', 'f', 'nc'], 'Please choose one of the values');
 
 
-const tags = roles.map(role=>({id: role, name: role}))
+
 
 const TicketEdit = props => {
-
-  const [group_id, event_id] = useApiContext()
 
 
   return (<Edit 

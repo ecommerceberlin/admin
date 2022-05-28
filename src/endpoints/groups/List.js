@@ -1,7 +1,7 @@
 import React from 'react';
 import { List, Datagrid, TextField, ShowButton } from 'react-admin';
 
-import { useEventId } from '../../api';
+import { useEventId } from '../../contexts';
 import ActiveEvent from './ActiveEvent';
 import RelatedEvents from './RelatedEvents';
 

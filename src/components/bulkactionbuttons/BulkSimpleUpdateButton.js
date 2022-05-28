@@ -8,12 +8,12 @@ import {
     useUnselectAll,
 } from 'react-admin';
 
-import {useApiContext} from '../../api'
 import { VisibilityOff } from '@mui/icons-material';
+import { useEventId } from "../../contexts";
 
 const BulkSimpleUpdateButton = ({ selectedIds, label, data, basePath, filterValues, Icon, resource }) => {
     
-    const [group_id, event_id] = useApiContext();
+    const event_id = useEventId()
     const refresh = useRefresh();
     const notify = useNotify();
     const unselectAll = useUnselectAll();

@@ -3,7 +3,8 @@ import React from 'react'
 import get from 'lodash/get'
 import { makeStyles } from '@mui/styles';
 import Chip from '@mui/material/Chip'
-import { roles } from '../../../api'
+import { useSettings } from '../../../contexts';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -15,6 +16,8 @@ const useStyles = makeStyles((theme) => ({
 const importantRoles = ["exhibitor"]
 
 const TicketRoleField = ({record, labelNotSet}) => {
+
+    const roles = useSettings("roles")
 
     const classes = useStyles()
 

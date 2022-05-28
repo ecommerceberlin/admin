@@ -7,11 +7,11 @@ EditButton,
 TextField
 } from 'react-admin';
 
-import {useApiContext } from '../../api'
+import { useEventId } from '../../contexts';
 
 const ViewList = props => {
 
-  const [group_id, event_id] = useApiContext()
+  const event_id = useEventId
 
   return (<List
   {...props}

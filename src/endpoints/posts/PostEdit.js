@@ -20,9 +20,9 @@ import {
 import Typography from '@mui/material/Typography'
 import RaEditor from './editor/MarkdownEditor'
 import categories from './categories'
-import {useApiContext} from '../../api';
 import { makeStyles } from '@mui/styles';
 import cn from 'classnames'
+import { useGroupId } from "../../contexts";
 
 /**
  * <TextField
@@ -102,7 +102,10 @@ const Aside = ({ record }) => {
 
 const PostEdit = ({permissions, ...props}) => {
     
-    const [group_id, event_id] = useApiContext();
+
+    const group_id = useGroupId()
+    const event_id = useEventId()
+
 
     return (
         <Edit aside={<Aside />} {...props} mutationMode="pessimistic">

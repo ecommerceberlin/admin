@@ -20,7 +20,6 @@ import {
 } from 'react-admin';
 // import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography'
-import {useApiContext} from '../../api';
 import get from 'lodash/get'
 import categories from './categories'
 import {CroppedTextField} from '../../components'
@@ -28,6 +27,7 @@ import PostListBulkActions from './components/PostListBulkActions'
 import PostFlagsField from './components/PostFlagsField'
 import IconButton from '@mui/material/IconButton';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import { useGroupId } from "../../contexts";
 const PostFilter = (props) => (
     <Filter {...props}>
         <TextInput label="Search" source="q" />
@@ -58,7 +58,6 @@ const PreviewButton = ({record, label}) => {
 
 const Aside = () => {
     
-    const [group_id, event_id] = useApiContext();
     const { data, ids } = useListContext();
 
     return (
@@ -73,7 +72,7 @@ const Aside = () => {
 
 const PostList = (props) => {
 
-    const [group_id, event_id] = useApiContext();
+    const group_id = useGroupId()
 
     return (
         <List 

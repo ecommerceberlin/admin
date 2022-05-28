@@ -14,9 +14,9 @@ import {
 
 import Typography from '@mui/material/Typography'
 
-import {useApiContext} from '../../api'
 import SelectAll from './actions/SelectAll';
 import ActiveEvent from './fields/ActiveEvent';
+import { useGroupId } from '../../contexts';
 
 const BulkActions = (props) => (
   <React.Fragment>
@@ -43,7 +43,9 @@ const Aside = () => {
     total,
     version,
   */
-  const [group_id] = useApiContext();
+
+  const group_id = useGroupId();
+
  // const {data, ids} = useListContext();
 
 
@@ -62,8 +64,7 @@ const Aside = () => {
 
 const ViewList = props => {
 
-  const [group_id] = useApiContext();
-
+  const group_id = useGroupId();
   return ( <List
     // actions={null}
     // filters={<ListFilters />}

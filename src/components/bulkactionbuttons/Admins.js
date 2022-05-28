@@ -5,7 +5,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
-import {useEventId} from '../../api'
+import {useEventId} from '../../contexts'
 
 const useStyles = makeStyles(theme => ({
   root: {

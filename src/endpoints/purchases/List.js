@@ -12,23 +12,28 @@ import {
   Filter
 } from 'react-admin';
 
-import { statuses } from '../../api/app';
+
 import { ReferenceField } from 'react-admin';
 import {
   SetStatusAction,
   SendMessageAction,
 } from '../../components';
 import PurchaseStatusField from './PurchaseStatusField';
-import { useEventId } from '../../api';
+import { useSettings, useEventId } from '../../contexts';
 
-const Filters = props => (
-  <Filter {...props}>
-    <TextInput label="Search" source="q" alwaysOn />
-    <TextInput label="Title" source="title" defaultValue="Hello, World!" />
+const Filters = props => {
 
-    <SelectInput source="status" choices={statuses} alwaysOn />
-  </Filter>
-);
+  const statuses = useSettings("statuses")
+
+  return (
+    <Filter {...props}>
+      <TextInput label="Search" source="q" alwaysOn />
+      <TextInput label="Title" source="title" defaultValue="Hello, World!" />
+  
+      <SelectInput source="status" choices={statuses} alwaysOn />
+    </Filter>
+  );
+}
 
 const CustomBulkActions = props => (
   <React.Fragment>

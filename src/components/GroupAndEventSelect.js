@@ -4,18 +4,20 @@ import {makeStyles} from '@mui/styles'
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import SettingsIcon from '@mui/icons-material/Settings';
-import ActiveIcon from '@mui/icons-material/FiberManualRecord';
-import {useEventId, useGroupId} from '../api'
-import Typography from '@mui/material/Typography';
+
 import { 
-    useSetModal, 
-    useUserGroups, 
-    useChangeGroupOrEvent, 
-    useCurrentEvent, 
-    useGroupEvents,
+    useEventId, 
+    useGroupId,
+    useSetModal,  
+    useSetEventId,
+    useSetGroupId, 
     useCloseModal
 } from '../contexts';
 import MySelect from './MySelect';
+import { 
+    useUserGroups, 
+    useGroupEvents,
+} from '../datasources';
 
 const useStyles = makeStyles((theme) => ({
       
@@ -33,8 +35,8 @@ const useStyles = makeStyles((theme) => ({
       },
 
       root: {
-          display: 'flex',
-          alignItems: 'center'
+        //   display: 'flex',
+        //   alignItems: 'center'
       },
 
       title: {
@@ -53,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
 const SelectGroup = () => {
 
     const data = useUserGroups();
-    const {setGroupId} = useChangeGroupOrEvent()
+    const setGroupId = useSetGroupId()
     const group_id = useGroupId()
 
     if(!data){
@@ -68,7 +70,7 @@ const SelectGroup = () => {
 
 const SelectEvent = () => {
 
-    const {setEventId} = useChangeGroupOrEvent()
+    const setEventId = useSetEventId()
     const data = useGroupEvents()
     const event_id = useEventId()
     const group_id = useGroupId()
@@ -90,23 +92,6 @@ const SelectEvent = () => {
 }
 
 
-const CurrentSelection = () => {
-
-    const data = useCurrentEvent()
-    const classes = useStyles();
-
-    if(!data){
-        return null
-    }
-    
-    return (<div>{data.is_active && <ActiveIcon className={classes.icon}/>}
-        <Typography
-        variant="h6"
-        color="inherit"
-        className={classes.title}
-    >{data.name}</Typography> 
-    </div>)
-}
 
 
 
@@ -128,9 +113,7 @@ const GroupAndEventSelect = () => {
     const handleDialog = () => modal("Change group and event", <Box sx={{m:2}}><SelectGroup /> <SelectEvent /></Box>) 
 
     return (<div className={classes.root}>
-    
-    {event_id? <CurrentSelection />: null}
-    
+      
     <IconButton 
         color="inherit" 
         aria-label="manage events" 

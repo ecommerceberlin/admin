@@ -18,13 +18,11 @@ import {
   RadioButtonGroupInput
 } from 'react-admin';
 
-
 import {
   SetStatusAction,
   SendMessageAction,
 } from '../../components';
-
-import { roles, statuses, useApiContext } from '../../api';
+import { useEventId } from '../../contexts';
 
 import { 
   ComboField,
@@ -34,8 +32,6 @@ import {
 
 
 const Filters = props => {
-
-  const [group_id, event_id] = useApiContext()
 
   return (
     <Filter {...props}>
@@ -47,7 +43,7 @@ const Filters = props => {
       <SelectInput optionText="name" shouldRenderSuggestions={()=>true} />
       </ReferenceInput> */}
     
-      {/* <RadioButtonGroupInput source="status" choices={statuses} alwaysOn /> */}
+      {/* <RadioButtonGroupInput source="status" choices={xxx} alwaysOn /> */}
   
     </Filter>
   );
@@ -64,7 +60,8 @@ const CustomBulkActions = props => (
 
 const ParticipantList = (props) => {
 
-  const [group_id, event_id] = useApiContext()
+
+  const event_id = useEventId()
 
   return (<List
     {...props}

@@ -19,10 +19,11 @@ import {
   TicketListQuickLookup
 } from './components'
 
-import {useApiContext } from '../../api'
+
 // import TicketTags from './components/TicketTags';
 
 import {SalesField, TicketNameField, TicketPriceField} from './fields'
+import { useEventId } from '../../contexts';
 
 
 const BulkActions = (props) => (
@@ -34,7 +35,8 @@ const BulkActions = (props) => (
 
 const ViewList = props => {
 
-  const [group_id, event_id] = useApiContext()
+
+  const event_id = useEventId()
   return (
     
   <List

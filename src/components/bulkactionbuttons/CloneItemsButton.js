@@ -1,10 +1,10 @@
 import Button from '../Button'
 import { useRefresh, useNotify, useUnselectAll, useCreate, useGetList } from 'react-admin';
-import {useApiContext} from '../../api'
 import FileCopyIcon from '@mui/icons-material/FileCopy';
+import { useEventId } from '../../contexts';
 const CloneItemsButton = ({resource, basePath, selectedIds}) => {
 
-    const [group_id, event_id] = useApiContext()
+    const event_id = useEventId()
     const refresh = useRefresh();
     const notify = useNotify();
     const unselectAll = useUnselectAll(resource);

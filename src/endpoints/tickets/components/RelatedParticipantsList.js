@@ -11,13 +11,13 @@ import {
   ReferenceManyField,
   SimpleList
 } from 'react-admin';
+import { useEventId } from '../../../contexts';
 
-import {useApiContext} from '../../../api'
+
 
 const RelatedParticipantsList = (props) => {
 
-  const [group_id, event_id] = useApiContext()
-
+  const event_id = useEventId()
 
   return (
     <ReferenceManyField reference="participants" target="ticket_id" filter={{event_id}} perPage={props.limit} sort={{field: "id", order: "DESC" }}>

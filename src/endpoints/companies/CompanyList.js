@@ -20,12 +20,12 @@ import {
 } from 'react-admin';
 
 import Typography from '@mui/material/Typography'
-import { useApiContext } from '../../api';
 import { SendMessageAction } from '../../components';
 import DoubleTextField from './DoubleTextField';
 import { Admin, CompanyData } from './filters';
 //import DynamicField from './DynamicField';
 import { Flagswitch, SelectAdminField, BulkAssignAdmin } from './actions';
+import { useEventId, useGroupId } from '../../contexts';
 
 const CustomBulkActions = props => (
   <React.Fragment>
@@ -67,7 +67,9 @@ const Aside = () => {
 
 const CompanyList = (props) => {
 
-    const [group_id, event_id] = useApiContext();
+
+    const group_id = useGroupId()
+    const event_id = useEventId()
 
     return (<List
       {...props}

@@ -17,7 +17,7 @@ import {
 import Typography from '@mui/material/Typography'
 
 import categories from './categories'
-import {useApiContext} from '../../api';
+import { useGroupId } from "../../contexts";
 
 
 const onSuccess = ({ data }) => {
@@ -45,7 +45,7 @@ const Aside = ({basePath, resource}) => {
 
 const PostCreate = ({permissions, ...props}) => {
 
-    const [group_id, event_id] = useApiContext();
+    const group_id = useGroupId()
 
     return (
         <Create /*onSuccess={onSuccess}*/ aside={<Aside />} {...props}>

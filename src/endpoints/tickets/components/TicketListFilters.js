@@ -11,11 +11,13 @@ import {
 
 import { 
   QuickFilter, 
+  RoleSelectInput
 } from '../../../components';
 
-import { rolesObject } from '../../../api'
 
 import TicketTagSelectInput from '../inputs/TicketTagSelectInput'
+
+
 
 const TicketListFilters = [
 
@@ -25,10 +27,10 @@ const TicketListFilters = [
       <SelectInput optionText="name" />
   </ReferenceInput>),
 
-  <SelectInput source="role" choices={rolesObject} label="Role" alwaysOn />,
+  <RoleSelectInput />,
   
   // <QuickFilter source="upgrade" label="Upgrade"  defaultValue={1} />,
-  <QuickFilter source="unused" label="Unused (Sold=0, past date)"  defaultValue={1} />,
+  // <QuickFilter source="unused" label="Unused (Sold=0, past date)"  defaultValue={1} />,
   // <QuickFilter source="future" label="Future"  defaultValue={1} />,
   // <QuickFilter source="free" label="Free"  defaultValue={1} />,
   // <QuickFilter source="paid" label="Paid"  defaultValue={1} />

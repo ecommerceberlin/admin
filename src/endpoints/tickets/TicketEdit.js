@@ -24,10 +24,10 @@ import {
 // import ActiveEventButton from './ActiveEventButton';
 // import ActiveEventChipField from './ActiveEventChipField';
 import {TicketNameField} from './fields/TicketNameField'
-import {roles, useApiContext} from '../../api'
 import {JsonEditorInput} from '../../components'
 import RelatedParticipantsList from './components/RelatedParticipantsList';
 import form from './components/sharedInputs'
+import { useEventId, useSettings } from '../../contexts';
 
 const validateFirstName = [required(), minLength(2), maxLength(15)];
 const validateEmail = email();
@@ -36,13 +36,16 @@ const validateZipCode = regex(/^\d{5}$/, 'Must be a valid Zip Code');
 const validateGender = choices(['m', 'f', 'nc'], 'Please choose one of the values');
 
 
-const tags = roles.map(role=>({id: role, name: role}))
 
 const TicketEdit = props => {
 
-  const [group_id, event_id] = useApiContext()
 
+  const event_id = useEventId()
+  const roles = useSettings("roles")
 
+  const tags = roles.map(role=>({id: role, name: role}))
+
+  
   return (<Edit title={<TicketNameField {...props} grayout={false} />} {...props}>
      <TabbedForm>
         <FormTab label="Primary">

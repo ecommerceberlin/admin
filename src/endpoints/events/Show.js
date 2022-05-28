@@ -11,10 +11,7 @@ import {
   EditButton
 } from 'react-admin';
 
-
 import ChangeActiveEventButton from './actions/ChangeActiveEventButton';
-import {useApiContext} from '../../api'
-
 
 const Title = ({ record }) => {
   return <span>{record ? `${record.name}` : ''}</span>;
@@ -32,7 +29,6 @@ const Actions = ({ basePath, data, resource, ...props }) => {
 
 const ViewShow = props => {
 
-  const [group_id, event_id] = useApiContext();
   
   return (
      
