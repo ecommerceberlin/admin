@@ -1,5 +1,6 @@
 
 import { useProfile } from "../contexts"
+import {useGetList} from 'react-admin'
 
 export const useUserGroups = () => {
 

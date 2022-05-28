@@ -76,10 +76,6 @@ const SelectEvent = () => {
     const group_id = useGroupId()
     const closeModal = useCloseModal()
 
-    if(!group_id || !data){
-        return null
-    }
-
     const handleEventChange = React.useCallback((newEventId)=>{
         if(newEventId > 0){
             setEventId(newEventId)
@@ -87,6 +83,10 @@ const SelectEvent = () => {
         }
     }, [setEventId, closeModal])
     
+    if(!group_id || !data){
+        return null
+    }
+
     return (<MySelect label="Select Event" value={event_id} onChange={handleEventChange} options={data} />)
 
 }
