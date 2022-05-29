@@ -4,7 +4,7 @@ import { httpClient } from './httpClient';
 
 const authProvider = {
   // authentication
-  login: params => new Promise((resolve,reject)=>{
+  login: (params) => new Promise((resolve,reject)=>{
 
     const { email, password } = params;
 
@@ -34,8 +34,14 @@ const authProvider = {
       });
   }),
     
-  checkError: error => Promise.resolve(/* ... */),
-  checkAuth: params => lsGet("token")? Promise.resolve(/* ... */) : Promise.reject(),
+  checkError: (error) => Promise.resolve(/* ... */),
+  checkAuth: (params) => new Promise((resolve, reject) => {
+    const token = lsGet("token")
+    if(token){
+      resolve()
+    }
+    reject()
+  }),
   logout: () => new Promise((resolve, reject) => {
     lsRem("token");
     resolve();

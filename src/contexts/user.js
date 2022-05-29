@@ -32,7 +32,7 @@ export const UserContext = ({children}) => {
             const profile = lsGet("profile")
             if(profile){
                 setProfile(profile)
-                console.log("change to local storage!", profile);
+                console.log("storage/profile", profile);
             }
            
         });
@@ -41,7 +41,10 @@ export const UserContext = ({children}) => {
             const token = lsGet("token")
             if(token){
                 setToken(token)
-                console.log("change to local storage!", token);
+                console.log("storage/token", token);
+            }else{
+                setToken("")
+                setProfile({})
             }
            
         });
@@ -54,9 +57,8 @@ export const UserContext = ({children}) => {
 
     const value = React.useMemo(()=> ({
         token,
-        profile,
-        setToken
-    }), [profile, token, setToken])
+        profile
+    }), [profile, token])
     return <UserContextContainer.Provider value={value}>{children}</UserContextContainer.Provider>
   }
 
