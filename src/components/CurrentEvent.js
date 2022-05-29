@@ -5,30 +5,13 @@ import {
 } from '../datasources';
 import ActiveIcon from '@mui/icons-material/FiberManualRecord';
 import Typography from '@mui/material/Typography';
-
+import Box from '@mui/material/Box';
 
 
 
 const useStyles = makeStyles((theme) => ({
       
-    select: {
-      // color: "#fff",
-      minWidth: 200,
-    },
-
-    icon: {
-        fontSize: "1em",
-        fill: "lightgreen",
-        position: "relative",
-        top: 2,
-        marginRight: 10
-    },
-
-    root: {
-      //   display: 'flex',
-      //   alignItems: 'center'
-    },
-
+ 
     title: {
       flex: 1,
       textOverflow: 'ellipsis',
@@ -36,10 +19,6 @@ const useStyles = makeStyles((theme) => ({
       overflow: 'hidden',
     },
 
-    formControl: {
-      margin: theme.spacing(1),
-      minWidth: 120,
-    },
 }));
 
 
@@ -52,13 +31,15 @@ const CurrentEvent = () => {
         return null
     }
     
-    return (<div>{data.is_active && <ActiveIcon className={classes.icon}/>}
-        <Typography
-        variant="h6"
+    return (
+      <Box sx={{ flexGrow: 1, display: "flex", alignItems: "center" }}>
+{data.is_active && <ActiveIcon sx={{color: "lightgreen", mr: 1}} />}
+<Typography
+        variant="subtitle1"
         color="inherit"
         className={classes.title}
     >{data.name}</Typography> 
-    </div>)
+      </Box>)
 }
 
 

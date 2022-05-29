@@ -1,9 +1,9 @@
 
 import React, {useEffect} from 'react';
-import {makeStyles} from '@mui/styles'
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import SettingsIcon from '@mui/icons-material/Settings';
+import ActiveIcon from '@mui/icons-material/FiberManualRecord';
 
 import { 
     useEventId, 
@@ -19,38 +19,8 @@ import {
     useGroupEvents,
 } from '../datasources';
 
-const useStyles = makeStyles((theme) => ({
-      
-      select: {
-        // color: "#fff",
-        minWidth: 200,
-      },
 
-      icon: {
-          fontSize: "1em",
-          fill: "lightgreen",
-          position: "relative",
-          top: 2,
-          marginRight: 10
-      },
 
-      root: {
-        //   display: 'flex',
-        //   alignItems: 'center'
-      },
-
-      title: {
-        flex: 1,
-        textOverflow: 'ellipsis',
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-      },
-
-      formControl: {
-        margin: theme.spacing(1),
-        minWidth: 120,
-      },
-}));
 
 const SelectGroup = () => {
 
@@ -65,7 +35,6 @@ const SelectGroup = () => {
     return (<MySelect label="Select Group" value={group_id} onChange={setGroupId} options={data} />)
     
 }
-
 
 
 const SelectEvent = () => {
@@ -87,12 +56,14 @@ const SelectEvent = () => {
         return null
     }
 
-    return (<MySelect label="Select Event" value={event_id} onChange={handleEventChange} options={data} />)
+    return (<MySelect 
+        label="Select Event" 
+        value={event_id} 
+        onChange={handleEventChange} 
+        options={data} 
+        decorate={(record)=> record && record.is_active ? <ActiveIcon sx={{color: "lightgreen", mr: 1}} />: null}/>)
 
 }
-
-
-
 
 
 const GroupAndEventSelect = () => {
@@ -100,7 +71,7 @@ const GroupAndEventSelect = () => {
     const group_id = useGroupId()
     const event_id = useEventId()
     const modal = useSetModal()
-    const classes = useStyles();
+
 
     useEffect(() => {
 
@@ -112,7 +83,7 @@ const GroupAndEventSelect = () => {
 
     const handleDialog = () => modal("Change group and event", <Box sx={{m:2}}><SelectGroup /> <SelectEvent /></Box>) 
 
-    return (<div className={classes.root}>
+    return ( 
       
     <IconButton 
         color="inherit" 
@@ -123,7 +94,7 @@ const GroupAndEventSelect = () => {
     <SettingsIcon />
     </IconButton>
 
-    </div>)
+   )
 }
 
 
