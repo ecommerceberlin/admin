@@ -1,12 +1,19 @@
 
 import React, {forwardRef} from 'react';
-import { AppBar, UserMenu, MenuItemLink } from 'react-admin';
+import { AppBar, UserMenu, MenuItemLink, ToggleThemeButton, defaultTheme } from 'react-admin';
 import Typography from '@mui/material/Typography';
 import {makeStyles} from '@mui/styles'
 import GroupAndEventSelect from './GroupAndEventSelect'
 import CurrentEvent from './CurrentEvent';
 import SettingsIcon from '@mui/icons-material/Settings';
 import Box from '@mui/material/Box';
+
+
+
+const darkTheme = {
+    palette: { mode: 'dark' },
+};
+
 
 const useStyles = makeStyles((theme) => ({
 
@@ -63,6 +70,12 @@ const MyAppBar = (props) => {
             </Box>
          
             <span className={classes.spacer} />
+
+            <ToggleThemeButton
+            lightTheme={defaultTheme}
+            darkTheme={darkTheme}
+        />
+
         </AppBar>
     );
 }
