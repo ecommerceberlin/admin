@@ -22,18 +22,18 @@ import { VotersList } from './endpoints/voters'
 const resources = [
   <Resource key="posts" name="posts" list={ PostList } edit={ PostEdit } create={ PostCreate } icon={ PostIcon }  />,
   <Resource key="purchases" name="purchases" list={ VotersList } />,
-  <Resource key="purchases" name="purchases" list={ PurchaseList } icon={ PurchaseIcon } options={{hideInMenu: true}} />,
+  <Resource key="purchases" name="purchases" list={ PurchaseList } icon={ PurchaseIcon }  />,
   <Resource key="participants" name="participants" list={ ParticipantList } show={ ParticipantShow } icon={ ParticipantIcon }/>,
-  <Resource key="companies" name="companies" list={ CompanyList } show={ CompanyShow } create={ CompanyCreate } icon={ CompanyIcon } options={{hideInMenu: true}} />,
+  <Resource key="companies" name="companies" list={ CompanyList } show={ CompanyShow } create={ CompanyCreate } icon={ CompanyIcon }  />,
   <Resource key="tickets" name="tickets" list={ TicketList } edit={ TicketEdit } create={ TicketCreate } icon={ TicketIcon } />,
   <Resource key="log" name="log" list={ LogList } icon={ LogIcon } />,
   <Resource key="marketing" name="marketing" list={ MarketingList } icon={ MarketingIcon } />,
-  <Resource key="ticketgroups" name="ticketgroups" list={TicketGroupList } create={ TicketGroupCreate } edit={ TicketGroupEdit } options={{hideInMenu: true}} />,
-  <Resource key="groups" name="groups" list={GroupList} show={GroupShow} options={{hideInMenu: true}} />,
+  <Resource key="ticketgroups" name="ticketgroups" list={TicketGroupList } create={ TicketGroupCreate } edit={ TicketGroupEdit }  />,
+  <Resource key="groups" name="groups" list={GroupList} show={GroupShow}  />,
   <Resource key="messages" name="messages" list={MessagesList} show={MessagesShow} />,
   <Resource key="fields" name="fields" edit={FieldsEdit} />,
-  <Resource key="companydata" name="companydata"  options={{ hideInMenu: true }} edit={ CompanyDataEdit } show={ CompanyDataShow} />,
-  <Resource key="events" name="events" options={{hideInMenu: true}} list={ EventList} show={ EventShow } />,
+  <Resource key="companydata" name="companydata"   edit={ CompanyDataEdit } show={ CompanyDataShow} />,
+  <Resource key="events" name="events"  list={ EventList} show={ EventShow } />,
   <Resource key="comments" name="comments"  />,
   <Resource key="templates" name="templates" />,
   <Resource key="messages" name="messages" />,
@@ -41,7 +41,7 @@ const resources = [
   <Resource key="feed" name="feed" />,
   <Resource key="reports" name="reports" />,
   <Resource key="settings" name="settings" />,
-  <Resource key="related" name="related" options={{hideInMenu: true}}  />,
+  <Resource key="related" name="related"   />,
 ]
 
 

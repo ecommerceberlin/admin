@@ -7,11 +7,21 @@ const settings = {
   
 
     menuItems: [
-        {name: "profile", icon: BusinessIcon, children: [
-          "companies", 
-          "people",
-          "purchases"
+        {name: "event", icon: BusinessIcon, children: [
+          "purchases", 
+          "participants", 
         ]},
+
+        {name: "databases", icon: BusinessIcon, children: [
+            "companies", 
+            "voters"
+        ]},
+
+        {name: "manage", icon: BusinessIcon, children: [
+            "tickets", 
+          ]},
+
+
     ],
 
     statuses: [
