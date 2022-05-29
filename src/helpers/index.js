@@ -27,7 +27,10 @@ export const lsGet = (key, ifNotFound = "") => {
 
   }
   
-  export const lsRem = (key) => localStorage.removeItem( getKey(key) )
+  export const lsRem = (key) => {
+    localStorage.removeItem( getKey(key) )
+    window.dispatchEvent(new Event(`storage/${key}`));
+  }
 
 
 
