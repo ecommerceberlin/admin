@@ -2,7 +2,7 @@ import React from 'react';
 import { AdminContext, AdminUI, Loading } from 'react-admin';
 import dataProvider from './api/httpClient';
 import authProvider from './api/authClient';
-import { AppTitle, MyLayout, MyDialog, MyLogin } from './components';
+import {MyLayout, MyDialog, MyLogin } from './components';
 import resourcesArr from './resources'
 import settings from './settings';
 import { GroupEventsContext, ModalContext, UserContext, SettingsContext, CacheContext } from './contexts';
