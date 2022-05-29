@@ -6,7 +6,7 @@ import { DataProviderContext } from 'react-admin'
 export * from './tickets'
 export * from './groups'
 export * from './events'
-
+export * from './general'
 
 
 export const useGet = (path, usePublicApi=false) => {
