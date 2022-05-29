@@ -34,19 +34,18 @@ const CustomBulkActions = props => (
   </React.Fragment>
 );
 
-const Filters = props => (
-  <Filter {...props}>
-    <BooleanInput source="featured" label="Featured" />
-    <BooleanInput source="present" alwaysOn label="Present" />
-    <TextInput label="Search" source="q" />
-    <CompanyData source="fields" label="Field" />
-    <Admin source="admin_id" label="Admin" />
-    <SelectInput
-      source="lang"
-      choices={[{ id: 'en', name: 'en' }, { id: 'de', name: 'de' }]}
-    />
-  </Filter>
-);
+const filters = [
+  <BooleanInput source="featured" label="Featured" />,
+  <BooleanInput source="present" alwaysOn label="Present" />,
+  <TextInput label="Search" source="q" />,
+  <CompanyData source="fields" label="Field" />,
+  <Admin source="admin_id" label="Admin" />,
+  <SelectInput
+    source="lang"
+    choices={[{ id: 'en', name: 'en' }, { id: 'de', name: 'de' }]}
+  />
+]
+  
 
 const customColumns = [];
 
@@ -73,7 +72,7 @@ const CompanyList = (props) => {
 
     return (<List
       {...props}
-      filters={<Filters />}
+      filters={ filters }
       filterDefaultValues={{ present: true, featured: false }}
       filter={{ group_id, event_id }}
       bulkActionButtons={<CustomBulkActions />}
