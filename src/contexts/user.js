@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react'
 import { lsGet } from '../helpers';
+import { isEmpty } from "lodash"
 
 export const UserContextContainer = React.createContext({});
 
@@ -17,13 +18,13 @@ export const useLogoutSuccess = () => {
 export const useProfile = () => {
 
     const {profile} = React.useContext(UserContextContainer)  
-    return profile
+    return !isEmpty(profile)? profile: null
 }
 
 
 export const UserContext = ({children}) => {
 
-    const [profile, setProfile] = React.useState({})
+    const [profile, setProfile] = React.useState(null)
     const [token, setToken] = React.useState("")
 
     React.useEffect(()=>{
@@ -43,8 +44,8 @@ export const UserContext = ({children}) => {
                 setToken(token)
                 console.log("storage/token", token);
             }else{
-                setToken("")
-                setProfile({})
+                setToken(null)
+                setProfile(null)
             }
            
         });

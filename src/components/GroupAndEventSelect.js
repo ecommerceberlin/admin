@@ -4,7 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import SettingsIcon from '@mui/icons-material/Settings';
 import ActiveIcon from '@mui/icons-material/FiberManualRecord';
-
+import { Loading } from 'react-admin';
 import { 
     useEventId, 
     useGroupId,
@@ -29,7 +29,7 @@ const SelectGroup = () => {
     const group_id = useGroupId()
 
     if(!data){
-        return null
+        return <Loading />
     }
 
     return (<MySelect label="Select Group" value={group_id} onChange={setGroupId} options={data} />)

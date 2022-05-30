@@ -10,9 +10,10 @@ export const useGroupEvents = () => {
 
     const {data, isLoading, error} = useGetList("events", {
         pagination: {page: 1, perPage: 500},
-        sort: "id",
-        order: "DESC",
+        sort: { field: 'id', order: 'DESC' },
         filter: {group_id}
+    }, {
+        enabled: Boolean(group_id)
     })
 
     return isLoading || error? null: data
@@ -23,7 +24,9 @@ export const useCurrentEvent = () => {
 
     const event_id = useEventId()
 
-    const {data, isLoading, error} = useGetOne("events", {id: event_id})
+    const {data, isLoading, error} = useGetOne("events", {id: event_id}, {
+        enabled: Boolean(event_id)
+    })
 
     return isLoading || error? null: data
 

@@ -28,7 +28,7 @@
  import resources from '../resources'
  import { useLocation } from 'react-router-dom';
  import { MyTypography } from '../components'
- import {useSettings} from '../contexts'
+ import {useGroupId, useSettings} from '../contexts'
  // import { CategoryOutlined } from '@material-ui/icons';
  // import List from '@material-ui/core/List';
  
@@ -83,12 +83,13 @@
  const CustomMenuContainer = ({children, ...props}) => {
  
      const classes = useStyles();
+     const group_id = useGroupId()
  
      return (
          <Menu {...props}>
          <Box mt={5} className={classes.root}>
          <DashboardMenuItem />
-         {children}
+         {group_id ? children: null}
          </Box></Menu>
      )
  }

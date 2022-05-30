@@ -1,6 +1,6 @@
 
 import React, {forwardRef} from 'react';
-import { AppBar, UserMenu, MenuItemLink, ToggleThemeButton, defaultTheme } from 'react-admin';
+import {defaultTheme, AppBar, UserMenu, MenuItemLink, ToggleThemeButton, useTheme } from 'react-admin';
 import Typography from '@mui/material/Typography';
 import {makeStyles} from '@mui/styles'
 import GroupAndEventSelect from './GroupAndEventSelect'
@@ -10,10 +10,7 @@ import Box from '@mui/material/Box';
 
 
 
-const darkTheme = {
-    palette: { mode: 'dark' },
-};
-
+ 
 
 const useStyles = makeStyles((theme) => ({
 
@@ -49,8 +46,6 @@ const MyUserMenu = props => (
 );
 
 
-
-
 const MyAppBar = (props) => {
 
     const classes = useStyles();
@@ -64,7 +59,7 @@ const MyAppBar = (props) => {
                 id="react-admin-title"
             />
 
-            <Box sx={{display: "flex", justifyContent: "center", alignItems: "center", backgroundColor:"#087DDA", borderRadius: 1 }}>
+            <Box sx={{display: "flex", justifyContent: "center", alignItems: "center", bgcolor:"primary.main", borderRadius: 1 }}>
                 <CurrentEvent />
                 <GroupAndEventSelect />
             </Box>
@@ -73,7 +68,9 @@ const MyAppBar = (props) => {
 
             <ToggleThemeButton
             lightTheme={defaultTheme}
-            darkTheme={darkTheme}
+            darkTheme={{
+                palette: { mode: 'dark' },
+            }}
         />
 
         </AppBar>

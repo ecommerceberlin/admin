@@ -10,13 +10,12 @@ import {
   Filter,
   BooleanInput,
   SelectInput,
-  useListContext
+  useListContext,
   // SelectArrayInput,
   // ReferenceArrayField,
   // ReferenceManyField,
   // ReferenceField,
-  // SingleFieldList,
-
+  // SingleFieldList
 } from 'react-admin';
 
 import Typography from '@mui/material/Typography'

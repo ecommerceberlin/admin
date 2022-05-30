@@ -1,13 +1,16 @@
 import React from 'react';
-import { AdminContext, AdminUI, Loading } from 'react-admin';
+import { AdminContext, AdminUI, Loading, localStorageStore } from 'react-admin';
 import dataProvider from './api/httpClient';
 import authProvider from './api/authClient';
 import {MyLayout, MyDialog, MyLogin } from './components';
 import resourcesArr from './resources'
 import settings from './settings';
-import { GroupEventsContext, ModalContext, UserContext, SettingsContext, CacheContext } from './contexts';
+import { GroupEventsContext, ModalContext, UserContext, SettingsContext, CacheContext, useGroupId, useEventId } from './contexts';
 import i18nProvider, {useTranslations} from './i18n'
 import Dashboard from './endpoints/Dashboard';
+
+
+
 const CustomLayout = (props) => {
 
   return (
@@ -19,6 +22,7 @@ const CustomLayout = (props) => {
 
 
 function CustomAdminUI() {
+
 
   const translations = useTranslations()
 
@@ -38,6 +42,7 @@ function CustomAdminUI() {
         // theme={ getTheme() }
          dashboard={ Dashboard }
          catchAll={ Dashboard }
+         ready={Loading}
       >
      {resourcesArr}
       </AdminUI>
@@ -46,11 +51,15 @@ function CustomAdminUI() {
 
 
 function App() {
+
+  const store = localStorageStore()
+
   return (
     <AdminContext 
       dataProvider={ dataProvider }
       i18nProvider={ i18nProvider }
       authProvider={ authProvider }
+    //  store={store}
       // requireAuth
     > 
       <SettingsContext data={settings}>

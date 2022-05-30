@@ -46,18 +46,22 @@ const authProvider = {
     lsRem("token");
     resolve();
   }),
-  getIdentity: () => new Promise((resolve, reject)=>{
+  // getIdentity: () => new Promise((resolve, reject)=>{
 
-  try {
-      const { id, initials } = lsGet("profile")
-      return Promise.resolve({ id, fullName: initials });
-  } catch (error) {
-      return Promise.reject(error);
-  }
+  // try {
+  //     const { id, initials } = lsGet("profile")
+  //     resolve({ id, fullName: initials });
+  // } catch (error) {
+  //     reject(error);
+  // }
 
-  }),
+  // }),
   // authorization
   getPermissions: () => new Promise((resolve, reject)=>{
+
+    resolve();
+    return;
+    //TODO - fetch interval
 
     httpClient(`/me`).then(response => response.json).then(response => {
 

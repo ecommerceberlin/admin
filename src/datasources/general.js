@@ -13,7 +13,7 @@ export const useUpdateFlag = (source) => {
         previousData: record
     })
 
-    return [record[source], React.useCallback(()=> update(), [update]), isLoading]
+    return [Boolean(record[source]), React.useCallback(()=> update(), [update]), isLoading]
 
 }
 
