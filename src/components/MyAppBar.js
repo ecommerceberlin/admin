@@ -59,7 +59,7 @@ const MyAppBar = (props) => {
                 id="react-admin-title"
             />
 
-            <Box sx={{display: "flex", justifyContent: "center", alignItems: "center", bgcolor:"primary.main", borderRadius: 1 }}>
+            <Box sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
                 <CurrentEvent />
                 <GroupAndEventSelect />
             </Box>

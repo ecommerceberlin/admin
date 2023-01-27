@@ -4,7 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import SettingsIcon from '@mui/icons-material/Settings';
 import ActiveIcon from '@mui/icons-material/FiberManualRecord';
-import { Loading } from 'react-admin';
+import { Loading, useTranslate } from 'react-admin';
 import { 
     useEventId, 
     useGroupId,
@@ -28,6 +28,8 @@ const SelectGroup = () => {
     const setGroupId = useSetGroupId()
     const group_id = useGroupId()
 
+    console.log(data)
+
     if(!data){
         return <Loading />
     }
@@ -44,7 +46,9 @@ const SelectEvent = () => {
     const event_id = useEventId()
     const group_id = useGroupId()
     const closeModal = useCloseModal()
+    const translate = useTranslate()
 
+    
     const handleEventChange = React.useCallback((newEventId)=>{
         if(newEventId > 0){
             setEventId(newEventId)
@@ -71,7 +75,7 @@ const GroupAndEventSelect = () => {
     const group_id = useGroupId()
     const event_id = useEventId()
     const modal = useSetModal()
-
+    const translate = useTranslate()
 
     useEffect(() => {
 
@@ -81,7 +85,7 @@ const GroupAndEventSelect = () => {
     
     }, [group_id, event_id])
 
-    const handleDialog = () => modal("Change group and event", <Box sx={{m:2}}><SelectGroup /> <SelectEvent /></Box>) 
+    const handleDialog = () => modal(translate("app.event-change"), <Box sx={{m:2}}><SelectGroup /> <SelectEvent /></Box>) 
 
     return ( 
       

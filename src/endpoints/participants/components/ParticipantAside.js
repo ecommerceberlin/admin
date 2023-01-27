@@ -1,7 +1,15 @@
 import { useEffect } from 'react'
 import { Aside, Table } from '../../../components'
-import { useGet } from '../../../datasources'
+import { useGet } from '../../../helpers'
 import { useEventId } from '../../../contexts'
+import { SavedQueriesList, FilterLiveSearch, FilterList, FilterListItem } from 'react-admin';
+import MailIcon from '@mui/icons-material/MailOutline';
+import CategoryIcon from '@mui/icons-material/LocalOffer';
+
+
+
+
+
 
 const ParticipantsAside = () => {
 
@@ -10,6 +18,17 @@ const ParticipantsAside = () => {
     const {not_going, going} = data
 
     return (<Aside>
+    {/* <SavedQueriesList/> */}
+    <FilterLiveSearch />
+
+
+    <FilterList label="Role" icon={<MailIcon />}>
+                <FilterListItem label="Yes" value={{ has_newsletter: true }} />
+                <FilterListItem label="No" value={{ has_newsletter: false }} />
+    </FilterList>
+
+
+
 
     <Table 
     minWidth={300}

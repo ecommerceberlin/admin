@@ -2,6 +2,8 @@ import { isObject } from 'lodash';
 import { makeStyles } from '@mui/styles';
 import { grey } from '@mui/material/colors';
 import useMediaQuery  from '@mui/material/useMediaQuery';
+import {useRecordContext} from 'react-admin'
+
 
 const allowedUtms = [
     "utm_source",
@@ -34,8 +36,9 @@ const useStyles = makeStyles({
 
 })
 
-const ComboField = ({record}) => {
+const ComboField = ({source}) => {
 
+    const record = useRecordContext();
     const isDesktop = useMediaQuery(theme => theme.breakpoints.up("sm"))
     const classes = useStyles()
 

@@ -42,13 +42,21 @@ const CustomBulkActions = props => (
   </React.Fragment>
 );
 
-const ShowParticipantButton = ({ record, basePath, ...rest }) => (
-  <ShowButton
-    {...rest}
-    basePath="/participants"
-    record={{ ...record, id: record.participant_id }}
-  />
-);
+const ShowParticipantButton = ({ record, basePath, ...rest }) => {
+
+  if(!record){
+    return null
+  }
+
+  return (
+    <ShowButton
+      {...rest}
+      basePath="/participants"
+      record={{ ...record, id: record.participant_id }}
+    />
+  );
+
+}
 
 const ViewList = props => {
 

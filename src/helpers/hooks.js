@@ -1,11 +1,8 @@
 import React from 'react'
-import {useGetList, DataProviderContext} from 'react-admin'
-import { isString } from 'lodash'
 import { useSettings } from "../contexts"
-import {lsGet, lsSet} from './index'
-
-
-
+import {lsGet, lsSet} from './localstorage'
+import { DataProviderContext } from 'react-admin'
+import { isString } from 'lodash'
 
 export const useRolesObject = () => {
 
@@ -42,6 +39,49 @@ export function useLocalStorage(key, initialValue) {
 
   return [storedValue, setValue];
 }
+
+
+
+
+
+
+export const useGet = (path, usePublicApi=false) => {
+
+
+  const [data, setData] = React.useState(false)
+  const [error, setError] = React.useState(false)
+  const [loading, setLoading] = React.useState(true)
+  const dataProvider = React.useContext(DataProviderContext);
+
+  React.useEffect(()=>{
+
+    let isCancelled = false;
+
+    if(path && isString(path)){
+      dataProvider.get(path, usePublicApi).then(({data}) => {
+        if(!isCancelled){
+          setLoading(false)
+          setData(data)
+        }
+      }).catch(error => {
+        if(!isCancelled){
+          setLoading(false)
+          setError(error)
+        }
+      })
+    }
+
+    return () => {
+      isCancelled = true;
+    };
+
+  }, [path, usePublicApi])
+
+  return {data, loading, error}
+
+}
+
+
 
 
 export const hasValidRole = (role) => roles.includes(role)

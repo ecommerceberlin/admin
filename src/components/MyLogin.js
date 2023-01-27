@@ -3,7 +3,7 @@ import { useLogin, Login } from 'react-admin';
 import { makeStyles } from '@mui/styles';
 import Box from '@mui/material/Box';
 import Form from './Form'
-
+import { useLoginSuccess } from '../contexts';
 
 const useStyles = makeStyles(theme => ({
 
@@ -29,7 +29,7 @@ const CustomLogin = () => {
 
   const classes = useStyles()
   const login = useLogin();
-
+  const onSuccess = useLoginSuccess()
 
 
   return (
@@ -39,7 +39,9 @@ const CustomLogin = () => {
      
       <Form 
         title="ra.auth.sign_in" 
-        onSubmit={login} 
+        onSubmit={(data) => login(data).then((data)=>{
+            onSuccess(data)
+        })} 
         fields={[
             {name: "email"},
             {name: "password", type: "password"}

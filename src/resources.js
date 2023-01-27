@@ -21,7 +21,7 @@ import { VotersList } from './endpoints/voters'
 
 const resources = [
   <Resource key="posts" name="posts" list={ PostList } edit={ PostEdit } create={ PostCreate } icon={ PostIcon }  />,
-  <Resource key="purchases" name="purchases" list={ VotersList } />,
+  <Resource key="voters" name="voters" list={ VotersList } />,
   <Resource key="purchases" name="purchases" list={ PurchaseList } icon={ PurchaseIcon }  />,
   <Resource key="participants" name="participants" list={ ParticipantList } show={ ParticipantShow } icon={ ParticipantIcon }/>,
   <Resource key="companies" name="companies" list={ CompanyList } show={ CompanyShow } create={ CompanyCreate } icon={ CompanyIcon }  />,

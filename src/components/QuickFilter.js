@@ -12,7 +12,7 @@ const useQuickFilterStyles = makeStyles(theme => ({
 const QuickFilter = ({ label }) => {
     const translate = useTranslate();
     const classes = useQuickFilterStyles();
-    return <Chip className={classes.chip} label={translate(label)} />;
+    return (<Chip className={classes.chip} label={translate(label)} />)
 };
 
 

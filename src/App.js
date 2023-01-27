@@ -29,7 +29,7 @@ function CustomAdminUI() {
   // const dataProvider = useDataProvider();
 
   if(!translations){
-    // return <Loading />
+     return <Loading />
   }
 
 

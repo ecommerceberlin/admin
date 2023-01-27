@@ -10,45 +10,29 @@ import {
   FunctionField,
   TextInput, 
   SelectInput, 
-  Filter,
   ReferenceField,
   ReferenceManyField,
   ReferenceArrayField, 
   SingleFieldList,
-  RadioButtonGroupInput
+  RadioButtonGroupInput,
+  WrapperField
 } from 'react-admin';
 
 import {
   SetStatusAction,
   SendMessageAction,
 } from '../../components';
+
 import { useEventId } from '../../contexts';
 
 import { 
   ComboField,
   ParticipantDetails,
-  ParticipantAside
+  ParticipantAside,
+  ParticipantListFilters
 } from './components';
 
-
-const Filters = props => {
-
-  return (
-    <Filter {...props}>
-      {/* <TextInput label="Search" source="q" alwaysOn /> */}
-  
-      {/* <SelectInput source="role" choices={roles} alwaysOn allowEmpty /> */}
-
-      {/* <ReferenceInput source="has_ticket_id" reference="tickets" label="Ticket" filter={{event_id}} allowEmpty>
-      <SelectInput optionText="name" shouldRenderSuggestions={()=>true} />
-      </ReferenceInput> */}
-    
-      {/* <RadioButtonGroupInput source="status" choices={xxx} alwaysOn /> */}
-  
-    </Filter>
-  );
-}
-
+import { blue } from "@mui/material/colors"
 
 
 const CustomBulkActions = props => (
@@ -66,7 +50,7 @@ const ParticipantList = (props) => {
   return (<List
     {...props}
     perPage={100}
-    filters={<Filters />}
+    filters={ ParticipantListFilters }
     filter={{ event_id }}
     bulkActionButtons={false}
     aside={<ParticipantAside />}
@@ -76,11 +60,10 @@ const ParticipantList = (props) => {
   >
     <Datagrid expand={<ParticipantDetails />}>
      
-      <ComboField source="email" />
-   
-      {/* <TextField source="status" /> */}
+     <WrapperField>
+     <ComboField source="email" />
 
-      <ReferenceField
+     <ReferenceField
         label="Company"
         reference="companies"
         source="company_id"
@@ -89,7 +72,7 @@ const ParticipantList = (props) => {
           <FunctionField
             render={record =>
               record.slug ? (
-                <ChipField source="slug" record={record} />
+                <ChipField sx={{bgcolor: 'primary.main'}} source="slug" record={record} />
               ) : (
                 <span />
               )
@@ -97,6 +80,13 @@ const ParticipantList = (props) => {
           />
     
       </ReferenceField>
+
+     </WrapperField>
+ 
+   
+      {/* <TextField source="status" /> */}
+
+     
 
 
 
