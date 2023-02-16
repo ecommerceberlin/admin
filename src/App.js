@@ -59,8 +59,8 @@ function App() {
       dataProvider={ dataProvider }
       i18nProvider={ i18nProvider }
       authProvider={ authProvider }
-    //  store={store}
-      // requireAuth
+      store={store}
+      requireAuth
     > 
       <SettingsContext data={settings}>
         <UserContext>

@@ -6,7 +6,7 @@ const RoleSelect = (props) => {
 
   const rolesObject = useRolesObject()
 
-  return (<SelectInput  source="role" choices={rolesObject} label="Role" alwaysOn {...props} />)
+  return (<SelectInput choices={rolesObject} {...props} />)
 }
 
 export default RoleSelect

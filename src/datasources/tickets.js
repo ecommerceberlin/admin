@@ -20,3 +20,19 @@ export const useTickets = (ids=[]) => {
     return [filtered, withTicketGroupId]
 
 }
+
+
+export const useTicketGroups = (ids=[]) => {
+
+  const event_id = useEventId();
+
+  const {loading, error, data} = useGetList("ticketgroups", {
+    pagination: {page: 1, perPage: 500},
+    sort: "id",
+    order: "DESC",
+    filter: {event_id}
+  })
+
+  return loading || error? false: data
+
+}

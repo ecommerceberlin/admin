@@ -25,8 +25,8 @@ const settings = {
     ],
 
     statuses: [
-        { id: 'all', name: 'ALL' },
         { id: 'new', name: 'NEW' },
+        { id: 'confirmed', name: 'CONFIRMED' },
         { id: 'hold', name: 'HOLD' },
         { id: 'ok', name: 'OK' },
         { id: 'cancelled', name: 'CANCELLED' }

@@ -1,27 +1,22 @@
 import React from 'react';
 import Chip from '@mui/material/Chip';
-import {makeStyles} from '@mui/styles'
 import get from 'lodash/get'
+import { useRecordContext } from 'react-admin';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-      marginRight: 5
-  }
-}));
 
-const TagsField = ({ record, source="tags", variant="outlined", color="default" }) => {
+const TagsField = ({ source="tags", variant="outlined", color="default" }) => {
 
-  const classes = useStyles()
+  const record = useRecordContext()
   const tags = get(record, source, null);
 
-  if(!record || !tags){
+  if(!record || !tags || !Array.isArray(tags)){
     return null
   }
 
   return (
     <span>
-      {tags.map(tag => (
-        <Chip size="small" color={color} variant={variant} key={tag.name} label={tag.name} className={classes.root} />
+      {tags.map(({name}) => (
+        <Chip size="small" color={color} variant={variant} key={name} label={name} sx={{mr: 1}} />
       ))}
     </span>
   );

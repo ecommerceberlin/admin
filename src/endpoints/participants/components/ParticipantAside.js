@@ -1,12 +1,27 @@
 import { useEffect } from 'react'
-import { Aside, Table } from '../../../components'
+import { Aside, MyTypography, Table } from '../../../components'
 import { useGet } from '../../../helpers'
 import { useEventId } from '../../../contexts'
-import { SavedQueriesList, FilterLiveSearch, FilterList, FilterListItem } from 'react-admin';
+import { ReferenceInput, SelectInput, SavedQueriesList, FilterLiveSearch, FilterList, FilterListItem } from 'react-admin';
 import MailIcon from '@mui/icons-material/MailOutline';
 import CategoryIcon from '@mui/icons-material/LocalOffer';
+import {useTicketGroups} from '../../../datasources'
 
 
+
+const TicketGroups = () => {
+    const ticketgroups = useTicketGroups()
+
+    if(!ticketgroups){
+        return null
+    }
+
+    return (
+        <FilterList label="Ticket Group">
+        {ticketgroups.map(({id, name}) =>  <FilterListItem key={id} label={name} value={{ ticket_group_id: id }} />)}
+        </FilterList>
+    )
+}
 
 
 
@@ -18,17 +33,14 @@ const ParticipantsAside = () => {
     const {not_going, going} = data
 
     return (<Aside>
-    {/* <SavedQueriesList/> */}
+    <SavedQueriesList/>
     <FilterLiveSearch />
 
+    <TicketGroups />
+    
 
-    <FilterList label="Role" icon={<MailIcon />}>
-                <FilterListItem label="Yes" value={{ has_newsletter: true }} />
-                <FilterListItem label="No" value={{ has_newsletter: false }} />
-    </FilterList>
-
-
-
+    <MyTypography variant="overline" label="stats" />
+        
 
     <Table 
     minWidth={300}

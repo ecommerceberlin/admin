@@ -15,7 +15,8 @@ import {
   ReferenceArrayField, 
   SingleFieldList,
   RadioButtonGroupInput,
-  WrapperField
+  WrapperField,
+  useListFilterContext
 } from 'react-admin';
 
 import {
@@ -42,20 +43,21 @@ const CustomBulkActions = props => (
   </React.Fragment>
 );
 
-const ParticipantList = (props) => {
+const ParticipantList = () => {
 
-
+  const filters = useListFilterContext()
   const event_id = useEventId()
 
+  console.log(filters)
+
   return (<List
-    {...props}
     perPage={100}
     filters={ ParticipantListFilters }
     filter={{ event_id }}
     bulkActionButtons={false}
     aside={<ParticipantAside />}
    // exporter={false}
-    // filterDefaultValues={{status: "all"}}
+    filterDefaultValues={{status: "all"}}
 
   >
     <Datagrid expand={<ParticipantDetails />}>

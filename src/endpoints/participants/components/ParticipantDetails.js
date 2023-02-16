@@ -10,11 +10,11 @@ import { isEmpty } from "lodash"
 import {useCurrentHost} from '../../../datasources'
 
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     root: {
-         backgroundColor: grey[100]
+         backgroundColor: theme.backgroundColor
     }
-})
+}))
 
 
 const TicketButton = ({data}) => {

@@ -1,6 +1,7 @@
 import React from 'react'
 import get from 'lodash/get'
 import {makeStyles} from '@mui/styles'
+import { useRecordContext } from 'react-admin';
 
 const useStyles = makeStyles((theme) => ({
     text: {
@@ -11,8 +12,9 @@ const useStyles = makeStyles((theme) => ({
 
 const flatten = array_or_string => [].concat(array_or_string).join()
 
-const CroppedTextField = ({bold, record, source, resolve, limit=50, ...rest}) => {
+const CroppedTextField = ({bold, source, resolve, limit=50, ...rest}) => {
     
+    const record = useRecordContext();
     const classes = useStyles();
 
     let text;
