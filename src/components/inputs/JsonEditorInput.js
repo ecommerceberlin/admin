@@ -1,8 +1,8 @@
 
-import { JsonEditor as Editor } from 'jsoneditor-react';
+
 import { useInput, required, Labeled} from 'react-admin';
 
-import 'jsoneditor-react/es/editor.min.css';
+
 
 /**
  * 
@@ -11,23 +11,25 @@ import 'jsoneditor-react/es/editor.min.css';
  */
 const JsonEditorInput = (props) => {
 
-    const {
-        input: { name, onChange, ...rest },
-        meta: { touched, error },
-        isRequired
-    } = useInput(props);
+    // const {
+    //     input: { name, onChange, ...rest },
+    //     meta: { touched, error },
+    //     isRequired
+    // } = useInput(props);
 
-    const handleChange = () => {}
+    // const handleChange = () => {}
 
 
-    return (
-    <Labeled label="JSON" fullWidth><Editor
-    value={{"asd": 1111, "xxx": [{"el": 111},{"yyy": "2"}]}}
-    onChange={handleChange}
-    mode="code"
-    />
-    </Labeled>
-    );
+    // return (
+    // <Labeled label="JSON" fullWidth><Editor
+    // value={{"asd": 1111, "xxx": [{"el": 111},{"yyy": "2"}]}}
+    // onChange={handleChange}
+    // mode="code"
+    // />
+    // </Labeled>
+    // );
+
+    return null
 
 }
 

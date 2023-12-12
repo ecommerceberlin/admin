@@ -18,7 +18,7 @@ import {
     useRefresh
 } from 'react-admin';
 import Typography from '@mui/material/Typography'
-import RaEditor from './editor/MarkdownEditor'
+
 import categories from './categories'
 import cn from 'classnames'
 import { useGroupId } from "../../contexts";
@@ -117,7 +117,7 @@ const PostEdit = ({permissions, ...props}) => {
                 <TextInput disabled label="Id" source="id" />
                 <TextInput source="meta.headline" label="Title" validate={required()} fullWidth />
                 <TextInput multiline source="meta.quote" label="Intro" validate={maxLength(255)} options={{ multiline: true }} fullWidth />
-                <RaEditor source="meta.body" label="Content" validate={required()}  />   
+                {/* <RaEditor source="meta.body" label="Content" validate={required()}  />    */}
     
              </FormTab>
     
