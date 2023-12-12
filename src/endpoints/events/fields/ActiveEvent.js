@@ -1,23 +1,15 @@
 import React from 'react';
 import { TextField } from 'react-admin';
-import { makeStyles } from '@mui/styles';
 
-const useStyles = makeStyles(theme => (
-  {
-    active: {
-      fontWeight: 700
-    },
-    notActive: {}
-  }
-)) 
+ 
 
 const ActiveEvent = ({record, ...rest }) => {
   
-  const classes = useStyles()
-  
   return (
     <TextField
-      className={record.is_active ? classes.active : classes.notActive}
+      sx={{
+        fontWeight: record.is_active? 700: 300
+      }}
       record={record}
       {...rest}
     />

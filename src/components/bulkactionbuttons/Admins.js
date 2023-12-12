@@ -1,24 +1,15 @@
 import React from 'react';
 import { useGetList } from 'react-admin'
-import {makeStyles} from '@mui/styles'
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
 import {useEventId} from '../../contexts'
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    width: '100%',
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper
-  }
-}));
 
 const Admins = ({onClick, selected = 0}) => {
 
   const event_id = useEventId()
-  const classes = useStyles()
   const {data, isLoading} = useGetList("admins", {
     pagination: {page: 1, perPage: 100},
     sort: {field: "initials", order: "ASC"},
@@ -32,7 +23,11 @@ const Admins = ({onClick, selected = 0}) => {
   }
 
   return (
-    <List className={classes.root}>
+    <List sx={{
+      width: '100%',
+      maxWidth: 360,
+      backgroundColor: (theme) => theme.palette.background.paper
+    }}>
       {data.map(({id, fname, lname, initials}) => (
         <ListItem
           key={id}

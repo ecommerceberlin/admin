@@ -1,10 +1,19 @@
 
-import { CustomPage } from "../components"
+import { CustomPage, Chart } from "../components"
 
 const Dashboard = () => {
 
 
-    return <CustomPage title="test">asd</CustomPage>
+    return (
+    
+    <>
+
+<CustomPage title="test">
+
+<Chart />
+
+</CustomPage>
+    </>)
 
 }
 

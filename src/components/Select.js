@@ -1,5 +1,4 @@
 import React from 'react';
-import {makeStyles} from '@mui/styles'
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormHelperText from '@mui/material/FormHelperText';
@@ -7,15 +6,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { isFunction } from 'lodash';
 
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-}));
+ 
 
 export default function SimpleSelect({choices=[], label="", onChange}) {
 
@@ -32,7 +23,10 @@ export default function SimpleSelect({choices=[], label="", onChange}) {
 
   return (
     <div>
-      <FormControl className={classes.formControl}>
+      <FormControl sx={{
+        margin: theme=>theme.spacing(1),
+        minWidth: 120,
+      }}>
         <InputLabel id="demo-simple-select-label">{label}</InputLabel>
         <Select
           labelId="demo-simple-select-label"

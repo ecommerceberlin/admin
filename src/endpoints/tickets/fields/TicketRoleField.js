@@ -1,17 +1,8 @@
 
 import React from 'react'
 import get from 'lodash/get'
-import { makeStyles } from '@mui/styles';
 import Chip from '@mui/material/Chip'
 import { useSettings } from '../../../contexts';
-
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        marginRight: 5
-    }
-}));
-
 
 const importantRoles = ["exhibitor"]
 
@@ -28,7 +19,9 @@ const TicketRoleField = ({record, labelNotSet}) => {
     const value = (get(record, "role") || "").trim()
 
     if(roles && Array.isArray(roles) && roles.includes(value)){
-        return (<Chip color={importantRoles.includes(value)? "primary": "default"} label={value} size="small" variant="outlined" className={classes.root} />)
+        return (<Chip color={importantRoles.includes(value)? "primary": "default"} label={value} size="small" variant="outlined" sx={{
+            marginRight: 5
+        }} />)
     }
 
     return labelNotSet ? <span>{labelNotSet}</span>: null

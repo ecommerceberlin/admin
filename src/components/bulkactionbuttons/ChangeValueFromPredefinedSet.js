@@ -9,26 +9,19 @@ import {
 } from 'react-admin';
 
 import { VisibilityOff } from '@mui/icons-material';
-import {makeStyles} from '@mui/styles'
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useSetModal } from "../../contexts";
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  }
-}));
-
-
+ 
 const CategorySelect = ({category, choices, onChange}) => {
 
-    const classes = useStyles();
-
     return  (
-        <FormControl variant="outlined" className={classes.formControl}>
+        <FormControl variant="outlined" sx={{
+            margin: theme=> theme.spacing(1),
+            minWidth: 120,
+        }}>
             <InputLabel id="demo-simple-select-outlined-label">Category</InputLabel>
             <Select
                 labelId="demo-simple-select-outlined-label"

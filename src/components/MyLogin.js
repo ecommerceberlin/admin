@@ -1,41 +1,30 @@
 import React from 'react';
 import { useLogin, Login } from 'react-admin';
-import { makeStyles } from '@mui/styles';
 import Box from '@mui/material/Box';
 import Form from './Form'
 import { useLoginSuccess } from '../contexts';
 
-const useStyles = makeStyles(theme => ({
-
-  root: {
-    
-      display: 'flex',
-      flexDirection: 'column',
-      padding: theme.spacing(8),
-    //   minHeight: '40vh',
-      alignItems: 'center',
-      justifyContent: 'center',
-    //   backgroundImage: `url(${backgroundImage})`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center center',
-      backgroundBlendMode: 'multiply'
-
-  }
-
-}))
-
 
 const CustomLogin = () => {
 
-  const classes = useStyles()
   const login = useLogin();
   const onSuccess = useLoginSuccess()
-
 
   return (
      <Login>
 
-      <Box className={classes.root}>
+      <Box sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            padding: theme.spacing(8),
+            //   minHeight: '40vh',
+            alignItems: 'center',
+            justifyContent: 'center',
+            //   backgroundImage: `url(${backgroundImage})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center center',
+            backgroundBlendMode: 'multiply'
+      }}>
      
       <Form 
         title="ra.auth.sign_in" 

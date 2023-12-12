@@ -6,28 +6,13 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import {makeStyles} from '@mui/styles'
 
 import Button from './Button';
 import {useModal, useCloseModal} from '../contexts'
 import isEmpty from 'lodash/isEmpty'
 import {looksLikeLabel, containsNoHtml} from '../helpers'
 
-const useStyles = makeStyles(theme => ({
 
-  // modal: {
-  //   width: '90%',
-  //   maxWidth: 1000
-  // },
-  // imageContainer: {
-  //   padding: '2em',
-  //   margin: '2em'
-  // },
-  // image: {
-  //   maxWidth: '100%'
-  // }
-
-}))
 
 const CustomModal = () => {
   const translate = useTranslate()

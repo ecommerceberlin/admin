@@ -1,4 +1,3 @@
-
 import React, {useState, useEffect, useCallback} from "react";
 import {
     Button,
@@ -9,36 +8,26 @@ import {
     // defaultTheme
 } from 'react-admin';
 
-
 import { VisibilityOff } from '@mui/icons-material';
 import Grid from '@mui/material/Grid';
 import MuiButton from '@mui/material/Button';
-import {makeStyles} from '@mui/styles'
 
-const useStyles = makeStyles((theme) => ({
-    onButton: {
-        backgroundColor: 'lightgreen',
-        color: "white"
-    },
-    offButton: {
-        backgroundColor: 'darkorange',
-        color: "white"
-    },
-    flagName: {
-    //   margin: theme.spacing(1),
-    //   width: 150,
-    //   textAlign: 'right'
-    }
-  }));
 
 const FlagButtons = ({data, onClick, resource}) => {
 
-    const classes = useStyles();
 
-    return <div>{data.map(flag => <Grid container spacing={3} key={flag} justify="flex-end" alignItems="center"><Grid item className={classes.flagName}>{flag}</Grid>
+    return <div>{data.map(flag => <Grid container spacing={3} key={flag} justify="flex-end" alignItems="center"><Grid item sx={{
+
+    }}>{flag}</Grid>
         <Grid item> 
-        <MuiButton onClick={()=>onClick(flag, 0)} className={classes.offButton}>Off</MuiButton>
-        <MuiButton onClick={()=>onClick(flag, 1)} className={classes.onButton}>On</MuiButton>
+        <MuiButton onClick={()=>onClick(flag, 0)} sx={{
+            backgroundColor: 'darkorange',
+            color: "white"
+        }}>Off</MuiButton>
+        <MuiButton onClick={()=>onClick(flag, 1)} sx={{
+             backgroundColor: 'lightgreen',
+             color: "white"
+        }}>On</MuiButton>
        </Grid></Grid>
     )}</div>
 }

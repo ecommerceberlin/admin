@@ -3,7 +3,6 @@ import { showNotification, refreshView, UPDATE } from 'react-admin';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Chip from '@mui/material/Chip';
-import {makeStyles} from '@mui/styles'
 import Icon from '@mui/icons-material/Edit';
 import dataProvider from '../../api/httpClient';
 import { useSettings } from '../../contexts';

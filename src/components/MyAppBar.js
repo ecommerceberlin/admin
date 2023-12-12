@@ -2,29 +2,11 @@
 import React, {forwardRef} from 'react';
 import {defaultTheme, AppBar, UserMenu, MenuItemLink, ToggleThemeButton, useTheme } from 'react-admin';
 import Typography from '@mui/material/Typography';
-import {makeStyles} from '@mui/styles'
 import GroupAndEventSelect from './GroupAndEventSelect'
 import CurrentEvent from './CurrentEvent';
 import SettingsIcon from '@mui/icons-material/Settings';
 import Box from '@mui/material/Box';
 
-
-
- 
-
-const useStyles = makeStyles((theme) => ({
-
-    title: {
-        flex: 1,
-        textOverflow: 'ellipsis',
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-    },
-    spacer: {
-        flex: 1,
-    },
-      
-  }));
 
 
  
@@ -48,14 +30,18 @@ const MyUserMenu = props => (
 
 const MyAppBar = (props) => {
 
-    const classes = useStyles();
 
     return (
         <AppBar {...props} userMenu={<MyUserMenu />}>
             <Typography
                 variant="h6"
                 color="inherit"
-                className={classes.title}
+                sx={{
+                    flex: 1,
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                }}
                 id="react-admin-title"
             />
 
@@ -64,7 +50,7 @@ const MyAppBar = (props) => {
                 <GroupAndEventSelect />
             </Box>
          
-            <span className={classes.spacer} />
+            <span style={{ flex: 1 }} />
 
             <ToggleThemeButton
             lightTheme={defaultTheme}

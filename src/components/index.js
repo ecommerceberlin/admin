@@ -19,3 +19,5 @@ export { default as MySelect } from './MySelect'
 
 export { default as Form } from './Form'
 export { default as CustomPage } from './CustomPage'
+
+export { default as Chart } from './Chart'

@@ -6,7 +6,6 @@ import {
 } from 'react-admin';
 
 // import get from 'lodash/get'
-import { makeStyles } from '@mui/styles';
 import IconButton from '@mui/material/IconButton';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
@@ -15,29 +14,12 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-        flexDirection: 'row'
-    },
-    button: {
-        padding: 2
-    },
-    iconOn: {
-        color: "#333"
-    },
-    iconOff: {
-        color: "#ccc"
-    },
-
-}));
 
 const PostFlagsField = ({record, resource, ...rest}) => {
 
     const {id} = record;
     const refresh = useRefresh();
     const notify = useNotify();
-    const classes = useStyles();
     const [flag, setFlag] = useState(null);
 
     const [update, { loading, error }] = useUpdate(resource, id, {[flag]: !record[flag]}, record, {
@@ -66,14 +48,23 @@ const PostFlagsField = ({record, resource, ...rest}) => {
         }
     }
 
-    return <span className={classes.root}>{Object.keys(data).map(name => {
+    return <Box component="span" sx={{
+        display: 'flex',
+        flexDirection: 'row'
+    }}>{Object.keys(data).map(name => {
         const IconOn = data[name].on;
         const IconOff = data[name].off;
-       return ( <IconButton key={name} onClick={() => setFlag(name)} aria-label={name} component="span" className={classes.button}>
-        {record[name] ? <IconOn className={classes.iconOn}  />: <IconOff className={classes.iconOff} />}
+       return ( <IconButton key={name} onClick={() => setFlag(name)} aria-label={name} component="span" sx={{
+            padding: 2
+       }}>
+        {record[name] ? <IconOn sx={{
+            color: "#333"
+        }}  />: <IconOff sx={{
+            color: "#ccc"
+        }} />}
         </IconButton>)
 
-    })}</span>
+    })}</Box>
 
 }
 

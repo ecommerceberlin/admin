@@ -3,13 +3,14 @@ import get from 'lodash/get';
 import classNames from 'classnames';
 import { useInput} from 'react-admin'
 import Avatar from '@mui/material/Avatar';
-import { makeStyles } from '@mui/styles';
+
 import deepOrange from '@mui/material/colors/deepOrange';
 import {Admins} from '../../../components';
 
 import TextField from '@mui/material/TextField';
 
-const useStyles = makeStyles(theme => ({
+const styles = {
+
   avatar: {
     margin: 10,
     color: '#fff',
@@ -23,13 +24,11 @@ const useStyles = makeStyles(theme => ({
   adminSet: {
     backgroundColor: deepOrange[500]
   }
-}))
+
+}
 
 
 const SelectAdminField = (props) => {
-
-  const classes = useStyles()
-
 
   const {
     input: { name, onChange, ...rest },

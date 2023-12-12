@@ -20,7 +20,6 @@ import {
 import Typography from '@mui/material/Typography'
 import RaEditor from './editor/MarkdownEditor'
 import categories from './categories'
-import { makeStyles } from '@mui/styles';
 import cn from 'classnames'
 import { useGroupId } from "../../contexts";
 
@@ -34,7 +33,8 @@ import { useGroupId } from "../../contexts";
         />
  */
 
- const useStyles = makeStyles({
+
+const styles = {
     postImage : {
         cursor: 'pointer'
     },
@@ -43,11 +43,12 @@ import { useGroupId } from "../../contexts";
         borderStyle: "solid",
         borderColor: "darkred"
     }
- })
+}
+
+  
 
 const Aside = ({ record }) => {
 
-    const classes = useStyles();
     const refresh = useRefresh();
 
     const [mutate, { loading }] = useMutation();
@@ -88,10 +89,10 @@ const Aside = ({ record }) => {
                     style={{width:"100%", marginBottom: 10}} 
                     onDoubleClick={ approve } 
                     disabled={ loading } 
-                    className={ cn({
-                        [classes.postImage] : true,
-                        [classes.coverPostImage]: record.cover_image_id == image.id
-                    }) }
+                    styles={{
+//record.cover_image_id == image.id classes.coverPostImage
+//[classes.postImage
+                    }}
                 />
             ))}
         </div>

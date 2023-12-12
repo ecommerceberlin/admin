@@ -1,5 +1,4 @@
 import { isObject } from 'lodash';
-import { makeStyles } from '@mui/styles';
 import { grey } from '@mui/material/colors';
 import useMediaQuery  from '@mui/material/useMediaQuery';
 import {useRecordContext} from 'react-admin'
@@ -11,36 +10,12 @@ const allowedUtms = [
     // "utm_medium"
 ]
 
-
-const useStyles = makeStyles({
-    e: {
-        fontWeight: 400,
-        fontSize: "115%"
-    },
-    d: {
-        marginTop: 10,
-        display: 'block'
-    },
-    u: {
-        marginRight: 10
-    },
-
-    uk: {
-        fontSize: "80%",
-        color: grey[400],
-    },
-
-    uv: {
-        color: grey[500],
-    }
-
-})
+ 
 
 const ComboField = ({source}) => {
 
     const record = useRecordContext();
     const isDesktop = useMediaQuery(theme => theme.breakpoints.up("sm"))
-    const classes = useStyles()
 
     if(!record){
       return null
@@ -54,19 +29,32 @@ const ComboField = ({source}) => {
             if(allowedUtms.some(item => utm === item) ){
 
                 utms.push( 
-                    <span key={utm} className={classes.u}>
-                        {isDesktop ? <span  className={classes.uk}>{utm.replace("utm_", "")}</span>: null}{` `}
-                        <span  className={classes.uv}>{record.utms[utm]}</span>
-                    </span>) 
+                    <Box component="span" key={utm} sx={{
+
+                    }}>
+                        {isDesktop ? <Box component="span" sx={{
+                            fontSize: "80%",
+                            color: grey[400],
+                        }}>{utm.replace("utm_", "")}</Box>: null}{` `}
+                        <Box component="span" sx={{
+                            color: grey[500],
+                        }}>{record.utms[utm]}</Box>
+                    </Box>) 
             }
 
         })
     }
   
-    return (<span>
-        <span className={classes.e}>{record.email}</span>
-        <span className={classes.d}>{utms}</span>
-        </span>)
+    return (<Box component="span">
+        <Box component="span" sx={{
+             fontWeight: 400,
+             fontSize: "115%"
+        }}>{record.email}</Box>
+        <Box component="span" sx={{
+            marginTop: 10,
+            display: 'block'
+        }}>{utms}</Box>
+        </Box>)
   
   
   }

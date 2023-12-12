@@ -1,7 +1,6 @@
 
 import React from 'react'
 import {useListContext, Button} from 'react-admin'
-import { makeStyles } from '@mui/styles';
 import Box from '@mui/material/Box'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -11,16 +10,11 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography'
 
-const useStyles = makeStyles({
-    table: {
-      maxWidth: 250,
-    },
-});
+ 
 
 
 const Aside = () => {
     const { data, ids } = useListContext();
-    const classes = useStyles();
 
     return (
     <Box ml={2}>
@@ -33,7 +27,7 @@ const Aside = () => {
     </Typography> */}
 
     <TableContainer >
-    <Table className={classes.table} aria-label="simple table">
+    <Table sx={{ maxWidth: 250}} aria-label="simple table">
     <TableBody>
 
     <TableRow>

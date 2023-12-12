@@ -3,31 +3,27 @@ import get from 'lodash/get';
 import classNames from 'classnames';
 import {useGetList} from 'react-admin'
 import Avatar from '@mui/material/Avatar';
-import { makeStyles } from '@mui/styles';
 import deepOrange from '@mui/material/colors/deepOrange';
 import {Admins} from '../../../components';
 import { useEventId } from '../../../contexts';
 
-const useStyles = makeStyles(theme => ({
-  avatar: {
-    margin: 10,
-    color: '#fff',
-    cursor: 'pointer'
-  },
+/**
+ * 
 
-  adminNotSet: {
+
+ adminNotSet: {
     backgroundColor: '#cccccc'
   },
 
   adminSet: {
     backgroundColor: deepOrange[500]
   }
-}))
 
+  
+ */
 
 const SelectAdminField = ({label="", basePath="", record={}}) => {
 
-  const classes = useStyles()
 
   const event_id = useEventId()
   const {data, isLoading, isError} = useGetList("admins", {
@@ -70,11 +66,16 @@ const SelectAdminField = ({label="", basePath="", record={}}) => {
 
   return (
     <Avatar
-      className={classNames({
-        [classes.avatar]: true,
-        [classes.adminNotSet]: !getActiveAdmin(),
-        [classes.adminSet]: getActiveAdmin()
-      })}
+      sx={{
+        margin: 10,
+        color: '#fff',
+        cursor: 'pointer'
+      }}
+      // className={classNames({
+      //   [classes.avatar]: true,
+      //   [classes.adminNotSet]: !getActiveAdmin(),
+      //   [classes.adminSet]: getActiveAdmin()
+      // })}
       onClick={() => showAction()}>{getActiveAdmin("?")}</Avatar>
   );
 

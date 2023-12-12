@@ -21,7 +21,6 @@
  import Box from '@mui/material/Box';
  import Grid from '@mui/material/Grid';
  import MenuItem from '@mui/material/MenuItem';
- import { makeStyles } from '@mui/styles';
  import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
  import DefaultIcon from '@mui/icons-material/ViewList';
  import classNames from 'classnames';
@@ -33,48 +32,35 @@
  // import List from '@material-ui/core/List';
  
  
- const useStyles = makeStyles((theme) => ({
-     root: {
-       width: '100%',
-     },
-     accordion: {
-         backgroundColor: 'inherit'
-     },
-     expanded: {
-         backgroundColor: "#ffffff"
-     },
-     heading: {
-       fontSize: theme.typography.pxToRem(15),
-       fontWeight: theme.typography.fontWeightRegular,
-     },
-     list: {
-         width: '100%',
-     },
-     icon: {
-         width: '1.5em',
-         height: '1.5em'
-     },
-     iconActive: {
-       color: theme.palette.primary.main
-     },
-     menuItem: {
-         fontSize: theme.typography.pxToRem(14),
-         fontWeight: theme.typography.fontWeightRegular,
-         paddingLeft: 0,
-         whiteSpace: "unset"
-     },
-   }));
+const styles = {
+
+     
+      icon: {
+          width: '1.5em',
+          height: '1.5em'
+      },
+      iconActive: {
+        // color: theme.palette.primary.main
+      },
+      menuItem: {
+       
+      },
+
+}
  
  
  const CategoryWithIconAndLabel = ({icon, name, active=false}) => {
-     const classes = useStyles();
+
  
      return (
          <Grid container spacing={2} direction="column" alignItems='center'>
-         <Grid item>{React.createElement(icon, {className: classNames(
-             classes.icon, {[classes.iconActive]: active} 
+         <Grid item>{React.createElement(icon, {styles: (
+             styles.icon, {[styles.iconActive]: active} 
          )})}</Grid>
-         <Grid item><MyTypography className={classes.heading} label={`menu.categories.${name}`} /></Grid>
+         <Grid item><MyTypography sx={{
+            fontSize: (theme) => theme.typography.pxToRem(15),
+            fontWeight: (theme) => theme.typography.fontWeightRegular,
+         }}  label={`menu.categories.${name}`} /></Grid>
          </Grid>
      )
  }
@@ -82,12 +68,13 @@
  
  const CustomMenuContainer = ({children, ...props}) => {
  
-     const classes = useStyles();
      const group_id = useGroupId()
  
      return (
          <Menu {...props}>
-         <Box mt={5} className={classes.root}>
+         <Box mt={5} sx={{
+            width: '100%',
+         }}>
          <DashboardMenuItem />
          {group_id ? children: null}
          </Box></Menu>
@@ -105,7 +92,6 @@
      const menuItems = useSettings("menuItems")
      const permissions = usePermissions()
      const translate = useTranslate()
-     const classes = useStyles();
      // const resources = useSelector(getResources);
      const {pathname} = useLocation()
  
@@ -161,10 +147,16 @@
                      expanded={expanded === category.name} 
                      onChange={handleChange(category.name)} 
                      square={true} 
-                     classes={{
-                         root: classes.accordion,
-                         expanded: classes.expanded
+                     sx={{
+                        "& .root": {
+                            backgroundColor: 'inherit'
+                        },
+                        "& .expanded": {
+                            backgroundColor: "#ffffff"
+                        }
                      }}
+                    
+                     
                      elevation={expanded === category.name? 2: 0}
                  >
                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -172,7 +164,9 @@
                  </AccordionSummary>
                  <AccordionDetails>
              
-                 <div className={classes.list}>
+                 <Box sx={{
+                      width: '100%',
+                 }}>
  
                  {category.children.map(category_name => {
                      
@@ -184,7 +178,12 @@
  
                          return (<MenuItemLink
                              key={category_name}
-                             className={classes.menuItem}
+                             sx={{
+                                fontSize: (theme)=> theme.typography.pxToRem(14),
+                                fontWeight: (theme)=> theme.typography.fontWeightRegular,
+                                paddingLeft: 0,
+                                whiteSpace: "unset"
+                             }}
                              to={`/${name}`}
                              primaryText={options && "label" in options && options.label ? translate(options.label) : translate(`resources.${name}.menu`) }
                              leftIcon={icon ? React.createElement(icon, {}) : <DefaultIcon />}
@@ -210,7 +209,7 @@
                      return category_name
                  })}    
                 
-                 </div>
+                 </Box>
  
  
                  </AccordionDetails>

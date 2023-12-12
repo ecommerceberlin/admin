@@ -59,9 +59,7 @@ const authProvider = {
   // authorization
   getPermissions: () => new Promise((resolve, reject)=>{
 
-    resolve();
-    return;
-    //TODO - fetch interval
+   console.log("get persm")
 
     httpClient(`/me`).then(response => response.json).then(response => {
 
