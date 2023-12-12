@@ -10,7 +10,6 @@ const TicketRoleField = ({record, labelNotSet}) => {
 
     const roles = useSettings("roles")
 
-    const classes = useStyles()
 
     if(!record){
         return null
