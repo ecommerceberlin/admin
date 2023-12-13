@@ -24,6 +24,10 @@
     "recharts": "^2.10.3",
     "slugify": "^1.6.6"
   },
+  "peerDependencies": {
+    "@mui/icons-material": "^5.0.1",
+    "@mui/material": "^5.0.2"
+  },
   "lint-staged": {
     "src/**/*.{js,jsx,json,css}": [
       "prettier --single-quote --write",

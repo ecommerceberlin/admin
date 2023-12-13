@@ -2,7 +2,7 @@ import { isObject } from 'lodash';
 import { grey } from '@mui/material/colors';
 import useMediaQuery  from '@mui/material/useMediaQuery';
 import {useRecordContext} from 'react-admin'
-
+import {Box} from '@mui/material'
 
 const allowedUtms = [
     "utm_source",

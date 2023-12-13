@@ -1,14 +1,13 @@
 import React from 'react';
 import { FunctionField } from 'react-admin';
 import get from 'lodash/get';
-
+import { Box } from '@mui/material';
 
 
 const DoubleTextField = ({ primary, secondary, ...rest }) => {
   return (
     <FunctionField
       {...rest}
-      className={classes.name}
       render={record => (
         <React.Fragment>
           <Box component="span" sx={{
